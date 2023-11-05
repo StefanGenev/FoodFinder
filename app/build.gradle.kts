@@ -49,4 +49,11 @@ dependencies {
     // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    //intuit
+    implementation ("com.intuit.sdp:sdp-android:1.0.6")
+    implementation ("com.intuit.ssp:ssp-android:1.0.6")
+
+    //gif
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.17")
 }
