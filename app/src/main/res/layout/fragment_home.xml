@@ -63,7 +63,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/random_meal"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_160sdp"
+                android:layout_height="@dimen/_400sdp"
 
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -72,7 +72,8 @@
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_would_like_to_eat">
+                app:layout_constraintTop_toBottomOf="@id/tv_would_like_to_eat"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <ImageView
                     android:id="@+id/img_random_meal"
@@ -80,60 +81,6 @@
                     android:layout_height="match_parent"
                     android:background="@color/lemon"
                     android:scaleType="centerCrop"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/tv_over_popular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:fontFamily="@font/gothambookitalic"
-                android:text="Popular items"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_17ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tv_would_like_to_eat"
-                app:layout_constraintTop_toBottomOf="@id/random_meal" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rec_view_meals_popular"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_90sdp"
-                android:layout_marginStart="@dimen/_25sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_over_popular" />
-
-            <TextView
-                android:id="@+id/tv_categories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/gothambookitalic"
-                android:text="Categories"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_17ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/rec_view_meals_popular"
-                app:layout_constraintTop_toBottomOf="@id/rec_view_meals_popular" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/category_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
-                android:layout_marginEnd="@dimen/_25sdp"
-                app:cardCornerRadius="@dimen/_10sdp"
-                app:cardUseCompatPadding="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_categories">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none"/>
 
             </androidx.cardview.widget.CardView>
 

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.activities.MealActivity
@@ -45,11 +44,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         homeMvvm.GetRandomMeal()
-        ObserveRandomMeal()
-        OnRandomMealClick()
+        observeRandomMeal()
+        onRandomMealClick()
     }
 
-    private fun OnRandomMealClick() {
+    private fun onRandomMealClick() {
         binding.randomMeal.setOnClickListener {
             val intent = Intent(activity, MealActivity::class.java)
             intent.putExtra(MEAL_ID, randomMeal.idMeal)
@@ -59,7 +58,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun ObserveRandomMeal() {
+    private fun observeRandomMeal() {
         homeMvvm.ObserveRandomMealLiveData().observe(viewLifecycleOwner,
             { meal ->
                 Glide.with(this@HomeFragment)
