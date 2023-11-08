@@ -7,9 +7,6 @@
     app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="true"
     android:scaleType="centerCrop"
-    android:layout_marginStart="@dimen/_25sdp"
-    android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginEnd="@dimen/_25sdp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintBottom_toBottomOf="parent">

@@ -46,16 +46,16 @@ class HomeFragment : Fragment() {
         homeMvvm.getRandomMeal()
         observeRandomMeal()
         onRandomMealClick()
+        onDiscardClick()
+        onDetailsClick()
     }
 
-    private fun onRandomMealClick() {
-        binding.randomMeal.setOnClickListener {
-            val intent = Intent(activity, MealActivity::class.java)
-            intent.putExtra(MEAL_ID, randomMeal.idMeal)
-            intent.putExtra(MEAL_NAME, randomMeal.strMeal)
-            intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
-            startActivity(intent)
-        }
+    private fun showCurrentMeal(){
+        val intent = Intent(activity, MealActivity::class.java)
+        intent.putExtra(MEAL_ID, randomMeal.idMeal)
+        intent.putExtra(MEAL_NAME, randomMeal.strMeal)
+        intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
+        startActivity(intent)
     }
 
     private fun observeRandomMeal() {
@@ -64,8 +64,31 @@ class HomeFragment : Fragment() {
                 Glide.with(this@HomeFragment)
                     .load(meal!!.strMealThumb)
                     .into(binding.imgRandomMeal)
-
+                binding.tvMealName.text = meal.strMeal
                 this.randomMeal = meal
             })
+    }
+
+    private fun changeMeal(){
+        homeMvvm.getRandomMeal()
+        observeRandomMeal()
+    }
+
+    private fun onRandomMealClick() {
+        binding.randomMeal.setOnClickListener {
+            showCurrentMeal()
+        }
+    }
+
+    private fun onDiscardClick() {
+        binding.discardButton.setOnClickListener {
+            changeMeal()
+        }
+    }
+
+    private fun onDetailsClick() {
+        binding.detailsButton.setOnClickListener {
+            showCurrentMeal()
+        }
     }
 }

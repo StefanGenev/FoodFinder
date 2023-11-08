@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_menu"
-        android:background="@color/forest"
+        android:background="@color/white"
         app:itemTextColor="@drawable/bottom_menu_selector"
         app:itemIconTint="@drawable/bottom_menu_selector"
         app:itemActiveIndicatorStyle="@android:color/transparent"/>
