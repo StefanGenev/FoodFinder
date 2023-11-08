@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeMvvm.GetRandomMeal()
+        homeMvvm.getRandomMeal()
         observeRandomMeal()
         onRandomMealClick()
     }
@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeRandomMeal() {
-        homeMvvm.ObserveRandomMealLiveData().observe(viewLifecycleOwner,
+        homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner,
             { meal ->
                 Glide.with(this@HomeFragment)
                     .load(meal!!.strMealThumb)

@@ -13,7 +13,9 @@ import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
     private var randomMealLiveData = MutableLiveData<Meal>()
-    fun GetRandomMeal() {
+    private var allMealsLiveData = MutableLiveData<List<Meal>>()
+
+    fun getRandomMeal() {
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.body() != null) {
@@ -30,7 +32,30 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-    fun ObserveRandomMealLiveData() : LiveData<Meal>{
+    fun getAllMeals() {
+        RetrofitInstance.api.getAllMeals("a").enqueue(object : Callback<MealList> {
+            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+                if (response.body() != null) {
+                    Log.d("GET ALL MEEEEEEALS", response.body()!!.meals[0].strMeal)
+                    allMealsLiveData.value = response.body()!!.meals
+                } else {
+                    Log.d("GET ALL MEEEEEEALS", "FAILNAH")
+
+                    return
+                }
+            }
+
+            override fun onFailure(call: Call<MealList>, t: Throwable) {
+                Log.d("HomeFragment", t.message.toString())
+            }
+        })
+    }
+
+    fun observeRandomMealLiveData() : LiveData<Meal>{
         return randomMealLiveData
+    }
+
+    fun observeAllMealsLiveData() : LiveData<List<Meal>>{
+        return allMealsLiveData
     }
 }

@@ -3,6 +3,7 @@ package com.example.foodfinder11.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.R
@@ -44,14 +45,16 @@ class MealActivity : AppCompatActivity() {
 
     private fun onFavoritesButtonClick() {
         binding.favoriteButton.setOnClickListener {
-            if (isFavorite)
+            if (isFavorite) {
                 binding.favoriteButton.setImageDrawable(
                     ContextCompat.getDrawable(
                         applicationContext,
                         R.drawable.ic_favorite
                     )
                 )
-            else
+                Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show()
+            }
+            else {
                 binding.favoriteButton.setImageDrawable(
                     ContextCompat.getDrawable(
                         applicationContext,
@@ -59,6 +62,9 @@ class MealActivity : AppCompatActivity() {
                     )
                 )
 
+                Toast.makeText(this, "Saved to favorites", Toast.LENGTH_SHORT).show()
+
+            }
             isFavorite = !isFavorite;
         }
     }
