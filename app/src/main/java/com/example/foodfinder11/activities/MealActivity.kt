@@ -13,6 +13,7 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealId: String
     private lateinit var mealName: String
     private lateinit var mealThumb: String
+    private lateinit var mealCategory: String
     private var isFavorite: Boolean = false;
     private lateinit var binding: ActivityMealBinding
 
@@ -50,6 +51,9 @@ class MealActivity : AppCompatActivity() {
             .into(binding.imgMealDetail)
 
         binding.tvTitle.text = mealName
+        binding.tvCategory.text = "Category: " + mealCategory
+        binding.tvDescription.text = "From savory bites to sweet sensations, each bite is a journey through a symphony of exquisite tastes. " +
+                                     "Immerse yourself in a world of culinary bliss at ${mealName} – where every dish is a celebration of freshness, quality, and pure gastronomic joy. Join us and savor the extraordinary!"
     }
 
     private fun getMealInformation() {
@@ -57,6 +61,7 @@ class MealActivity : AppCompatActivity() {
         mealId = intent.getStringExtra(HomeFragment.MEAL_ID)!!
         mealName = intent.getStringExtra(HomeFragment.MEAL_NAME)!!
         mealThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB)!!
+        mealCategory = intent.getStringExtra(HomeFragment.MEAL_CATEGORY)!!
     }
 
     private fun onFavoritesButtonClick() {

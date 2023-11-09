@@ -24,6 +24,7 @@ class HomeFragment : Fragment() {
         const val MEAL_ID = "com.example.foodfinder11.fragments.idMeal"
         const val MEAL_NAME = "com.example.foodfinder11.fragments.nameMeal"
         const val MEAL_THUMB = "com.example.foodfinder11.fragments.thumbMeal"
+        const val MEAL_CATEGORY = "com.example.foodfinder11.fragments.categoryMeal"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,8 +54,9 @@ class HomeFragment : Fragment() {
     private fun showCurrentMeal(){
         val intent = Intent(activity, MealActivity::class.java)
         intent.putExtra(MEAL_ID, randomMeal.idMeal)
-        intent.putExtra(MEAL_NAME, randomMeal.strMeal)
+        intent.putExtra(MEAL_NAME, randomMeal.strMeal + " Shop")
         intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
+        intent.putExtra(MEAL_CATEGORY, randomMeal.strCategory)
         startActivity(intent)
     }
 
@@ -64,7 +66,7 @@ class HomeFragment : Fragment() {
                 Glide.with(this@HomeFragment)
                     .load(meal!!.strMealThumb)
                     .into(binding.imgRandomMeal)
-                binding.tvMealName.text = meal.strMeal
+                binding.tvMealName.text = meal.strMeal + " Shop"
                 this.randomMeal = meal
             })
     }
