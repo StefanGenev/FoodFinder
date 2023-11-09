@@ -43,4 +43,5 @@ class FavoriteMealsAdapter : RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteM
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+
 }

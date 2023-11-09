@@ -1,9 +1,8 @@
 package com.example.foodfinder11.activities
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.R
@@ -23,9 +22,26 @@ class MealActivity : AppCompatActivity() {
         binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // set toolbar as support action bar
+        setSupportActionBar(binding.topToolbar)
+
+        supportActionBar?.apply {
+            title = "Details"
+
+            // show back button on toolbar
+            // on back button press, it will navigate to parent activity
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+
         getMealInformation()
         setInformationInViews()
         onFavoritesButtonClick()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     private fun setInformationInViews() {
