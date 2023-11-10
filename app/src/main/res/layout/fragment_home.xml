@@ -62,7 +62,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/random_meal"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_350sdp"
+                android:layout_height="@dimen/_380sdp"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
@@ -87,7 +87,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/random_meal">
+                app:layout_constraintTop_toBottomOf="@+id/random_meal"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
                     android:id="@+id/tv_meal_name"
@@ -107,6 +108,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_meal_name"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_dodgeInsetEdges="bottom"
                 android:layout_marginTop="@dimen/_10sdp">
 

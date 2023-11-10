@@ -52,8 +52,7 @@ class MealActivity : AppCompatActivity() {
 
         binding.tvTitle.text = mealName
         binding.tvCategory.text = "Category: " + mealCategory
-        binding.tvDescription.text = "From savory bites to sweet sensations, each bite is a journey through a symphony of exquisite tastes. " +
-                                     "Immerse yourself in a world of culinary bliss at ${mealName} – where every dish is a celebration of freshness, quality, and pure gastronomic joy. Join us and savor the extraordinary!"
+        binding.tvDescription.text = "Immerse yourself in a world of culinary bliss at ${mealName} ! "
     }
 
     private fun getMealInformation() {
