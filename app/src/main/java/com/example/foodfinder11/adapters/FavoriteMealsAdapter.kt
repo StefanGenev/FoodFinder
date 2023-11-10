@@ -36,7 +36,7 @@ class FavoriteMealsAdapter : RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteM
     override fun onBindViewHolder(holder: FavoriteMealsAdapterViewHolder, position: Int) {
         val meal = differ.currentList[position]
         Glide.with(holder.itemView).load(meal.strMealThumb).into(holder.binding.imgMeal)
-        holder.binding.tvMealName.text = meal.strMeal
+        holder.binding.tvMealName.text = meal.strMeal + " shop"
         holder.binding.imgMeal
     }
 

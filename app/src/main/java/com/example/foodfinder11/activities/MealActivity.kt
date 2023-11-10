@@ -24,10 +24,10 @@ class MealActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // set toolbar as support action bar
-        setSupportActionBar(binding.topToolbar)
+        setSupportActionBar(binding.toolbar)
 
         supportActionBar?.apply {
-            title = "Details"
+            title = ""
 
             // show back button on toolbar
             // on back button press, it will navigate to parent activity

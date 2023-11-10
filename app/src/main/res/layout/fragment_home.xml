@@ -92,7 +92,7 @@
                 <TextView
                     android:id="@+id/tv_meal_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
                     android:gravity="center"
                     android:text="Meal"
                     android:textSize="@dimen/_20ssp" />
@@ -112,7 +112,7 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/discard_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_60sdp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_discard"
                     app:backgroundTint="@color/salva"
@@ -120,7 +120,7 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/details_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_60sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10ssp"
                     android:src="@drawable/ic_order"

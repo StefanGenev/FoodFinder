@@ -7,22 +7,50 @@
     android:background="@color/white"
     tools:context=".fragments.UserFragment">
 
-    <ImageView
-        android:id="@+id/profileImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_user"
-        app:layout_constraintEnd_toEndOf="parent"
+    <LinearLayout
+        android:id="@+id/linear_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="@font/gothambookitalic"
+            android:text="Your profile"
+            android:textColor="@color/lemon"
+            android:textSize="@dimen/_25sdp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileImg"
+        android:layout_width="250dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/tefto1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_header"
+        app:shapeAppearanceOverlay="@style/Circular"
+        app:strokeWidth="3dp"
+        app:strokeColor="@color/primary"/>
 
     <TextView
         android:id="@+id/titleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Name"
+        android:text="Stefan Genev"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -51,8 +79,8 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_95sdp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:elevation="5dp"
@@ -60,21 +88,23 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/postsNumber"
-                    android:layout_width="80dp"
+                    android:id="@+id/orders_number"
+                    android:layout_width="wrap_content"
                     android:layout_height="60dp"
+                    android:drawableLeft="@drawable/ic_order"
                     android:gravity="center"
                     android:text="27"
                     android:textAlignment="center"
                     android:textColor="@color/forest"
-                    android:textSize="26sp"
-                    android:textStyle="bold" />
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
 
                 <TextView
-                    android:id="@+id/posts"
+                    android:id="@+id/orders"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Posts"
+                    android:layout_height="match_parent"
+                    android:text="Orders"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -82,8 +112,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_95sdp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:elevation="5dp"
@@ -91,21 +121,23 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/followersNo"
-                    android:layout_width="80dp"
+                    android:id="@+id/points_number"
+                    android:layout_width="wrap_content"
                     android:layout_height="60dp"
+                    android:drawableLeft="@drawable/ic_star"
                     android:gravity="center"
                     android:text="455"
                     android:textAlignment="center"
-                    android:textColor="@color/forest"
-                    android:textSize="26sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/salva"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
 
                 <TextView
-                    android:id="@+id/followers"
+                    android:id="@+id/bonus_points"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Followers"
+                    android:layout_height="match_parent"
+                    android:text="Bonus points"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -113,8 +145,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_95sdp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:elevation="5dp"
@@ -122,21 +154,23 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/followingNo"
-                    android:layout_width="80dp"
+                    android:id="@+id/reviews_number"
+                    android:layout_width="wrap_content"
                     android:layout_height="60dp"
+                    android:drawableLeft="@drawable/ic_reviews"
                     android:gravity="center"
-                    android:text="413"
+                    android:text="5"
                     android:textAlignment="center"
-                    android:textColor="@color/forest"
-                    android:textSize="26sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/lemon"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
 
                 <TextView
-                    android:id="@+id/following"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Following"
+                    android:id="@+id/reviews_written"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:text="Reviews written"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -144,127 +178,37 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Name"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/profileName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="name"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/forest"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp"
-            android:alpha="0.5"
-            android:background="@color/black" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Email"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/profileEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="email"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/forest"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp"
-            android:alpha="0.5"
-            android:background="@color/black" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Username"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/profileUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="username"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/lemon"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/editButton"
+        android:id="@+id/reviewsButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="4dp"
         android:gravity="center"
-        android:text="Edit Profile"
+        android:text="Reviews"
         android:textSize="18sp"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="@id/linearLayout"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="Edit Profile"
+        android:textSize="18sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@id/reviewsButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/reviewsButton"
+        app:layout_constraintTop_toBottomOf="@id/reviewsButton"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/settingsButton"
@@ -279,6 +223,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/editButton"
         app:layout_constraintTop_toBottomOf="@id/editButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:textColor="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
