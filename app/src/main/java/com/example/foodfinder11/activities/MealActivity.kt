@@ -100,7 +100,6 @@ class MealActivity : AppCompatActivity() {
 
         binding.tvTitle.text = mealName
         binding.tvCategory.text = "Category: " + mealCategory
-        binding.tvDescription.text = "Immerse yourself in a world of culinary bliss at ${mealName} ! "
 
         if (isFavorite) {
             binding.favoriteButton.setImageDrawable(

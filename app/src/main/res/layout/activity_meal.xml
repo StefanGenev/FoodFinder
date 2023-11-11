@@ -175,20 +175,6 @@ app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingVi
 
     <TextView
         android:fontFamily="@font/gothambookitalic"
-        android:id="@+id/tv_description"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_width="wrap_content"
-        android:text="Description: Lorem Ipsum Dolor Sit Amet"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_16ssp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/address_layout" />
-
-    <TextView
-        android:fontFamily="@font/gothambookitalic"
         android:id="@+id/tv_offers"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_5sdp"
@@ -199,7 +185,7 @@ app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingVi
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_description" />
+        app:layout_constraintTop_toBottomOf="@id/address_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_offers"
@@ -231,6 +217,7 @@ app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingVi
         android:id="@+id/rv_menu"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:scrollbars="none"
         app:cardCornerRadius="10dp"
