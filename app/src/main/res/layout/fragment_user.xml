@@ -43,8 +43,8 @@
         app:layout_constraintTop_toBottomOf="@id/linear_header"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/Circular"
-        app:strokeWidth="3dp"
-        app:strokeColor="@color/primary"/>
+        app:strokeWidth="4dp"
+        app:strokeColor="@color/forest"/>
 
     <TextView
         android:id="@+id/titleName"
