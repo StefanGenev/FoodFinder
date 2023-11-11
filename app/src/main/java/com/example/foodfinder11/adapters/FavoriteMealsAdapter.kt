@@ -10,6 +10,9 @@ import com.example.foodfinder11.databinding.MealItemBinding
 import com.example.foodfinder11.pojo.Meal
 
 class FavoriteMealsAdapter : RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealsAdapterViewHolder>() {
+
+    private lateinit var onItemClick: OnFavoriteMealItemClicked
+
     inner class FavoriteMealsAdapterViewHolder(val binding: MealItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
@@ -37,7 +40,17 @@ class FavoriteMealsAdapter : RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteM
         val meal = differ.currentList[position]
         Glide.with(holder.itemView).load(meal.strMealThumb).into(holder.binding.imgMeal)
         holder.binding.tvMealName.text = meal.strMeal + " shop"
-        holder.binding.imgMeal
+
+        holder.itemView.setOnClickListener {
+            onItemClick.onClickListener(differ.currentList[position])
+        }
+    }
+    fun onItemClicked(onItemClick: OnFavoriteMealItemClicked){
+        this.onItemClick = onItemClick
+    }
+
+    interface OnFavoriteMealItemClicked {
+        fun onClickListener(meal: Meal);
     }
 
     override fun getItemCount(): Int {
@@ -45,3 +58,5 @@ class FavoriteMealsAdapter : RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteM
     }
 
 }
+
+

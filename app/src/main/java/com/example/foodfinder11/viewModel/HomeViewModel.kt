@@ -32,15 +32,12 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-    fun getAllMeals() {
-        RetrofitInstance.api.getAllMeals("a").enqueue(object : Callback<MealList> {
+    fun getAllMealsByRandomLetter() {
+        RetrofitInstance.api.getAllMeals(getRandomLetter()).enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.body() != null) {
-                    Log.d("GET ALL MEEEEEEALS", response.body()!!.meals[0].strMeal)
                     allMealsLiveData.value = response.body()!!.meals
                 } else {
-                    Log.d("GET ALL MEEEEEEALS", "FAILNAH")
-
                     return
                 }
             }
@@ -57,5 +54,12 @@ class HomeViewModel : ViewModel() {
 
     fun observeAllMealsLiveData() : LiveData<List<Meal>>{
         return allMealsLiveData
+    }
+
+    fun getRandomLetter(): String {
+        val alphabet = "abcdefghijklmnoprstvwy"
+        val randomIndex = (0 until alphabet.length).random()
+        val letter = alphabet[randomIndex].toString()
+        return letter
     }
 }

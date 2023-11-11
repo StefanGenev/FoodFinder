@@ -25,6 +25,7 @@ class HomeFragment : Fragment() {
         const val MEAL_NAME = "com.example.foodfinder11.fragments.nameMeal"
         const val MEAL_THUMB = "com.example.foodfinder11.fragments.thumbMeal"
         const val MEAL_CATEGORY = "com.example.foodfinder11.fragments.categoryMeal"
+        const val MEAL_FAVORITE = "com.example.foodfinder11.fragments.isFavorite"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

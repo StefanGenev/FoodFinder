@@ -30,188 +30,217 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:theme="@style/ThemeOverlay.AppCompat"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                />
+                app:theme="@style/ThemeOverlay.AppCompat" />
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
-    
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/reservation_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_60sdp"
+        android:clickable="true"
+        android:src="@drawable/ic_reservation"
+        app:backgroundTint="@color/forest"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="bottom|end"
+        app:tint="@color/white" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/favorite_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:clickable="true"
         android:src="@drawable/ic_favorite"
         app:backgroundTint="@color/lemon"
-        app:tint="@color/white"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end"
-        android:layout_marginEnd="@dimen/_10sdp" />
+        app:tint="@color/white" />
 
+<androidx.core.widget.NestedScrollView
+android:layout_height="match_parent"
+android:layout_width="match_parent"
+app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_width="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp">
-
-            <LinearLayout
-                android:id="@+id/title_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Title"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/category_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@id/title_layout"
-                app:layout_constraintStart_toStartOf="@id/title_layout"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <TextView
-                    android:id="@+id/tv_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Category: Lorem Ipsum"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:drawableLeft="@drawable/ic_category"
-                    android:drawableTint="@color/black"
-                    android:drawablePadding="@dimen/_5sdp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/price_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                app:layout_constraintTop_toBottomOf="@id/category_layout"
-                app:layout_constraintStart_toStartOf="@id/category_layout"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price: $$$"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:drawableLeft="@drawable/ic_money"
-                    android:drawableTint="@color/black"
-                    android:drawablePadding="@dimen/_5sdp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/address_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                app:layout_constraintTop_toBottomOf="@id/price_layout"
-                app:layout_constraintStart_toStartOf="@id/price_layout"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Address: Osmi Primorski Pol 54"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:drawableLeft="@drawable/ic_location"
-                    android:drawableTint="@color/black"
-                    android:drawablePadding="@dimen/_5sdp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description: Lorem Ipsum Dolor Sit Amet"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/address_layout"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gothambookitalic"
-                android:textSize="@dimen/_16ssp"/>
-
-            <TextView
-                android:id="@+id/tv_offers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Offers:"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_description"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gothambookitalic"
-                android:textSize="@dimen/_16ssp"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rec_view_meals_popular"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_offers" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
-    
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/title_layout"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:layout_anchor="@id/appBar"
-        app:layout_anchorGravity="bottom"
-        android:visibility="gone"/>
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_180sdp"
+            android:text="Title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/category_layout"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/title_layout"
+        app:layout_constraintTop_toBottomOf="@id/title_layout">
+
+        <TextView
+            android:drawableLeft="@drawable/ic_category"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableTint="@color/black"
+            android:id="@+id/tv_category"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Category: Lorem Ipsum"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/price_layout"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/category_layout"
+        app:layout_constraintTop_toBottomOf="@id/category_layout">
+
+        <TextView
+            android:drawableLeft="@drawable/ic_money"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableTint="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Price range: $$$"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/address_layout"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/price_layout"
+        app:layout_constraintTop_toBottomOf="@id/price_layout">
+
+        <TextView
+            android:drawableLeft="@drawable/ic_location"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableTint="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Address: Osmi Primorski Pol 54"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:fontFamily="@font/gothambookitalic"
+        android:id="@+id/tv_description"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="wrap_content"
+        android:text="Description: Lorem Ipsum Dolor Sit Amet"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address_layout" />
+
+    <TextView
+        android:fontFamily="@font/gothambookitalic"
+        android:id="@+id/tv_offers"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="wrap_content"
+        android:text="Offers:"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_offers"
+        android:layout_height="120dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_offers" />
+
+    <TextView
+        android:fontFamily="@font/gothambookitalic"
+        android:id="@+id/tv_menu"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:text="Menu:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_offers" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:elevation="2dp"
+        android:id="@+id/rv_menu"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        app:cardCornerRadius="10dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
