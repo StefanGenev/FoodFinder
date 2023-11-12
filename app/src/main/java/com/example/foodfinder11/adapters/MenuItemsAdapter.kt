@@ -11,6 +11,7 @@ import com.example.foodfinder11.databinding.OfferCardBinding;
 import com.example.foodfinder11.pojo.Meal
 
 class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHolder>(){
+    private lateinit var onItemClick: MenuItemsAdapter.OnMenuItemClicked
 
     inner class MenuItemsViewHolder(val binding: MenuItemCardBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -35,6 +36,18 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
         val meal = differ.currentList[position]
         Glide.with(holder.itemView).load(meal.strMealThumb).into(holder.binding.menuImage)
         holder.binding.mealName.text = meal.strMeal
+
+        holder.binding.addButton.setOnClickListener{
+            onItemClick.onClickListener(differ.currentList[position])
+        }
+    }
+
+    fun onItemClicked(onItemClick: OnMenuItemClicked){
+        this.onItemClick = onItemClick
+    }
+
+    interface OnMenuItemClicked {
+        fun onClickListener(meal: Meal);
     }
 
     override fun getItemCount(): Int {

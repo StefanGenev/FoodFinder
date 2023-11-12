@@ -115,20 +115,24 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/discard_button"
-                    android:layout_width="@dimen/_60sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_discard"
                     app:backgroundTint="@color/salva"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/details_button"
-                    android:layout_width="@dimen/_60sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10ssp"
                     android:src="@drawable/ic_check"
                     app:backgroundTint="@color/forest"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"/>
 
             </LinearLayout>
 

@@ -253,6 +253,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:elevation="2dp"
                 android:scrollbars="none"
                 app:cardCornerRadius="10dp"
@@ -260,6 +261,14 @@
                 app:cardUseCompatPadding="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_menu" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_menu"
+                android:layout_marginTop="@dimen/_50sdp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -269,10 +278,18 @@
         android:id="@+id/order_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_category"
         app:backgroundTint="@color/forest"
         app:layout_anchor="@id/scrollview"
         app:layout_anchorGravity="bottom"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
+        android:text="Order 5 items"
+        android:textColor="@color/white"
+        android:fontFamily="@font/gothambookitalic"
+        android:textStyle="bold"
+        app:icon="@drawable/ic_cart"
+        app:iconTint="@color/white"
+        android:textAlignment="center"
+        android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,7 +1,7 @@
 package com.example.foodfinder11.activities
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -14,7 +14,7 @@ import com.example.foodfinder11.adapters.MenuItemsAdapter
 import com.example.foodfinder11.adapters.OffersAdapter
 import com.example.foodfinder11.databinding.ActivityMealBinding
 import com.example.foodfinder11.fragments.HomeFragment
-import com.example.foodfinder11.pojo.MealList
+import com.example.foodfinder11.pojo.Meal
 import com.example.foodfinder11.viewModel.HomeViewModel
 
 class MealActivity : AppCompatActivity() {
@@ -27,6 +27,7 @@ class MealActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMealBinding
     private lateinit var offersAdapter: OffersAdapter
     private lateinit var menuItemsAdapter: MenuItemsAdapter
+    private var selectedItems: Int = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +69,24 @@ class MealActivity : AppCompatActivity() {
 
     private fun prepareMenuItems() {
         menuItemsAdapter = MenuItemsAdapter()
+
+        menuItemsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
+            override fun onClickListener(meal: Meal) {
+                selectedItems++;
+
+                if (selectedItems > 0) {
+                    binding.orderButton.visibility = View.VISIBLE
+                    var text = "Order $selectedItems item"
+
+                    if (selectedItems > 1)
+                        text += "s"
+
+                    binding.orderButton.text = text
+                }
+            }
+
+        })
+
         binding.rvMenu.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
             adapter = menuItemsAdapter
