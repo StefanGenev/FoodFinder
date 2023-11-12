@@ -19,7 +19,7 @@
                 android:id="@+id/linear_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:orientation="horizontal"
@@ -36,14 +36,6 @@
                     android:textColor="@color/lemon"
                     android:textSize="@dimen/_25sdp"
                     android:textStyle="bold" />
-
-
-                <ImageView
-                    android:id="@+id/img_filter"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_filter" />
 
                 <ImageView
                     android:id="@+id/img_search"
@@ -134,7 +126,7 @@
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10ssp"
-                    android:src="@drawable/ic_order"
+                    android:src="@drawable/ic_check"
                     app:backgroundTint="@color/forest"
                     app:tint="@color/white" />
 
