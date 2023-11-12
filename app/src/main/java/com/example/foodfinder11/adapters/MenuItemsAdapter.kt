@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.foodfinder11.databinding.MenuItemCardBinding
 import com.example.foodfinder11.databinding.OfferCardBinding;
 import com.example.foodfinder11.pojo.Meal
+import kotlin.random.Random
 
 class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHolder>(){
     private lateinit var onItemClick: MenuItemsAdapter.OnMenuItemClicked

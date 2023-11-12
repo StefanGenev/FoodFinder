@@ -49,7 +49,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_basket" />
 
-
     <TextView
         android:id="@+id/tv_subtotal"
         android:layout_width="wrap_content"
@@ -58,11 +57,9 @@
         android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/gothambookitalic"
         android:text="Subtotal:"
-        android:textColor="@color/black"
+        android:textColor="@color/grey"
         android:textSize="@dimen/_15ssp"
-        android:textStyle="italic"
-        android:gravity="left"
-        app:layout_constraintEnd_toStartOf="@+id/tv_subtotal_price"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_items" />
 
@@ -70,17 +67,74 @@
         android:id="@+id/tv_subtotal_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_185sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/gothambookitalic"
         android:text="56.19 $"
-        android:textColor="@color/black"
+        android:textColor="@color/grey"
         android:textSize="@dimen/_15ssp"
-        android:textStyle="italic"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="tv_subtotal"
         app:layout_constraintTop_toBottomOf="@+id/rv_items" />
 
+    <TextView
+        android:id="@+id/tv_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gothambookitalic"
+        android:text="Delivery:"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subtotal_price" />
+
+    <TextView
+        android:id="@+id/tv_delivery_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_185sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gothambookitalic"
+        android:text="3.00 $"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subtotal_price" />
+
+    <TextView
+        android:id="@+id/tv_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gothambookitalic"
+        android:text="Total:"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_delivery_price" />
+
+    <TextView
+        android:id="@+id/tv_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_185sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gothambookitalic"
+        android:text="59.00 $"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_delivery_price" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/order_button"
@@ -97,7 +151,7 @@
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_subtotal_price"
+        app:layout_constraintTop_toBottomOf="@+id/tv_total_price"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
         app:tint="@color/white" />
 

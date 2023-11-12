@@ -28,6 +28,7 @@ class MealActivity : AppCompatActivity() {
     private lateinit var offersAdapter: OffersAdapter
     private lateinit var menuItemsAdapter: MenuItemsAdapter
     private var selectedItems: Int = 0;
+    private var totalPrice: Float = 0.0F;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +74,7 @@ class MealActivity : AppCompatActivity() {
         menuItemsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
             override fun onClickListener(meal: Meal) {
                 selectedItems++;
+                totalPrice += 10
 
                 if (selectedItems > 0) {
                     binding.orderButton.visibility = View.VISIBLE
@@ -80,6 +82,8 @@ class MealActivity : AppCompatActivity() {
 
                     if (selectedItems > 1)
                         text += "s"
+
+                    text += "(${String.format("%.2f", totalPrice)} lv.)"
 
                     binding.orderButton.text = text
                 }
