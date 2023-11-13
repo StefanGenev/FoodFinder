@@ -42,21 +42,20 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
 
         holder.binding.removeButton.setOnClickListener{
             meal.intMealCount--
+            holder.binding.count.text = meal.intMealCount.toString()
 
             var isLast = false
             if ( meal.intMealCount <= 0 )
             {
                 var list:MutableList <OrderItem> = differ.currentList.toMutableList()
                 list.removeAt(position)
+                differ.submitList(list)
 
                 isLast = list.isEmpty()
 
-                differ.submitList(list)
             }
 
-            holder.binding.count.text = meal.intMealCount.toString()
-
-            onMinusClick.onClickListener(meal, isLast)
+           onMinusClick.onClickListener(meal, isLast)
         }
     }
 

@@ -64,11 +64,6 @@ class OrderActivity : AppCompatActivity() {
                     passItemsToPreviousActivity()
                 }
 
-                if (orderItem.intMealCount <= 0)
-                {
-                    orderedItemsArray.remove(orderItem)
-                }
-
                 totalPrice -= 10
                 binding.tvSubtotalPrice.text = "${String.format("%.2f", totalPrice)} lv."
                 binding.tvTotalPrice.text = "${String.format("%.2f", totalPrice + 3)} lv."
