@@ -11,6 +11,8 @@ import com.example.foodfinder11.OrderItem
 
 
 class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewHolder>(){
+    private lateinit var onPlusClicked: OrderItemsAdapter.OnPlusClicked
+    private lateinit var onMinusClick: OrderItemsAdapter.OnMinusClick
 
     inner class OrderItemsViewHolder(val binding: OrderItemCardBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -31,6 +33,31 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
         Glide.with(holder.itemView).load(meal.strMealThumb).into(holder.binding.menuImage)
         holder.binding.mealName.text = meal.strMealName
         holder.binding.count.text = meal.intMealCount.toString()
+
+        holder.binding.addButton.setOnClickListener{
+            onPlusClicked.onClickListener(meal)
+            meal.intMealCount++
+            holder.binding.count.text = meal.intMealCount.toString()
+        }
+
+        holder.binding.removeButton.setOnClickListener{
+            meal.intMealCount--
+
+            var isLast = false
+            if ( meal.intMealCount <= 0 )
+            {
+                var list:MutableList <OrderItem> = differ.currentList.toMutableList()
+                list.removeAt(position)
+
+                isLast = list.isEmpty()
+
+                differ.submitList(list)
+            }
+
+            holder.binding.count.text = meal.intMealCount.toString()
+
+            onMinusClick.onClickListener(meal, isLast)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemsViewHolder {
@@ -40,6 +67,24 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+    interface OnPlusClicked {
+        fun onClickListener(orderItem: OrderItem)
+    }
+
+    fun onPlusClick(onPlusClicked: OnPlusClicked)
+    {
+        this.onPlusClicked = onPlusClicked
+    }
+
+    interface OnMinusClick {
+        fun onClickListener(orderItem: OrderItem, isLast: Boolean)
+    }
+
+    fun onMinusClick(onMinusClick: OnMinusClick)
+    {
+        this.onMinusClick = onMinusClick
     }
 
 }

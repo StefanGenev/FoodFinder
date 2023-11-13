@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodfinder11.databinding.OfferCardBinding;
 import com.example.foodfinder11.pojo.Meal
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class OffersAdapter : RecyclerView.Adapter<OffersAdapter.OfferViewHolder>(){
 
@@ -31,7 +33,7 @@ class OffersAdapter : RecyclerView.Adapter<OffersAdapter.OfferViewHolder>(){
 
         override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
                 val meal = differ.currentList[position]
-                holder.binding.tvOffer.text = "50% off on all " + meal.strMeal
+                holder.binding.tvOffer.text = "${Random.nextInt(15, 50)} off on all " + meal.strMeal
         }
 
         override fun getItemCount(): Int {

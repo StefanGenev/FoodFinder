@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.foodfinder11.R
+import com.example.foodfinder11.activities.HistoryActivity
 import com.example.foodfinder11.activities.MealActivity
+import com.example.foodfinder11.activities.OrderActivity
 import com.example.foodfinder11.activities.ReviewsActivity
 import com.example.foodfinder11.databinding.FragmentHomeBinding
 import com.example.foodfinder11.databinding.FragmentUserBinding
@@ -36,7 +38,9 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        onOrdersClick()
         onReviewsClick()
+        onLogoutClick()
     }
 
     private fun onReviewsClick() {
@@ -48,6 +52,19 @@ class UserFragment : Fragment() {
     private fun showReviews() {
         val intent = Intent(activity, ReviewsActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun onOrdersClick() {
+        binding.ordersButton.setOnClickListener {
+            val intent = Intent(activity, HistoryActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun onLogoutClick() {
+        binding.logoutButton.setOnClickListener {
+            activity?.finish()
+        }
     }
 
 

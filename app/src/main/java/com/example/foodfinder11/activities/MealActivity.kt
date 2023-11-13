@@ -1,5 +1,6 @@
 package com.example.foodfinder11.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -18,6 +19,7 @@ import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.pojo.Meal
 import com.example.foodfinder11.OrderItem
 import com.example.foodfinder11.viewModel.HomeViewModel
+import kotlin.random.Random
 
 class MealActivity : AppCompatActivity() {
     private lateinit var mealId: String
@@ -165,6 +167,8 @@ class MealActivity : AppCompatActivity() {
                 )
             )
         }
+
+        binding.ratingbar.rating = Random.nextInt(1, 5).toFloat()
     }
 
     private fun getMealInformation() {
@@ -200,5 +204,36 @@ class MealActivity : AppCompatActivity() {
             }
             isFavorite = !isFavorite;
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode != Activity.RESULT_OK)
+            return
+
+        val intent = intent
+        if (data != null) {
+            orderedItemsArray.clear()
+            orderedItemsArray = data.getParcelableArrayListExtra(MealActivity.ORDERED_ITEMS_ARRAY)!!
+        }
+
+        if (orderedItemsArray.isEmpty())
+        {
+            binding.orderButton.visibility = View.GONE
+
+        }
+        else
+        {
+            var text = "Order $selectedItems item"
+
+            if (orderedItemsArray.size > 1)
+                text += "s"
+
+            text += "(${String.format("%.2f", totalPrice)} lv.)"
+
+            binding.orderButton.text = text
+        }
+
     }
 }

@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.databinding.HistoryItemCardBinding
 import com.example.foodfinder11.databinding.ReviewCardBinding
 import com.example.foodfinder11.pojo.Meal
 import kotlin.random.Random
+import kotlin.random.nextInt
 
-class ReviewsAdapter : RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder>(){
-    inner class ReviewsViewHolder(val binding: ReviewCardBinding) : RecyclerView.ViewHolder(binding.root)
+class HistoryItemsAdapter : RecyclerView.Adapter<HistoryItemsAdapter.HistoryItemsViewHolder>(){
+    inner class HistoryItemsViewHolder(val binding: HistoryItemCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
         override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
@@ -24,17 +26,17 @@ class ReviewsAdapter : RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder>(){
     }
 
     val differ = AsyncListDiffer(this, diffUtil)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewsAdapter.ReviewsViewHolder {
-        return ReviewsViewHolder(
-            ReviewCardBinding.inflate(LayoutInflater.from(parent.context), parent, false) )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryItemsAdapter.HistoryItemsViewHolder {
+        return HistoryItemsViewHolder(
+            HistoryItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false) )
     }
 
-    override fun onBindViewHolder(holder: ReviewsAdapter.ReviewsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HistoryItemsAdapter.HistoryItemsViewHolder, position: Int) {
         val meal = differ.currentList[position]
         holder.binding.shopName.text = meal.strMeal + " Shop"
-        holder.binding.ratingbar.rating = Random.nextInt(1, 5).toFloat()
-        holder.binding.tvReview.text = "A really nice place with affordable prices, but the service is not that great."
         Glide.with(holder.itemView).load(meal.strMealThumb).into(holder.binding.imgShop)
+        holder.binding.tvPrice.text = "${String.format("%.2f", Random.nextDouble(10.0, 25.0))} lv."
+        holder.binding.tvDate.text = "${Random.nextInt(1, 30)} May, ${Random.nextInt(0, 23)}:${Random.nextInt(10, 59)}"
     }
 
     override fun getItemCount(): Int {
