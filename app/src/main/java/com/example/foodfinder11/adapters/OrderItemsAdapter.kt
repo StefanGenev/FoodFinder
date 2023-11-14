@@ -48,7 +48,7 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
             if ( meal.intMealCount <= 0 )
             {
                 var list:MutableList <OrderItem> = differ.currentList.toMutableList()
-                list.removeAt(position)
+                list.removeAt(holder.adapterPosition)
                 differ.submitList(list)
 
                 isLast = list.isEmpty()

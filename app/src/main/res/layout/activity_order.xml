@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,95 +26,110 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleButtonGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        app:checkedButton="@+id/btnDelivery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDelivery"
+            style="@style/ToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery"
+            app:icon="@drawable/ic_delivery"
+            app:iconTint="@drawable/toggle_button_foreground_color_selector" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReservation"
+            style="@style/ToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservation"
+            app:icon="@drawable/ic_reservation"
+            app:iconTint="@drawable/toggle_button_foreground_color_selector" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <TextView
+        android:id="@+id/tv_basket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/gothambookitalic"
+        android:text="Basket:"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toggleButtonGroup" />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_55sdp"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="wrap_content"
+        android:paddingBottom="50dp"
+        android:clipToPadding="false"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_basket"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggleButtonGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:checkedButton="@+id/btnDelivery"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:singleSelection="true">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDelivery"
-                    style="@style/ToggleButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Delivery"
-                    app:icon="@drawable/ic_delivery"
-                    app:iconTint="@drawable/toggle_button_foreground_color_selector" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnReservation"
-                    style="@style/ToggleButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reservation"
-                    app:icon="@drawable/ic_reservation"
-                    app:iconTint="@drawable/toggle_button_foreground_color_selector" />
-
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-
-            <TextView
-                android:id="@+id/tv_basket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/gothambookitalic"
-                android:text="Basket:"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_16ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toggleButtonGroup" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_items"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_height="485dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginBottom="15dp"
-                android:minHeight="@dimen/_310sdp"
+                android:layout_marginBottom="@dimen/_25sdp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_basket" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
 
             <TextView
                 android:id="@+id/tv_subtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/gothambookitalic"
                 android:text="Subtotal:"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_items" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_delivery"
+                app:layout_constraintTop_toBottomOf="@id/rv_items"/>
 
             <TextView
                 android:id="@+id/tv_subtotal_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_185sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/gothambookitalic"
                 android:text="56.19 lv."
@@ -121,28 +137,28 @@
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_items" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_delivery" />
 
             <TextView
                 android:id="@+id/tv_delivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="@font/gothambookitalic"
                 android:text="Delivery:"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subtotal" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_total" />
 
             <TextView
                 android:id="@+id/tv_delivery_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_185sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/gothambookitalic"
                 android:text="3.00 lv."
@@ -150,28 +166,28 @@
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_subtotal" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_total" />
 
             <TextView
                 android:id="@+id/tv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="@font/gothambookitalic"
                 android:text="Total:"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_delivery" />
+                app:layout_constraintBottom_toTopOf="@id/order_button" />
 
             <TextView
                 android:id="@+id/tv_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_185sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/gothambookitalic"
                 android:text="59.00 lv."
@@ -179,13 +195,12 @@
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_delivery" />
+                app:layout_constraintBottom_toTopOf="@id/order_button" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/order_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
                 android:fontFamily="@font/gothambookitalic"
                 android:text="Payment"
                 android:textAlignment="center"
@@ -194,9 +209,8 @@
                 app:backgroundTint="@color/forest"
                 app:icon="@drawable/ic_payment"
                 app:iconTint="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_total_price"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
                 app:tint="@color/white" />
 
