@@ -3,4 +3,10 @@
     <style name="Circular">
         <item name="cornerSize">30%</item>
     </style>
+
+    <style name="ToggleButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="backgroundTint">@drawable/toggle_button_background_selector</item>
+        <item name="strokeColor">@drawable/toggle_button_outline_color_selector</item>
+        <item name="android:textColor">@drawable/toggle_button_foreground_color_selector</item>
+    </style>
 </resources>
