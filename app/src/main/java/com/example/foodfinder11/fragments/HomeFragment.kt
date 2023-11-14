@@ -19,6 +19,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeMvvm: HomeViewModel
 
     private lateinit var randomMeal: Meal
+    private var mealLoaded:Boolean = false
 
     companion object {
         const val MEAL_ID = "com.example.foodfinder11.fragments.idMeal"
@@ -52,6 +53,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun showCurrentMeal(){
+        if (!mealLoaded)
+            return
+
         val intent = Intent(activity, MealActivity::class.java)
         intent.putExtra(MEAL_ID, randomMeal.idMeal)
         intent.putExtra(MEAL_NAME, randomMeal.strMeal + " Shop")
@@ -68,6 +72,7 @@ class HomeFragment : Fragment() {
                     .into(binding.imgRandomMeal)
                 binding.tvMealName.text = meal.strMeal + " Shop"
                 this.randomMeal = meal
+                this.mealLoaded = true
             })
     }
 
