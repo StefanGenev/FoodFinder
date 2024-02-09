@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.OrderItem
 import com.example.foodfinder11.adapters.OrderItemsAdapter
 import com.example.foodfinder11.databinding.ActivityOrderBinding
-import com.example.foodfinder11.pojo.Meal
 
 
 class OrderActivity : AppCompatActivity() {
@@ -79,7 +78,7 @@ class OrderActivity : AppCompatActivity() {
 
     private fun passItemsToPreviousActivity() {
         val data = Intent()
-        data.putExtra(MealActivity.ORDERED_ITEMS_ARRAY, orderedItemsArray);
+        data.putExtra(RestaurantActivity.ORDERED_ITEMS_ARRAY, orderedItemsArray);
         setResult(Activity.RESULT_OK, data)
 
         finish()
@@ -89,7 +88,7 @@ class OrderActivity : AppCompatActivity() {
         orderedItemsArray = ArrayList()
 
         val intent = intent
-        orderedItemsArray = intent.extras?.getParcelableArrayList<OrderItem>(MealActivity.ORDERED_ITEMS_ARRAY)!!
+        orderedItemsArray = intent.extras?.getParcelableArrayList<OrderItem>(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
         orderItemsAdapter.differ.submitList(orderedItemsArray)
 
         for (item in orderedItemsArray)

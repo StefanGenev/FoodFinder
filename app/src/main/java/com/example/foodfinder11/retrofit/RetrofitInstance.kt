@@ -4,11 +4,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    val api:MealApi by lazy {
+    private const val API_BASE_URL = "http://localhost:8080/"
+
+    val api:APItiteService by lazy {
         Retrofit.Builder()
-            .baseUrl("https://www.themealdb.com/api/json/v1/1/")
+            .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(MealApi::class.java);
+            .create(APItiteService::class.java);
     }
 }

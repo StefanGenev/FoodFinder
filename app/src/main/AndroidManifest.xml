@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MealActivity"
+            android:name=".activities.RestaurantActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

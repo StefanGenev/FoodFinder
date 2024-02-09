@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.databinding.MealItemBinding
-import com.example.foodfinder11.pojo.Meal
+import com.example.foodfinder11.model.Meal
 
-class FavoriteMealsAdapter : RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealsAdapterViewHolder>() {
+class FavoriteRestaurantsAdapter : RecyclerView.Adapter<FavoriteRestaurantsAdapter.FavoriteMealsAdapterViewHolder>() {
 
     private lateinit var onItemClick: OnFavoriteMealItemClicked
 
@@ -17,7 +17,7 @@ class FavoriteMealsAdapter : RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteM
 
     private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
         override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
-            return oldItem.idMeal == newItem.idMeal
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean {
@@ -38,8 +38,8 @@ class FavoriteMealsAdapter : RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteM
 
     override fun onBindViewHolder(holder: FavoriteMealsAdapterViewHolder, position: Int) {
         val meal = differ.currentList[position]
-        Glide.with(holder.itemView).load(meal.strMealThumb).into(holder.binding.imgMeal)
-        holder.binding.tvMealName.text = meal.strMeal + " shop"
+        Glide.with(holder.itemView).load(meal.image).into(holder.binding.imgMeal)
+        holder.binding.tvMealName.text = meal.name
 
         holder.itemView.setOnClickListener {
             onItemClick.onClickListener(differ.currentList[position])

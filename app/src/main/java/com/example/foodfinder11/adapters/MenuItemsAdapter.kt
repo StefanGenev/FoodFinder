@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.databinding.MenuItemCardBinding
-import com.example.foodfinder11.databinding.OfferCardBinding;
-import com.example.foodfinder11.pojo.Meal
-import kotlin.random.Random
+import com.example.foodfinder11.model.Meal
 
 class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHolder>(){
     private lateinit var onItemClick: MenuItemsAdapter.OnMenuItemClicked
@@ -18,7 +16,7 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
     private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
         override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
-            return oldItem.idMeal == newItem.idMeal
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean {
@@ -35,8 +33,8 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
     override fun onBindViewHolder(holder: MenuItemsViewHolder, position: Int) {
         val meal = differ.currentList[position]
-        Glide.with(holder.itemView).load(meal.strMealThumb).into(holder.binding.menuImage)
-        holder.binding.mealName.text = meal.strMeal
+        Glide.with(holder.itemView).load(meal.image).into(holder.binding.menuImage)
+        holder.binding.mealName.text = meal.name
 
         holder.binding.addButton.setOnClickListener{
             onItemClick.onClickListener(differ.currentList[position])

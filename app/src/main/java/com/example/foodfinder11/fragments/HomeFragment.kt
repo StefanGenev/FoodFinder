@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.example.foodfinder11.activities.MealActivity
+import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.databinding.FragmentHomeBinding
-import com.example.foodfinder11.pojo.Meal
+import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.viewModel.HomeViewModel
 
 
@@ -56,24 +55,31 @@ class HomeFragment : Fragment() {
         if (!mealLoaded)
             return
 
-        val intent = Intent(activity, MealActivity::class.java)
+        //TODO Change with restaurant
+        val intent = Intent(activity, RestaurantActivity::class.java)
+        /*
         intent.putExtra(MEAL_ID, randomMeal.idMeal)
         intent.putExtra(MEAL_NAME, randomMeal.strMeal + " Shop")
         intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
         intent.putExtra(MEAL_CATEGORY, randomMeal.strCategory)
         startActivity(intent)
+
+         */
     }
 
     private fun observeRandomMeal() {
+        /* TODO
         homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner,
             { meal ->
                 Glide.with(this@HomeFragment)
-                    .load(meal!!.strMealThumb)
+                    .load(meal!!.image)
                     .into(binding.imgRandomMeal)
-                binding.tvMealName.text = meal.strMeal + " Shop"
+                binding.tvMealName.text = meal.name
                 this.randomMeal = meal
                 this.mealLoaded = true
             })
+
+         */
     }
 
     private fun changeMeal(){

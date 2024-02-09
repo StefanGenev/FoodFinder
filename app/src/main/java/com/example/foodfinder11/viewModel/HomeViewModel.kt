@@ -4,37 +4,37 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.foodfinder11.pojo.Meal
-import com.example.foodfinder11.pojo.MealList
+import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.model.RestaurantList
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
-    private var randomMealLiveData = MutableLiveData<Meal>()
-    private var allMealsLiveData = MutableLiveData<List<Meal>>()
+    private var randomMealLiveData = MutableLiveData<Restaurant>()
+    private var allMealsLiveData = MutableLiveData<List<Restaurant>>()
 
     fun getRandomMeal() {
-        RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
-            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+        RetrofitInstance.api.getAllRestaurants().enqueue(object : Callback<RestaurantList> {
+            override fun onResponse(call: Call<RestaurantList>, response: Response<RestaurantList>) {
                 if (response.body() != null) {
-                    val randomMeal: Meal = response.body()!!.meals[0]
+                    val randomMeal: Restaurant = response.body()!!.restaurants[0]
                     randomMealLiveData.value = randomMeal
                 } else {
                     return
                 }
             }
 
-            override fun onFailure(call: Call<MealList>, t: Throwable) {
+            override fun onFailure(call: Call<RestaurantList>, t: Throwable) {
                 Log.d("HomeFragment", t.message.toString())
             }
         })
     }
 
     fun getAllMealsByRandomLetter() {
-        RetrofitInstance.api.getAllMeals(getRandomLetter()).enqueue(object : Callback<MealList> {
-            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+       /*TODO RetrofitInstance.api.getAllMeals(getRandomLetter()).enqueue(object : Callback<RestaurantList> {
+            override fun onResponse(call: Call<RestaurantList>, response: Response<RestaurantList>) {
                 if (response.body() != null) {
                     allMealsLiveData.value = response.body()!!.meals
                 } else {
@@ -46,13 +46,15 @@ class HomeViewModel : ViewModel() {
                 Log.d("HomeFragment", t.message.toString())
             }
         })
+
+        */
     }
 
-    fun observeRandomMealLiveData() : LiveData<Meal>{
+    fun observeRandomMealLiveData() : LiveData<Restaurant>{
         return randomMealLiveData
     }
 
-    fun observeAllMealsLiveData() : LiveData<List<Meal>>{
+    fun observeAllMealsLiveData() : LiveData<List<Restaurant>>{
         return allMealsLiveData
     }
 

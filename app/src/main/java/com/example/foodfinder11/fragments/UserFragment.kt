@@ -7,12 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.HistoryActivity
-import com.example.foodfinder11.activities.MealActivity
-import com.example.foodfinder11.activities.OrderActivity
 import com.example.foodfinder11.activities.ReviewsActivity
-import com.example.foodfinder11.databinding.FragmentHomeBinding
 import com.example.foodfinder11.databinding.FragmentUserBinding
 import com.example.foodfinder11.viewModel.HomeViewModel
 

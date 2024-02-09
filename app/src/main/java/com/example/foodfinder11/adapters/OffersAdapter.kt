@@ -6,17 +6,17 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodfinder11.databinding.OfferCardBinding;
-import com.example.foodfinder11.pojo.Meal
+import com.example.foodfinder11.model.Meal
 import kotlin.random.Random
-import kotlin.random.nextInt
 
+//TODO Change with offer model
 class OffersAdapter : RecyclerView.Adapter<OffersAdapter.OfferViewHolder>(){
 
         inner class OfferViewHolder(val binding:OfferCardBinding) : RecyclerView.ViewHolder(binding.root)
 
         private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
                 override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
-                        return oldItem.idMeal == newItem.idMeal
+                        return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean {
@@ -33,7 +33,7 @@ class OffersAdapter : RecyclerView.Adapter<OffersAdapter.OfferViewHolder>(){
 
         override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
                 val meal = differ.currentList[position]
-                holder.binding.tvOffer.text = "${Random.nextInt(15, 50)}% off on all " + meal.strMeal
+                holder.binding.tvOffer.text = "${Random.nextInt(15, 50)}% off on all " + meal.name
         }
 
         override fun getItemCount(): Int {

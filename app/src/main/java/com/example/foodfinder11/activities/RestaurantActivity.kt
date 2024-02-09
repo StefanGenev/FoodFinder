@@ -14,21 +14,21 @@ import com.bumptech.glide.Glide
 import com.example.foodfinder11.R
 import com.example.foodfinder11.adapters.MenuItemsAdapter
 import com.example.foodfinder11.adapters.OffersAdapter
-import com.example.foodfinder11.databinding.ActivityMealBinding
 import com.example.foodfinder11.fragments.HomeFragment
-import com.example.foodfinder11.pojo.Meal
 import com.example.foodfinder11.OrderItem
+import com.example.foodfinder11.databinding.ActivityRestaurantBinding
+import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.viewModel.HomeViewModel
 import kotlin.random.Random
 
-class MealActivity : AppCompatActivity() {
-    private lateinit var mealId: String
-    private lateinit var mealName: String
-    private lateinit var mealThumb: String
-    private lateinit var mealCategory: String
+class RestaurantActivity : AppCompatActivity() {
+    private lateinit var restaurantId: String
+    private lateinit var restaurantName: String
+    private lateinit var restaurantThumb: String
+    private lateinit var restaurantCategory: String
     private var isFavorite: Boolean = false;
     private lateinit var homeMvvm: HomeViewModel
-    private lateinit var binding: ActivityMealBinding
+    private lateinit var binding: ActivityRestaurantBinding
     private lateinit var offersAdapter: OffersAdapter
     private lateinit var menuItemsAdapter: MenuItemsAdapter
     private var selectedItems: Int = 0;
@@ -42,7 +42,7 @@ class MealActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMealBinding.inflate(layoutInflater)
+        binding = ActivityRestaurantBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // set toolbar as support action bar
@@ -73,7 +73,7 @@ class MealActivity : AppCompatActivity() {
         orderedItemsArray = ArrayList()
 
         binding.orderButton.setOnClickListener {
-            val intent = Intent(this@MealActivity, OrderActivity::class.java)
+            val intent = Intent(this@RestaurantActivity, OrderActivity::class.java)
             intent.putExtra(ORDERED_ITEMS_ARRAY, orderedItemsArray)
             startActivity(intent)
         }
@@ -82,7 +82,7 @@ class MealActivity : AppCompatActivity() {
 
     private fun observeMenuItems() {
         homeMvvm.observeAllMealsLiveData().observe(this, Observer { meals ->
-            menuItemsAdapter.differ.submitList(meals)
+            //TODO menuItemsAdapter.differ.submitList(meals)
         })
     }
 
@@ -105,7 +105,7 @@ class MealActivity : AppCompatActivity() {
     private fun addMealToOrderedItems(meal: Meal) {
         var hasItem = false
         for (item in orderedItemsArray) {
-            if (item.idMeal == meal.idMeal) {
+            if (item.idMeal == meal.id) {
                 item.intMealCount++
                 hasItem = true
                 break
@@ -113,7 +113,7 @@ class MealActivity : AppCompatActivity() {
         }
 
         if (!hasItem) {
-            var orderItem = OrderItem(meal.idMeal, 1, meal.strMeal, meal.strMealThumb)
+            var orderItem = OrderItem(meal.id, 1, meal.name, meal.image)
             orderedItemsArray.add(orderItem)
         }
 
@@ -134,7 +134,7 @@ class MealActivity : AppCompatActivity() {
 
     private fun observeOffers() {
         homeMvvm.observeAllMealsLiveData().observe(this, Observer { meals ->
-            offersAdapter.differ.submitList(meals)
+            //TODO offersAdapter.differ.submitList(meals)
         })
     }
 
@@ -153,11 +153,11 @@ class MealActivity : AppCompatActivity() {
 
     private fun setInformationInViews() {
         Glide.with(applicationContext)
-            .load(mealThumb)
+            .load(restaurantThumb)
             .into(binding.imgMealDetail)
 
-        binding.tvTitle.text = mealName
-        binding.tvCategory.text = "Category: " + mealCategory
+        binding.tvTitle.text = restaurantName
+        binding.tvCategory.text = "Category: " + restaurantCategory
 
         if (isFavorite) {
             binding.favoriteButton.setImageDrawable(
@@ -173,11 +173,11 @@ class MealActivity : AppCompatActivity() {
 
     private fun getMealInformation() {
         val intent = intent
-        mealId = intent.getStringExtra(HomeFragment.MEAL_ID)!!
-        mealName = intent.getStringExtra(HomeFragment.MEAL_NAME)!!
-        mealThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB)!!
-        mealCategory = intent.getStringExtra(HomeFragment.MEAL_CATEGORY)!!
-        mealCategory = intent.getStringExtra(HomeFragment.MEAL_CATEGORY)!!
+        restaurantId = intent.getStringExtra(HomeFragment.MEAL_ID)!!
+        restaurantName = intent.getStringExtra(HomeFragment.MEAL_NAME)!!
+        restaurantThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB)!!
+        restaurantCategory = intent.getStringExtra(HomeFragment.MEAL_CATEGORY)!!
+        restaurantCategory = intent.getStringExtra(HomeFragment.MEAL_CATEGORY)!!
         isFavorite = intent.getBooleanExtra(HomeFragment.MEAL_FAVORITE, false)!!
     }
 
@@ -215,7 +215,7 @@ class MealActivity : AppCompatActivity() {
         val intent = intent
         if (data != null) {
             orderedItemsArray.clear()
-            orderedItemsArray = data.getParcelableArrayListExtra(MealActivity.ORDERED_ITEMS_ARRAY)!!
+            orderedItemsArray = data.getParcelableArrayListExtra(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
         }
 
         if (orderedItemsArray.isEmpty())

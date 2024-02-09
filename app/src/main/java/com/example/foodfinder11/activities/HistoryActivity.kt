@@ -28,7 +28,7 @@ class HistoryActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         supportActionBar?.apply {
-            title = "Order"
+            title = "Orders"
 
             // show back button on toolbar
             // on back button press, it will navigate to parent activity
@@ -59,7 +59,7 @@ class HistoryActivity : AppCompatActivity() {
         homeMvvm.getAllMealsByRandomLetter()
 
         homeMvvm.observeAllMealsLiveData().observe(this, Observer { meals ->
-            historyItemsAdapter.differ.submitList(meals)
+            //TODO historyItemsAdapter.differ.submitList(meals)
         })
     }
 }

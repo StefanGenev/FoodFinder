@@ -5,10 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.foodfinder11.R
-import com.example.foodfinder11.adapters.FavoriteMealsAdapter
 import com.example.foodfinder11.adapters.ReviewsAdapter
-import com.example.foodfinder11.databinding.ActivityMealBinding
 import com.example.foodfinder11.databinding.ActivityReviewsBinding
 import com.example.foodfinder11.viewModel.HomeViewModel
 
@@ -56,7 +53,7 @@ class ReviewsActivity : AppCompatActivity() {
 
     private fun observeReviews() {
         homeMvvm.observeAllMealsLiveData().observe(this, Observer { meals ->
-            reviewsAdapter.differ.submitList(meals)
+            //TODO reviewsAdapter.differ.submitList(meals)
         })
     }
 }
