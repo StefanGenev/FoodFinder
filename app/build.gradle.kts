@@ -64,8 +64,9 @@ dependencies {
     implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.17")
 
     // retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.3.0")
+    val retrofit_version = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
 
     // glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
@@ -73,4 +74,8 @@ dependencies {
     //videoModel mvvm
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+    val logging_version = "4.3.1"
+    implementation ("com.squareup.okhttp3:okhttp:$logging_version")
+    implementation ("com.squareup.okhttp3:logging-interceptor:$logging_version")
 }

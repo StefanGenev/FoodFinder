@@ -5,6 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.foodfinder11.databinding.ActivitySignUpBinding
+import com.example.foodfinder11.dto.LoginResponseDto
+import com.example.foodfinder11.dto.RegisterRequestDto
+import com.example.foodfinder11.dto.RegisterResponseDto
+import com.example.foodfinder11.model.Roles
+import com.example.foodfinder11.retrofit.RetrofitInstance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -15,8 +23,23 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.signupButton.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@SignUpActivity, MainActivity::class.java)
-            startActivity(intent)
+            var registerRequestDto = RegisterRequestDto(binding.email.text.toString(),
+                                                        binding.username.text.toString(),
+                                                        binding.password.text.toString(),
+                                                        Roles.CUSTOMER)
+
+            RetrofitInstance.getApiService(this).register(registerRequestDto).enqueue(object : Callback<RegisterResponseDto> {
+                override fun onResponse(call: Call<RegisterResponseDto>, response: Response<RegisterResponseDto>) {
+                    var token = response.body()!!.authToken
+
+                    val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                    startActivity(intent)
+                }
+
+                override fun onFailure(call: Call<RegisterResponseDto>, t: Throwable) {
+
+                }
+            })
         })
 
         binding.loginButton.setOnClickListener(View.OnClickListener {

@@ -40,7 +40,7 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeMvvm.getAllMealsByRandomLetter()
+        homeMvvm.getAllRestaurants()
         prepareRecyclerView()
         observeFavorites()
 
@@ -70,7 +70,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun observeFavorites() {
-        homeMvvm.observeAllMealsLiveData().observe(requireActivity(), Observer { meals ->
+        homeMvvm.observeAllRestaurantsLiveData().observe(requireActivity(), Observer { meals ->
             Log.d("observerFavorites", meals[0].name)
             //TODO favoritesAdapter.differ.submitList(meals)
         })

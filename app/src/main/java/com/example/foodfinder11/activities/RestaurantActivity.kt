@@ -63,7 +63,7 @@ class RestaurantActivity : AppCompatActivity() {
         setInformationInViews()
         onFavoritesButtonClick()
 
-        homeMvvm.getAllMealsByRandomLetter()
+        homeMvvm.getAllRestaurants()
         prepareOffers()
         observeOffers()
 
@@ -81,7 +81,7 @@ class RestaurantActivity : AppCompatActivity() {
     }
 
     private fun observeMenuItems() {
-        homeMvvm.observeAllMealsLiveData().observe(this, Observer { meals ->
+        homeMvvm.observeAllRestaurantsLiveData().observe(this, Observer { meals ->
             //TODO menuItemsAdapter.differ.submitList(meals)
         })
     }
@@ -133,7 +133,7 @@ class RestaurantActivity : AppCompatActivity() {
     }
 
     private fun observeOffers() {
-        homeMvvm.observeAllMealsLiveData().observe(this, Observer { meals ->
+        homeMvvm.observeAllRestaurantsLiveData().observe(this, Observer { meals ->
             //TODO offersAdapter.differ.submitList(meals)
         })
     }

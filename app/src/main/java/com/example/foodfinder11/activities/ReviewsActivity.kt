@@ -41,7 +41,7 @@ class ReviewsActivity : AppCompatActivity() {
         }
 
         homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
-        homeMvvm.getAllMealsByRandomLetter()
+        homeMvvm.getAllRestaurants()
 
         observeReviews()
     }
@@ -52,7 +52,7 @@ class ReviewsActivity : AppCompatActivity() {
     }
 
     private fun observeReviews() {
-        homeMvvm.observeAllMealsLiveData().observe(this, Observer { meals ->
+        homeMvvm.observeAllRestaurantsLiveData().observe(this, Observer { meals ->
             //TODO reviewsAdapter.differ.submitList(meals)
         })
     }

@@ -1,6 +1,5 @@
 package com.example.foodfinder11.model
 
-import java.sql.Blob
 
 enum class PriceRanges {
     CHEAP, MIDRANGE, EXPENSIVE
@@ -14,5 +13,7 @@ data class Restaurant(
 
     var address: String = "",
 
-    var image: ByteArray
+    var image: ByteArray,
+
+    var rating: Double
 )
