@@ -13,7 +13,8 @@ data class Restaurant(
 
     var address: String = "",
 
-    var image: ByteArray,
+    //TODO Change to bytearray
+    var image: String = "",
 
-    var rating: Double
+    var rating: Double = 0.0
 )

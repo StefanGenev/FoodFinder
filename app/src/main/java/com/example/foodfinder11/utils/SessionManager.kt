@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.foodfinder11.R
 
-class SessionManager (context: Context) {
-    private var prefs: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+class SessionManager {
 
     companion object {
         const val USER_TOKEN = "user_token"
@@ -15,15 +14,13 @@ class SessionManager (context: Context) {
      * Function to save auth token
      */
     fun saveAuthToken(token: String) {
-        val editor = prefs.edit()
-        editor.putString(USER_TOKEN, token)
-        editor.apply()
+        AppPreferences.token = token
     }
 
     /**
      * Function to fetch auth token
      */
     fun fetchAuthToken(): String? {
-        return prefs.getString(USER_TOKEN, null)
+        return AppPreferences.token
     }
 }

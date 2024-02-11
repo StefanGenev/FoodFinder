@@ -28,7 +28,7 @@ class SignUpActivity : AppCompatActivity() {
                                                         binding.password.text.toString(),
                                                         Roles.CUSTOMER)
 
-            RetrofitInstance.getApiService(this).register(registerRequestDto).enqueue(object : Callback<RegisterResponseDto> {
+            RetrofitInstance.getApiService().register(registerRequestDto).enqueue(object : Callback<RegisterResponseDto> {
                 override fun onResponse(call: Call<RegisterResponseDto>, response: Response<RegisterResponseDto>) {
                     var token = response.body()!!.authToken
 

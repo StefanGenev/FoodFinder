@@ -2,34 +2,22 @@ package com.example.foodfinder11.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.databinding.FragmentHomeBinding
-import com.example.foodfinder11.dto.GetAllRestaurantsResponseModel
 import com.example.foodfinder11.model.Restaurant
-import com.example.foodfinder11.retrofit.RetrofitInstance
-import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.viewModel.HomeViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeMvvm: HomeViewModel
-    private lateinit var sessionManager: SessionManager
-
-    private lateinit var currentRestaurants: List<Restaurant>
-    private lateinit var currentRestaurant: Restaurant
-    private var nextRestaurantIndex: Int = 0
-    private var restaurantsLoaded:Boolean = false
 
     companion object {
         const val MEAL_ID = "com.example.foodfinder11.fragments.idMeal"
@@ -42,7 +30,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
-        sessionManager = SessionManager(requireActivity())
     }
 
     override fun onCreateView(
@@ -57,39 +44,17 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadRestaurants()
-        observeNextRestaurant()
+        showCurrentRestaurant()
         onRandomMealClick()
         onDiscardClick()
         onDetailsClick()
     }
 
     private fun loadRestaurants() {
-        if (!isAdded)
-            return
-
-        var activity = requireActivity()
-
-        RetrofitInstance.getApiService(activity).getAllRestaurants().enqueue(object :
-            Callback<GetAllRestaurantsResponseModel> {
-            override fun onResponse(call: Call<GetAllRestaurantsResponseModel>, response: Response<GetAllRestaurantsResponseModel>) {
-                if (response.body() != null) {
-                    currentRestaurants = response.body()!!.restaurants
-                    restaurantsLoaded = currentRestaurants.isNotEmpty()
-                } else {
-                    return
-                }
-            }
-
-            override fun onFailure(call: Call<GetAllRestaurantsResponseModel>, t: Throwable) {
-                Log.d("HomeFragment", t.message.toString())
-            }
-        })
+        homeMvvm.getAllRestaurants()
     }
 
-    private fun showCurrentRestaurant(){
-        if (!restaurantsLoaded)
-            return
-
+    private fun openCurrentRestaurant(){
         //TODO Change with restaurant
         val intent = Intent(activity, RestaurantActivity::class.java)
         /*
@@ -102,32 +67,30 @@ class HomeFragment : Fragment() {
          */
     }
 
-    private fun observeNextRestaurant() {
-        if (!restaurantsLoaded)
-            return
+    private fun showCurrentRestaurant() {
+        val currentRestaurantIndex = homeMvvm.getCurrentRestaurantIndex()
 
-        currentRestaurant = currentRestaurants[nextRestaurantIndex]
-        nextRestaurantIndex++
+        homeMvvm.observeAllRestaurantsLiveData().observe(viewLifecycleOwner, Observer { restaurants ->
+            var currentRestaurant = restaurants[currentRestaurantIndex]
+            /*
+       Glide.with(this@HomeFragment)
+           .load(this.currentRestaurant.image)
+           .into(binding.imgRandomMeal)
 
-        if (this.nextRestaurantIndex > currentRestaurants.size - 1)
-            this.nextRestaurantIndex = 0
+        */
 
-        Glide.with(this@HomeFragment)
-            .load(this.currentRestaurant.image)
-            .into(binding.imgRandomMeal)
-
-        binding.tvMealName.text = this.currentRestaurant.name
-
-        this.restaurantsLoaded = true
+            binding.tvMealName.text = currentRestaurant.name
+        })
     }
 
     private fun changeRestaurant(){
-        observeNextRestaurant()
+        homeMvvm.moveToNextRestaurant()
+        showCurrentRestaurant()
     }
 
     private fun onRandomMealClick() {
         binding.randomMeal.setOnClickListener {
-            showCurrentRestaurant()
+            openCurrentRestaurant()
         }
     }
 
@@ -139,7 +102,7 @@ class HomeFragment : Fragment() {
 
     private fun onDetailsClick() {
         binding.detailsButton.setOnClickListener {
-            showCurrentRestaurant()
+            openCurrentRestaurant()
         }
     }
 }

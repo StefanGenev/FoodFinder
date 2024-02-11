@@ -4,6 +4,6 @@ import com.example.foodfinder11.model.Restaurant
 
 data class GetAllRestaurantsResponseModel (
     var statusCode: Int,
-    var authToken: String,
+    var message: String,
     var restaurants: List<Restaurant>
 )

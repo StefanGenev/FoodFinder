@@ -8,6 +8,7 @@ import com.example.foodfinder11.databinding.ActivityLoginBinding
 import com.example.foodfinder11.dto.LoginRequestDto
 import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.AppPreferences
 import com.example.foodfinder11.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,9 +20,10 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppPreferences.setup(applicationContext)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        sessionManager = SessionManager(this)
+        sessionManager = SessionManager()
 
         setContentView(binding.root)
 
@@ -29,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
 
             var loginRequestDto = LoginRequestDto(binding.username.text.toString(), binding.password.text.toString())
 
-            RetrofitInstance.getApiService(this).login(loginRequestDto).enqueue(object : Callback<LoginResponseDto> {
+            RetrofitInstance.getApiService().login(loginRequestDto).enqueue(object : Callback<LoginResponseDto> {
                 override fun onResponse(call: Call<LoginResponseDto>, response: Response<LoginResponseDto>) {
                     val loginResponse = response.body()
 
@@ -41,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<LoginResponseDto>, t: Throwable) {
-
                 }
             })
 

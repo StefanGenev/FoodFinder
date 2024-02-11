@@ -1,12 +1,13 @@
 package com.example.foodfinder11.retrofit.interceptors
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.foodfinder11.utils.SessionManager
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthInterceptor(context: Context) : Interceptor {
-    private val sessionManager = SessionManager(context)
+class AuthInterceptor : Interceptor {
+    private val sessionManager = SessionManager()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
