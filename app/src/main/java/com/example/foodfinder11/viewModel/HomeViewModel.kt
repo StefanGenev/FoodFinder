@@ -4,12 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.foodfinder11.dto.GetAllRestaurantsResponseModel
+import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class HomeViewModel: ViewModel() {
     private var allRestaurantsLiveData = MutableLiveData<List<Restaurant>>()
@@ -17,16 +18,16 @@ class HomeViewModel: ViewModel() {
 
     fun getAllRestaurants() {
         RetrofitInstance.getApiService().getAllRestaurants().enqueue(object :
-            Callback<GetAllRestaurantsResponseModel> {
-            override fun onResponse(call: Call<GetAllRestaurantsResponseModel>, response: Response<GetAllRestaurantsResponseModel>) {
-                if (response.body() != null) {
-                    allRestaurantsLiveData.value = response.body()!!.restaurants
+            Callback<ResponseWrapper<List<Restaurant>>> {
+            override fun onResponse(call: Call<ResponseWrapper<List<Restaurant>>>, response: Response<ResponseWrapper<List<Restaurant>>>) {
+                if (response.body()?.data != null) {
+                    allRestaurantsLiveData.value = response.body()?.data!!
                 } else {
                     return
                 }
             }
 
-            override fun onFailure(call: Call<GetAllRestaurantsResponseModel>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseWrapper<List<Restaurant>>>, t: Throwable) {
                 Log.d("HomeFragment", t.message.toString())
             }
         })
