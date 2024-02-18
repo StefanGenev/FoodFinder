@@ -10,6 +10,7 @@ object AppPreferences {
 
     fun setup(context: Context) {
         sharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+        token = null
     }
 
     var token: String?

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.OrderItem
 import com.example.foodfinder11.adapters.OrderItemsAdapter
 import com.example.foodfinder11.databinding.ActivityOrderBinding
+import com.example.foodfinder11.utils.getParcelableArrayListExtraProvider
 
 
 class OrderActivity : AppCompatActivity() {
@@ -88,7 +89,7 @@ class OrderActivity : AppCompatActivity() {
         orderedItemsArray = ArrayList()
 
         val intent = intent
-        orderedItemsArray = intent.extras?.getParcelableArrayList<OrderItem>(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
+        orderedItemsArray = intent.getParcelableArrayListExtraProvider<OrderItem>(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
         orderItemsAdapter.differ.submitList(orderedItemsArray)
 
         for (item in orderedItemsArray)

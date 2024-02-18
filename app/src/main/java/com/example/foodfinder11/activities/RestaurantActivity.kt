@@ -18,14 +18,14 @@ import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.OrderItem
 import com.example.foodfinder11.databinding.ActivityRestaurantBinding
 import com.example.foodfinder11.model.Meal
+import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.example.foodfinder11.viewModel.HomeViewModel
 import kotlin.random.Random
 
 class RestaurantActivity : AppCompatActivity() {
-    private lateinit var restaurantId: String
-    private lateinit var restaurantName: String
-    private lateinit var restaurantThumb: String
-    private lateinit var restaurantCategory: String
+    private lateinit var restaurant: Restaurant
+
     private var isFavorite: Boolean = false;
     private lateinit var homeMvvm: HomeViewModel
     private lateinit var binding: ActivityRestaurantBinding
@@ -59,7 +59,7 @@ class RestaurantActivity : AppCompatActivity() {
 
         homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
 
-        getMealInformation()
+        getRestaurantInformation()
         setInformationInViews()
         onFavoritesButtonClick()
 
@@ -153,11 +153,11 @@ class RestaurantActivity : AppCompatActivity() {
 
     private fun setInformationInViews() {
         Glide.with(applicationContext)
-            .load(restaurantThumb)
+            .load(restaurant.image)
             .into(binding.imgMealDetail)
 
-        binding.tvTitle.text = restaurantName
-        binding.tvCategory.text = "Category: " + restaurantCategory
+        binding.tvTitle.text = restaurant.name
+        //binding.tvCategory.text = "Category: " + restaurant.
 
         if (isFavorite) {
             binding.favoriteButton.setImageDrawable(
@@ -171,14 +171,10 @@ class RestaurantActivity : AppCompatActivity() {
         binding.ratingbar.rating = Random.nextInt(1, 5).toFloat()
     }
 
-    private fun getMealInformation() {
-        val intent = intent
-        restaurantId = intent.getStringExtra(HomeFragment.MEAL_ID)!!
-        restaurantName = intent.getStringExtra(HomeFragment.MEAL_NAME)!!
-        restaurantThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB)!!
-        restaurantCategory = intent.getStringExtra(HomeFragment.MEAL_CATEGORY)!!
-        restaurantCategory = intent.getStringExtra(HomeFragment.MEAL_CATEGORY)!!
-        isFavorite = intent.getBooleanExtra(HomeFragment.MEAL_FAVORITE, false)!!
+    private fun getRestaurantInformation() {
+        val restaurantId = intent.getParcelableExtraProvider<Restaurant>(HomeFragment.RESTAURANT_ID)
+        //TODO Load Restaurant from new view model
+       // isFavorite = intent.getBooleanExtra(HomeFragment.MEAL_FAVORITE, false)!!
     }
 
     private fun onFavoritesButtonClick() {
@@ -212,10 +208,10 @@ class RestaurantActivity : AppCompatActivity() {
         if(resultCode != Activity.RESULT_OK)
             return
 
-        val intent = intent
         if (data != null) {
             orderedItemsArray.clear()
-            orderedItemsArray = data.getParcelableArrayListExtra(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
+            //TODO
+            //orderedItemsArray = data?.getParcelableArrayListExtraProvider<List<OrderItem>>(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
         }
 
         if (orderedItemsArray.isEmpty())

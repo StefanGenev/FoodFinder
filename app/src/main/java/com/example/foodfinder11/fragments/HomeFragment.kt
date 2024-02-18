@@ -2,7 +2,6 @@ package com.example.foodfinder11.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.databinding.FragmentHomeBinding
+import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.viewModel.HomeViewModel
 
 
@@ -19,12 +19,10 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeMvvm: HomeViewModel
 
+    private lateinit var currentRestaurant: Restaurant
+
     companion object {
-        const val MEAL_ID = "com.example.foodfinder11.fragments.idMeal"
-        const val MEAL_NAME = "com.example.foodfinder11.fragments.nameMeal"
-        const val MEAL_THUMB = "com.example.foodfinder11.fragments.thumbMeal"
-        const val MEAL_CATEGORY = "com.example.foodfinder11.fragments.categoryMeal"
-        const val MEAL_FAVORITE = "com.example.foodfinder11.fragments.isFavorite"
+        const val RESTAURANT_ID = "restaurant_id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,26 +55,19 @@ class HomeFragment : Fragment() {
     private fun openCurrentRestaurant(){
         //TODO Change with restaurant
         val intent = Intent(activity, RestaurantActivity::class.java)
-        /*
-        intent.putExtra(MEAL_ID, randomMeal.idMeal)
-        intent.putExtra(MEAL_NAME, randomMeal.strMeal + " Shop")
-        intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
-        intent.putExtra(MEAL_CATEGORY, randomMeal.strCategory)
+        intent.putExtra(RESTAURANT_ID, currentRestaurant.id)
         startActivity(intent)
 
-         */
     }
 
     private fun showCurrentRestaurant() {
         val currentRestaurantIndex = homeMvvm.getCurrentRestaurantIndex()
 
         homeMvvm.observeAllRestaurantsLiveData().observe(viewLifecycleOwner, Observer { restaurants ->
-            var currentRestaurant = restaurants[currentRestaurantIndex]
-
-            val imageByteArray: ByteArray = Base64.decode(currentRestaurant.image, Base64.DEFAULT)
+            currentRestaurant = restaurants[currentRestaurantIndex]
 
             Glide.with(this@HomeFragment)
-                .load(imageByteArray)
+                .load(currentRestaurant.image)
                 .into(binding.imgRandomMeal)
 
 
