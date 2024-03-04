@@ -10,16 +10,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.foodfinder11.activities.HistoryActivity
 import com.example.foodfinder11.activities.ReviewsActivity
 import com.example.foodfinder11.databinding.FragmentUserBinding
-import com.example.foodfinder11.viewModel.HomeViewModel
+import com.example.foodfinder11.viewModel.MainViewModel
 
 class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
-    private lateinit var homeMvvm: HomeViewModel
+    private lateinit var homeMvvm: MainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
+        homeMvvm = ViewModelProvider(this)[MainViewModel::class.java]
 
     }
 

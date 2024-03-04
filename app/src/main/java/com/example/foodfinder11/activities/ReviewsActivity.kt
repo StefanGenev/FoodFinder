@@ -3,17 +3,16 @@ package com.example.foodfinder11.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.adapters.ReviewsAdapter
 import com.example.foodfinder11.databinding.ActivityReviewsBinding
-import com.example.foodfinder11.viewModel.HomeViewModel
+import com.example.foodfinder11.viewModel.MainViewModel
 
 class ReviewsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewsBinding
     private lateinit var reviewsAdapter: ReviewsAdapter
 
-    private lateinit var homeMvvm: HomeViewModel
+    private lateinit var homeMvvm: MainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,8 +39,9 @@ class ReviewsActivity : AppCompatActivity() {
             adapter = reviewsAdapter
         }
 
-        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
-        homeMvvm.getAllRestaurants()
+        //TODO Initialize viewmodel correctly
+        //homeMvvm = ViewModelProvider(this)[MainViewModel::class.java]
+       // homeMvvm.getAllRestaurants()
 
         observeReviews()
     }
@@ -52,7 +52,7 @@ class ReviewsActivity : AppCompatActivity() {
     }
 
     private fun observeReviews() {
-        homeMvvm.observeAllRestaurantsLiveData().observe(this, Observer { meals ->
+        homeMvvm.getAllRestaurantsLiveData().observe(this, Observer { meals ->
             //TODO reviewsAdapter.differ.submitList(meals)
         })
     }

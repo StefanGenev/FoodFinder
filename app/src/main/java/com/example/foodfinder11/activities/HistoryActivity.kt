@@ -3,17 +3,16 @@ package com.example.foodfinder11.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.adapters.HistoryItemsAdapter
 import com.example.foodfinder11.databinding.ActivityHistoryBinding
-import com.example.foodfinder11.viewModel.HomeViewModel
+import com.example.foodfinder11.viewModel.MainViewModel
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var historyItemsAdapter: HistoryItemsAdapter
 
-    private lateinit var homeMvvm: HomeViewModel
+    private lateinit var homeMvvm: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,10 +50,11 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun getOrdersInformation() {
-        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
-        homeMvvm.getAllRestaurants()
+        //TODO Initialize viewmodel correctly
+       // homeMvvm = ViewModelProvider(this)[MainViewModel::class.java]
+        //homeMvvm.getAllRestaurants()
 
-        homeMvvm.observeAllRestaurantsLiveData().observe(this, Observer { meals ->
+        homeMvvm.getAllRestaurantsLiveData().observe(this, Observer { meals ->
             //TODO historyItemsAdapter.differ.submitList(meals)
         })
     }

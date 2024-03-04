@@ -5,6 +5,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.util.Base64
 import androidx.annotation.RequiresApi
+import com.example.foodfinder11.utils.ImageUtils
 import kotlinx.parcelize.Parcelize
 
 
@@ -22,7 +23,7 @@ data class Restaurant(
 
     var address: String = "",
 
-    var image: ByteArray = ByteArray(0),
+    var imageUrl: String = "",
 
     var rating: Double = 0.0
 ) : Parcelable

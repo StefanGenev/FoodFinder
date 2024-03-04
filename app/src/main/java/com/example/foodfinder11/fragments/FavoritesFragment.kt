@@ -7,26 +7,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.adapters.FavoriteRestaurantsAdapter
 import com.example.foodfinder11.databinding.FragmentFavoritesBinding
 import com.example.foodfinder11.model.Meal
-import com.example.foodfinder11.viewModel.HomeViewModel
+import com.example.foodfinder11.viewModel.MainViewModel
+import kotlin.math.log
 
 
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
-    private lateinit var homeMvvm: HomeViewModel
+
+    private val mainViewModel: MainViewModel by activityViewModels()
+
     private lateinit var favoritesAdapter: FavoriteRestaurantsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
-
     }
 
     override fun onCreateView(
@@ -39,8 +43,8 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        homeMvvm.getAllRestaurants()
+        //TODO Initialize viewmodel correctly
+        //homeMvvm.getAllRestaurants()
         prepareRecyclerView()
         observeFavorites()
 
@@ -70,9 +74,9 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun observeFavorites() {
-        homeMvvm.observeAllRestaurantsLiveData().observe(requireActivity(), Observer { meals ->
-            Log.d("observerFavorites", meals[0].name)
-            //TODO favoritesAdapter.differ.submitList(meals)
+        mainViewModel.getAllRestaurantsLiveData().observe(viewLifecycleOwner, Observer { restaurants ->
+            Log.d("FavoritesFragment", restaurants[0].name)
+
         })
     }
 }

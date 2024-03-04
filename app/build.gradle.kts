@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("com.google.android.gms:play-services-cast-tv:21.0.1")
     val nav_version = "2.3.5"
     val lifecycle_version = "2.4.0-rc01"
 
@@ -79,4 +80,9 @@ dependencies {
     val logging_version = "4.3.1"
     implementation ("com.squareup.okhttp3:okhttp:$logging_version")
     implementation ("com.squareup.okhttp3:logging-interceptor:$logging_version")
+
+    // cloudinary
+    implementation("com.cloudinary:cloudinary-android:2.7.1")
+
+
 }

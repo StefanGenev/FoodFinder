@@ -5,7 +5,6 @@ import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.dto.RegisterRequestDto
 import com.example.foodfinder11.dto.RegisterResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
-import com.example.foodfinder11.model.GetRestaurantsOutputModel
 import com.example.foodfinder11.model.Restaurant
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -25,12 +24,9 @@ interface APItiteService {
     fun register(@Body requestData: RegisterRequestDto) : Call<ResponseWrapper<RegisterResponseDto>>
 
     @GET("/api/restaurants/get-all")
-    fun getAllRestaurants() : Call<ResponseWrapper<List<GetRestaurantsOutputModel>>>
+    fun getAllRestaurants() : Call<ResponseWrapper<List<Restaurant>>>
 
     @Multipart
     @POST("/api/restaurants/save")
-    fun saveRestaurant(
-        @Part("restaurant") restaurant: RequestBody?,
-        @Part imageFile: Part?
-    ): Call<Restaurant>
+    fun saveRestaurant( @Body requestData: Restaurant ): Call<ResponseWrapper<Restaurant>>
 }

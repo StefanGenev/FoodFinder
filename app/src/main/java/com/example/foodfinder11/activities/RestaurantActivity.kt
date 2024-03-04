@@ -11,23 +11,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.OrderItem
 import com.example.foodfinder11.R
 import com.example.foodfinder11.adapters.MenuItemsAdapter
 import com.example.foodfinder11.adapters.OffersAdapter
-import com.example.foodfinder11.fragments.HomeFragment
-import com.example.foodfinder11.OrderItem
 import com.example.foodfinder11.databinding.ActivityRestaurantBinding
+import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.utils.getParcelableExtraProvider
-import com.example.foodfinder11.viewModel.HomeViewModel
+import com.example.foodfinder11.viewModel.MainViewModel
 import kotlin.random.Random
+
 
 class RestaurantActivity : AppCompatActivity() {
     private lateinit var restaurant: Restaurant
 
     private var isFavorite: Boolean = false;
-    private lateinit var homeMvvm: HomeViewModel
+    private lateinit var homeMvvm: MainViewModel
     private lateinit var binding: ActivityRestaurantBinding
     private lateinit var offersAdapter: OffersAdapter
     private lateinit var menuItemsAdapter: MenuItemsAdapter
@@ -37,6 +38,12 @@ class RestaurantActivity : AppCompatActivity() {
 
     companion object {
         const val ORDERED_ITEMS_ARRAY = "ordered_items"
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.clear()
+        outState.remove("android:support:fragments")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,13 +64,14 @@ class RestaurantActivity : AppCompatActivity() {
             setDisplayShowHomeEnabled(true)
         }
 
-        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
+        homeMvvm = ViewModelProvider(this)[MainViewModel::class.java]
 
         getRestaurantInformation()
         setInformationInViews()
         onFavoritesButtonClick()
 
-        homeMvvm.getAllRestaurants()
+        //TODO Initialize viewmodel correctly
+        //homeMvvm.getAllRestaurants()
         prepareOffers()
         observeOffers()
 
@@ -81,7 +89,7 @@ class RestaurantActivity : AppCompatActivity() {
     }
 
     private fun observeMenuItems() {
-        homeMvvm.observeAllRestaurantsLiveData().observe(this, Observer { meals ->
+        homeMvvm.getAllRestaurantsLiveData().observe(this, Observer { meals ->
             //TODO menuItemsAdapter.differ.submitList(meals)
         })
     }
@@ -133,7 +141,7 @@ class RestaurantActivity : AppCompatActivity() {
     }
 
     private fun observeOffers() {
-        homeMvvm.observeAllRestaurantsLiveData().observe(this, Observer { meals ->
+        homeMvvm.getAllRestaurantsLiveData().observe(this, Observer { meals ->
             //TODO offersAdapter.differ.submitList(meals)
         })
     }
@@ -153,7 +161,7 @@ class RestaurantActivity : AppCompatActivity() {
 
     private fun setInformationInViews() {
         Glide.with(applicationContext)
-            .load(restaurant.image)
+            .load(restaurant.imageUrl)
             .into(binding.imgMealDetail)
 
         binding.tvTitle.text = restaurant.name
@@ -172,7 +180,7 @@ class RestaurantActivity : AppCompatActivity() {
     }
 
     private fun getRestaurantInformation() {
-        val restaurantId = intent.getParcelableExtraProvider<Restaurant>(HomeFragment.RESTAURANT_ID)
+        restaurant = intent.getParcelableExtraProvider<Restaurant>(HomeFragment.RESTAURANT) ?: Restaurant()
         //TODO Load Restaurant from new view model
        // isFavorite = intent.getBooleanExtra(HomeFragment.MEAL_FAVORITE, false)!!
     }
