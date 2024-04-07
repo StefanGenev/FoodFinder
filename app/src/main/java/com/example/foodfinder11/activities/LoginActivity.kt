@@ -15,6 +15,7 @@ import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.AppPreferences
 import com.example.foodfinder11.utils.CloudinaryManager
+import com.example.foodfinder11.utils.HashingUtils
 import com.example.foodfinder11.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,7 +50,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginButton.setOnClickListener(View.OnClickListener {
 
-            var loginRequestDto = LoginRequestDto(binding.username.text.toString(), binding.password.text.toString())
+            val hashedPassword = HashingUtils.getSHA512(binding.password.text.toString())
+            var loginRequestDto = LoginRequestDto(binding.username.text.toString(), hashedPassword)
 
             RetrofitInstance.getApiService().login(loginRequestDto).enqueue(object : Callback<ResponseWrapper<LoginResponseDto>> {
                 override fun onResponse(call: Call<ResponseWrapper<LoginResponseDto>>, response: Response<ResponseWrapper<LoginResponseDto>>) {
