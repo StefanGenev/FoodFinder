@@ -20,9 +20,9 @@ class CloudinaryManager {
         // Initialize Cloudinary with cloud name, API key, and API secret
         fun initialize(context: Context) {
             val config: MutableMap<String, String> = HashMap()
-            config["cloud_name"] = "test"
-            config["api_key"] = "test"
-            config["api_secret"] = "test"
+            config["cloud_name"] = "dzd4q7gt2"
+            config["api_key"] = "254683644467472"
+            config["api_secret"] = "yJmPg8olWM-tjRpd7vQG2JKPLpE"
 
             MediaManager.init(context, config)
         }

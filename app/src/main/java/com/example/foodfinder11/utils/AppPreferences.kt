@@ -11,14 +11,19 @@ object AppPreferences {
     fun setup(context: Context) {
         sharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
         token = null
+        refreshToken = null
     }
 
     var token: String?
         get() = Key.TOKEN.getString()
         set(value) = Key.TOKEN.setString(value)
 
+    var refreshToken: String?
+        get() = Key.TOKEN.getString()
+        set(value) = Key.TOKEN.setString(value)
+
     private enum class Key {
-        TOKEN;
+        TOKEN, REFRESHTOKEN;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
         fun getFloat(): Float? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getFloat(name, 0f) else null

@@ -59,7 +59,8 @@ class LoginActivity : AppCompatActivity() {
                     val responseData = responseBody.data.takeIf {it != null} ?: return
 
                     if (responseBody.status == 200) {
-                        sessionManager.saveAuthToken(responseData.authToken)
+                        sessionManager.saveAuthToken(responseData.accessToken)
+                        sessionManager.saveRefreshToken(responseData.token)
 
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)

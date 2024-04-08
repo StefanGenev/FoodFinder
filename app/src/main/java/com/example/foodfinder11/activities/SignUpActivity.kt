@@ -11,6 +11,7 @@ import com.example.foodfinder11.dto.RegisterResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.HashingUtils
 import com.example.foodfinder11.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,9 +30,10 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.signupButton.setOnClickListener(View.OnClickListener {
+            val hashedPassword = HashingUtils.getSHA512(binding.password.text.toString())
             var registerRequestDto = RegisterRequestDto(binding.email.text.toString(),
                                                         binding.username.text.toString(),
-                                                        binding.password.text.toString(),
+                                                        hashedPassword,
                                                         Roles.CUSTOMER)
 
             RetrofitInstance.getApiService().register(registerRequestDto).enqueue(object : Callback<ResponseWrapper<RegisterResponseDto>> {
@@ -40,7 +42,8 @@ class SignUpActivity : AppCompatActivity() {
                     val responseData = responseBody.data.takeIf {it != null} ?: return
 
                     if (responseBody.status == 200) {
-                        sessionManager.saveAuthToken(responseData.authToken)
+                        sessionManager.saveAuthToken(responseData.accessToken)
+                        sessionManager.saveRefreshToken(responseData.token)
 
                         val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                         startActivity(intent)
