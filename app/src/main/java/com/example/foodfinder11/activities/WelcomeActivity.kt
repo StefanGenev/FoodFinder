@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.example.foodfinder11.databinding.ActivityLoginBinding
+import com.example.foodfinder11.databinding.ActivityWelcomeBinding
 import com.example.foodfinder11.dto.LoginRequestDto
 import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
@@ -22,8 +22,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+class WelcomeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityWelcomeBinding
     private lateinit var sessionManager: SessionManager
 
     private val uploadActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -41,13 +41,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AppPreferences.setup(applicationContext)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
         sessionManager = SessionManager()
 
         CloudinaryManager.startMediaManager(this)
 
         setContentView(binding.root)
 
+        /*
         binding.loginButton.setOnClickListener(View.OnClickListener {
 
             val hashedPassword = HashingUtils.getSHA512(binding.password.text.toString())
@@ -62,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                         sessionManager.saveAuthToken(responseData.accessToken)
                         sessionManager.saveRefreshToken(responseData.token)
 
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
                         startActivity(intent)
                     } else {
                         // TODO Log
@@ -74,12 +75,16 @@ class LoginActivity : AppCompatActivity() {
             })
         })
 
+
+
         binding.signupButton.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
+            val intent = Intent(this@WelcomeActivity, SignUpActivity::class.java)
             startActivity(intent)
 
             //chooseImage()
         })
+
+         */
     }
 
     private fun chooseImage() {

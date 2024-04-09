@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/primary"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.WelcomeActivity">
 
     <ImageView
         android:id="@+id/logo"
