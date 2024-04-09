@@ -9,4 +9,9 @@
         <item name="strokeColor">@drawable/toggle_button_outline_color_selector</item>
         <item name="android:textColor">@drawable/toggle_button_foreground_color_selector</item>
     </style>
+
+    <style name="ChipTextStyle_Selected">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

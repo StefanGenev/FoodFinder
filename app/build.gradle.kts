@@ -84,5 +84,9 @@ dependencies {
     // cloudinary
     implementation("com.cloudinary:cloudinary-android:2.7.1")
 
+    // Material
+    implementation("com.google.android.material:material:1.3.0")
+
+
 
 }
