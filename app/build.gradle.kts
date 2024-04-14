@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -42,6 +43,7 @@ android {
 
 dependencies {
     implementation("com.google.android.gms:play-services-cast-tv:21.0.1")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     val nav_version = "2.3.5"
     val lifecycle_version = "2.4.0-rc01"
 

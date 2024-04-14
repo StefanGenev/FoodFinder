@@ -1,5 +1,7 @@
 package com.example.foodfinder11.retrofit
 
+import com.example.foodfinder11.dto.CheckIfEmailExistsRequestDto
+import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
 import com.example.foodfinder11.dto.LoginRequestDto
 import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.dto.RegisterRequestDto
@@ -19,6 +21,9 @@ interface APItiteService {
 
     @POST("/api/login")
     fun login(@Body requestData: LoginRequestDto) : Call<ResponseWrapper<LoginResponseDto>>
+
+    @POST("/api/checkIfEmailExists")
+    fun checkIfEmailExists(@Body requestData: CheckIfEmailExistsRequestDto) : Call<ResponseWrapper<CheckIfEmailExistsResponseDto>>
 
     @POST("/api/register")
     fun register(@Body requestData: RegisterRequestDto) : Call<ResponseWrapper<RegisterResponseDto>>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
+    android:fitsSystemWindows="true"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activities.WelcomeActivity">
@@ -34,6 +35,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
+        android:onClick="onGoBack"
         android:scaleType="center"
         app:backgroundTint="@color/light_forest"
         app:fabCustomSize="48dp"
@@ -58,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Fill some essential data for your business"
+            android:text="Enter E-mail"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -68,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/bentonsanslight"
-            android:text="This data will be seen by customers when they review your profile"
+            android:text="We'll check if you already have an account. If not we will create one for you."
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
@@ -78,11 +80,13 @@
             android:layout_marginTop="@dimen/_20sdp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameTextField"
                 android:layout_width="match_parent"
+                android:id="@+id/emailTextInputLayout"
                 android:layout_height="wrap_content"
-                android:hint="Name"
-                app:endIconMode="clear_text">
+                android:hint="E-mail"
+                app:boxStrokeColor="@color/forest"
+                app:endIconMode="clear_text"
+                app:hintTextColor="@color/forest">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -92,83 +96,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/foodTypeTextField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Food type"
-                app:endIconDrawable="@drawable/chevron_right"
-                app:endIconMode="custom">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bentonsansmedium" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/priceRange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:fontFamily="@font/bentonsans"
-            android:text="Price range"
-            android:textAlignment="textStart"
-            android:textSize="18dp" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:selectionRequired="true"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipCheap"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="$ Cheap"
-                android:textSize="@dimen/_12sdp"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/bg_chip_state_list" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipMedium"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="$$ Medium"
-                android:textSize="@dimen/_12sdp"
-
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/bg_chip_state_list" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipExpensive"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="$$$ Expensive"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp"
-                app:chipBackgroundColor="@color/bg_chip_state_list" />
-
-        </com.google.android.material.chip.ChipGroup>
 
     </LinearLayout>
 
@@ -178,14 +105,15 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        app:backgroundTint="@color/forest"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:fontFamily="@font/bentonsansmedium"
         android:text="Continue"
+        android:onClick="onContinue"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        app:backgroundTint="@color/forest"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/bentonsansmedium"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

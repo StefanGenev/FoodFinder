@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@color/background_gray"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activities.WelcomeActivity">
@@ -20,11 +20,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/pattern2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/food_pattern"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_200sdp"
-        android:src="@drawable/logo"
+        android:src="@drawable/logo_transp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,11 +57,13 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:text="Continue with Email"
-            android:textColor="@color/black"
+            app:backgroundTint="@color/forest"
+            android:textColor="@color/white"
+
             android:textSize="16sp"
             app:icon="@drawable/email"
             app:iconSize="@dimen/_20sdp"
-            app:iconTint="@color/black"
+            app:iconTint="@color/white"
             android:fontFamily="@font/bentonsansmedium"/>
 
         <Button

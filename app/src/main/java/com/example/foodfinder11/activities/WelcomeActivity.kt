@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -41,12 +42,24 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AppPreferences.setup(applicationContext)
 
+        with(window) {
+            setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
+
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         sessionManager = SessionManager()
 
         CloudinaryManager.startMediaManager(this)
 
         setContentView(binding.root)
+
+        binding.emailButton.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, EnterEmailActivity::class.java)
+            startActivity(intent)
+        })
 
         /*
         binding.loginButton.setOnClickListener(View.OnClickListener {
