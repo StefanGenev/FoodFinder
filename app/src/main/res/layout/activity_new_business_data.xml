@@ -7,7 +7,7 @@
     android:background="@color/background_gray"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.WelcomeActivity">
+    tools:context=".activities.NewBusinessDataActivity">
 
     <ImageView
         android:id="@+id/pattern"
@@ -72,26 +72,7 @@
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameTextField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Name"
-                app:endIconMode="clear_text">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bentonsansmedium" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

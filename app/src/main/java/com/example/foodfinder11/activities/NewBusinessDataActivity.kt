@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.foodfinder11.R
 
-class NewBusinessDataActivity : AppCompatActivity() {
+class NewBusinessDataActivity : BaseNavigatableActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_business_data)
     }
+
+
 }

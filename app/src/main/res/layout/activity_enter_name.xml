@@ -7,7 +7,7 @@
     android:background="@color/background_gray"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.WelcomeActivity">
+    tools:context=".activities.EnterNameActivity">
 
     <ImageView
         android:id="@+id/pattern"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Enter username"
+            android:text="Enter name"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -79,14 +79,14 @@
             android:layout_marginTop="@dimen/_20sdp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
+                android:hint="Name"
                 app:boxStrokeColor="@color/forest"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameTextEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bentonsansmedium" />

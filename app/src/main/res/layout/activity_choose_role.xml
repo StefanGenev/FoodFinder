@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
+    android:fitsSystemWindows="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.UploadPhotoActivity">
+    tools:context=".activities.ChooseRoleActivity">
 
     <ImageView
         android:id="@+id/pattern"
@@ -59,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Upload store photo"
+            android:text="Profile type"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -69,11 +70,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/bentonsanslight"
-            android:text="The first thing that the users will see about you"
+            android:text="What type of user are you?"
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
         <LinearLayout
+            android:id="@+id/customerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
@@ -81,29 +83,42 @@
             android:elevation="1dp"
             android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
+            android:onClick="onClickCustomer"
             android:background="@drawable/rounded_edge">
 
             <ImageView
-                android:id="@+id/choosePhoto"
+                android:id="@+id/customerPhoto"
                 android:layout_width="256px"
                 android:layout_height="256px"
                 android:layout_gravity="center"
-                android:src="@drawable/gallery" />
+                android:src="@drawable/foodie" />
 
             <TextView
-                android:id="@+id/choosePhotoText"
+                android:id="@+id/customerTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="From gallery"
+                android:text="Customer"
                 android:textAlignment="center"
                 android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/customerSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/bentonsanslight"
+                android:text="Review and order food"
+                android:textAlignment="center"
+                android:textSize="15dp" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/businessLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -111,25 +126,37 @@
             android:elevation="1dp"
             android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
+            android:onClick="onClickBusiness"
             android:background="@drawable/rounded_edge">
 
             <ImageView
-                android:id="@+id/takePhoto"
+                android:id="@+id/businessPhoto"
                 android:layout_width="256px"
                 android:layout_height="256px"
                 android:layout_gravity="center"
-                android:src="@drawable/camera" />
+                android:src="@drawable/restaurant" />
 
             <TextView
-                android:id="@+id/takePhotoText"
+                android:id="@+id/businessTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="Take photo"
+                android:text="Business"
                 android:textAlignment="center"
                 android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/businessSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/bentonsanslight"
+                android:text="Offer and sell meals to customers"
+                android:textAlignment="center"
+                android:textSize="15dp" />
 
         </LinearLayout>
 

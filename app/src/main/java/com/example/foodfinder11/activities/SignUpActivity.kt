@@ -17,14 +17,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivitySignUpBinding
-    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySignUpBinding.inflate(layoutInflater)
-        sessionManager = SessionManager()
 
         setContentView(binding.root)
 
@@ -41,8 +40,8 @@ class SignUpActivity : AppCompatActivity() {
                     val responseData = responseBody.data.takeIf {it != null} ?: return
 
                     if (responseBody.status == 200) {
-                        sessionManager.saveAuthToken(responseData.accessToken)
-                        sessionManager.saveRefreshToken(responseData.token)
+                        SessionManager.saveAuthToken(responseData.accessToken)
+                        SessionManager.saveRefreshToken(responseData.token)
 
                         val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                         startActivity(intent)
