@@ -19,8 +19,8 @@ object AppPreferences {
         set(value) = Key.TOKEN.setString(value)
 
     var refreshToken: String?
-        get() = Key.TOKEN.getString()
-        set(value) = Key.TOKEN.setString(value)
+        get() = Key.REFRESHTOKEN.getString()
+        set(value) = Key.REFRESHTOKEN.setString(value)
 
     var username: String?
         get() = Key.USERNAME.getString()

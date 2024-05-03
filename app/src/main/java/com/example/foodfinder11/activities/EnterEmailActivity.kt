@@ -3,6 +3,7 @@ package com.example.foodfinder11.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityEnterEmailBinding
@@ -23,11 +24,10 @@ class EnterEmailActivity : BaseNavigatableActivity() {
         const val ENTERED_EMAIL = "entered_email"
         const val USER_EXISTS = "user_exists"
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_enter_email)
 
+    override fun initializeActivity() {
         binding = ActivityEnterEmailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun commitData(): Boolean {

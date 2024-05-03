@@ -6,24 +6,21 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.TextView
 import com.example.foodfinder11.R
+import com.example.foodfinder11.databinding.ActivityCongratulationsBinding
+import com.example.foodfinder11.databinding.ActivityEnterEmailBinding
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.utils.SessionManager
 
 class CongratulationsActivity : BaseNavigatableActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_congratulations)
 
-        with(window) {
-            setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-    }
+    private lateinit var binding: ActivityCongratulationsBinding
 
     override fun initializeActivity() {
+        binding = ActivityCongratulationsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
 
+    override fun initializeViews() {
         val headerTextView = findViewById<TextView>(R.id.header_title)
         val subtitleTextView = findViewById<TextView>(R.id.subtitle)
 
@@ -36,7 +33,7 @@ class CongratulationsActivity : BaseNavigatableActivity() {
 
         } else {
 
-            headerTextView.text = "Profile successfully registered!"
+            headerTextView.text = "Successfully registered!"
             subtitleTextView.text = "As a business, you need to enter some data such as cover photo, food type and location, that the customers will see. You can do so now or login later to fill in the data."
         }
     }

@@ -12,6 +12,7 @@ import com.example.foodfinder11.dto.RegisterResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.HashingUtils
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.toEnum
 import com.google.android.material.textfield.TextInputEditText
@@ -25,12 +26,9 @@ class EnterNameActivity : BaseNavigatableActivity() {
 
     private var registerRequestDto: RegisterRequestDto = RegisterRequestDto()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_enter_name)
-
+    override fun initializeActivity() {
         binding = ActivityEnterNameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun initializeData() {
@@ -42,7 +40,10 @@ class EnterNameActivity : BaseNavigatableActivity() {
         val role = intent.getIntExtra(ChooseRoleActivity.ROLE, 0).toEnum<Roles>()!!
 
         registerRequestDto.email = email
-        registerRequestDto.password = password
+
+        val hashedPassword = HashingUtils.getSHA512(password)
+        registerRequestDto.password = hashedPassword
+
         registerRequestDto.role = role
     }
 

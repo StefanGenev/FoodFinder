@@ -9,6 +9,7 @@ import com.example.foodfinder11.databinding.ActivityHistoryBinding
 import com.example.foodfinder11.viewModel.MainViewModel
 
 class HistoryActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var historyItemsAdapter: HistoryItemsAdapter
 

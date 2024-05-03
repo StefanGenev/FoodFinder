@@ -22,22 +22,22 @@ class ChooseRoleActivity : BaseNavigatableActivity() {
     private var enteredEmail: String = ""
     private var enteredPassword: String = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_choose_role)
-
+    override fun initializeActivity() {
         binding = ActivityChooseRoleBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
 
+    override fun initializeData() {
         val intent = intent
         enteredEmail = intent.getStringExtra(EnterPasswordActivity.ENTERED_EMAIL)!!
         enteredPassword = intent.getStringExtra(EnterPasswordActivity.ENTERED_PASSWORD)!!
     }
 
-    private fun onClickCustomer(view: View) {
+    fun onClickCustomer(view: View) {
         startNextActivity(Roles.CUSTOMER)
     }
 
-    private fun onClickBusiness(view: View) {
+    fun onClickBusiness(view: View) {
         startNextActivity(Roles.RESTAURANT)
     }
 

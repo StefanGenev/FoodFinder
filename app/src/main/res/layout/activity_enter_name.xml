@@ -82,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
+                app:hintTextColor="@color/forest"
                 app:boxStrokeColor="@color/forest"
                 app:endIconMode="clear_text">
 
@@ -105,6 +106,7 @@
         android:layout_marginHorizontal="@dimen/_20sdp"
         app:backgroundTint="@color/forest"
         android:text="Continue"
+        android:onClick="onContinue"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_marginBottom="@dimen/_20sdp"

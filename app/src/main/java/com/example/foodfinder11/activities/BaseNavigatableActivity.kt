@@ -8,6 +8,7 @@ import android.view.WindowManager
 open class BaseNavigatableActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initializeActivity()
 
         with(window) {
             setFlags(
@@ -16,9 +17,15 @@ open class BaseNavigatableActivity : AppCompatActivity() {
             )
         }
 
-        loadData()
+        if ( !loadData() ) {
+            return
+        }
+
         initializeData()
-        initializeActivity()
+        initializeViews()
+    }
+
+    open fun initializeViews() {
     }
 
     open fun initializeActivity() {
@@ -26,7 +33,8 @@ open class BaseNavigatableActivity : AppCompatActivity() {
 
     open fun initializeData() {
     }
-    open fun loadData() {
+    open fun loadData() : Boolean {
+        return true
     }
 
     fun onContinue(view: View) {

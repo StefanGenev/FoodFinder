@@ -11,6 +11,7 @@ import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.HashingUtils
 import com.example.foodfinder11.utils.SessionManager
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
@@ -29,16 +30,12 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
     private var userExists: Boolean = false
     private var enteredEmail: String = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        setContentView(R.layout.activity_enter_password)
+    override fun initializeActivity() {
         binding = ActivityEnterPasswordBinding.inflate(layoutInflater)
-        super.onCreate(savedInstanceState)
-
+        setContentView(binding.root)
     }
 
-    override fun initializeActivity() {
-
+    override fun initializeViews() {
         val headerTextView = findViewById<TextView>(R.id.header_title)
         val subtitleTextView = findViewById<TextView>(R.id.subtitle)
 
@@ -49,13 +46,14 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
             headerTextView.text = "Enter Password"
             subtitleTextView.text = "Make sure to use at least one capital letter, special symbol and digit"
         }
-
     }
 
     override fun initializeData() {
+
         val intent = intent
         enteredEmail = intent.getStringExtra(EnterEmailActivity.ENTERED_EMAIL)!!
         userExists = intent.getBooleanExtra(EnterEmailActivity.USER_EXISTS, false)
+
     }
 
     override fun commitData(): Boolean {
@@ -65,7 +63,8 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
 
         if (userExists) {
 
-            val loginRequestDto = LoginRequestDto(enteredEmail, enteredPassword)
+            val hashedPassword = HashingUtils.getSHA512(enteredPassword)
+            val loginRequestDto = LoginRequestDto(enteredEmail, hashedPassword)
             loginRequest(loginRequestDto)
 
         } else {
