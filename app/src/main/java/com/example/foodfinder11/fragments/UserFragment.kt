@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.foodfinder11.activities.HistoryActivity
 import com.example.foodfinder11.activities.ReviewsActivity
+import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.FragmentUserBinding
+import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.viewModel.MainViewModel
 
 class UserFragment : Fragment() {
@@ -59,7 +61,12 @@ class UserFragment : Fragment() {
 
     private fun onLogoutClick() {
         binding.logoutButton.setOnClickListener {
+
             activity?.finish()
+            SessionManager.logoutOperations()
+
+            val intent = Intent(activity, WelcomeActivity::class.java)
+            startActivity(intent)
         }
     }
 

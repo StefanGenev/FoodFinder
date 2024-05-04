@@ -2,6 +2,8 @@ package com.example.foodfinder11.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import com.example.foodfinder11.R
@@ -36,16 +38,30 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
     }
 
     override fun initializeViews() {
-        val headerTextView = findViewById<TextView>(R.id.header_title)
-        val subtitleTextView = findViewById<TextView>(R.id.subtitle)
 
         if (userExists) {
-            headerTextView.text = "Welcome back"
-            subtitleTextView.text = "Enter password to continue"
+            binding.headerTitle.text = "Welcome back"
+            binding.subtitle.text = "Enter password to continue"
         } else {
-            headerTextView.text = "Enter Password"
-            subtitleTextView.text = "Make sure to use at least one capital letter, special symbol and digit"
+            binding.headerTitle.text = "Enter Password"
+            binding.subtitle.text = "Make sure to use at least one capital letter, special symbol and digit"
         }
+
+        binding.passwordTextEdit.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            var handled = false
+
+            // Some phones disregard the IME setting option in the xml, instead
+            // they send IME_ACTION_UNSPECIFIED so we need to catch that
+            if (EditorInfo.IME_ACTION_DONE == actionId || EditorInfo.IME_ACTION_UNSPECIFIED == actionId) {
+
+                validateData()
+                commitData()
+            }
+            handled
+        })
+
+        binding.passwordTextEdit.requestFocus()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     override fun initializeData() {
@@ -58,12 +74,11 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
 
     override fun commitData(): Boolean {
 
-        val textInputEditText = findViewById<TextInputEditText>(R.id.passwordTextEdit)
-        val enteredPassword = textInputEditText.text.toString()
+        val enteredPassword = binding.passwordTextEdit.text.toString()
+        val hashedPassword = HashingUtils.getSHA512(enteredPassword)
 
         if (userExists) {
 
-            val hashedPassword = HashingUtils.getSHA512(enteredPassword)
             val loginRequestDto = LoginRequestDto(enteredEmail, hashedPassword)
             loginRequest(loginRequestDto)
 
@@ -71,7 +86,7 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
 
             val intent = Intent(this@EnterPasswordActivity, ChooseRoleActivity::class.java)
             intent.putExtra(ENTERED_EMAIL, enteredEmail)
-            intent.putExtra(ENTERED_PASSWORD, enteredPassword)
+            intent.putExtra(ENTERED_PASSWORD, hashedPassword)
 
             startActivity(intent)
         }
@@ -95,6 +110,8 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
 
                         val responseData = responseBody.data.takeIf { it != null } ?: return
 
+                        SessionManager.saveAuthToken(responseData.accessToken)
+                        SessionManager.saveRefreshToken(responseData.token)
                         SessionManager.saveUserData(responseData.user)
                         startNextActivityOnSucessfullLogin()
 

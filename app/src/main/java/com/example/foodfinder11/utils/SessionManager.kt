@@ -54,5 +54,13 @@ class SessionManager {
                 userRole.toEnum<Roles>() ?: Roles.CUSTOMER
             )
         }
+
+        fun logoutOperations() {
+            AppPreferences.username = ""
+            AppPreferences.userEmail = ""
+            AppPreferences.userRole = 0
+            AppPreferences.token = ""
+            AppPreferences.refreshToken = ""
+        }
     }
 }

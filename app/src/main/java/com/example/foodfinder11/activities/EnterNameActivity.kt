@@ -2,6 +2,9 @@ package com.example.foodfinder11.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityEnterNameBinding
@@ -40,18 +43,32 @@ class EnterNameActivity : BaseNavigatableActivity() {
         val role = intent.getIntExtra(ChooseRoleActivity.ROLE, 0).toEnum<Roles>()!!
 
         registerRequestDto.email = email
-
-        val hashedPassword = HashingUtils.getSHA512(password)
-        registerRequestDto.password = hashedPassword
-
+        registerRequestDto.password = password
         registerRequestDto.role = role
+    }
+
+    override fun initializeViews() {
+
+        binding.nameTextEdit.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            var handled = false
+
+            // Some phones disregard the IME setting option in the xml, instead
+            // they send IME_ACTION_UNSPECIFIED so we need to catch that
+            if (EditorInfo.IME_ACTION_DONE == actionId || EditorInfo.IME_ACTION_UNSPECIFIED == actionId) {
+
+                validateData()
+                commitData()
+            }
+            handled
+        })
+
+        binding.nameTextEdit.requestFocus()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     override fun commitData(): Boolean {
 
-        val textInputEditText = findViewById<TextInputEditText>(R.id.nameTextEdit)
-        registerRequestDto.name = textInputEditText.text.toString()
-
+        registerRequestDto.name = binding.nameTextEdit.text.toString()
         registerRequest()
 
         return true

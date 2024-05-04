@@ -1,17 +1,16 @@
 package com.example.foodfinder11.activities
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
-import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityEnterEmailBinding
 import com.example.foodfinder11.dto.CheckIfEmailExistsRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.retrofit.RetrofitInstance
-import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,10 +29,28 @@ class EnterEmailActivity : BaseNavigatableActivity() {
         setContentView(binding.root)
     }
 
+    override fun initializeViews() {
+
+        binding.emailTextEdit.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            var handled = false
+
+            // Some phones disregard the IME setting option in the xml, instead
+            // they send IME_ACTION_UNSPECIFIED so we need to catch that
+            if (EditorInfo.IME_ACTION_DONE == actionId || EditorInfo.IME_ACTION_UNSPECIFIED == actionId) {
+
+                validateData()
+                commitData()
+            }
+            handled
+        })
+
+        binding.emailTextEdit.requestFocus()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    }
+
     override fun commitData(): Boolean {
 
-        val textInputEditText = findViewById<TextInputEditText>(R.id.emailTextEdit)
-        val enteredEmail = textInputEditText.text.toString()
+        val enteredEmail = binding.emailTextEdit.text.toString()
 
         var checkIfEmailExistsRequestDto =
             CheckIfEmailExistsRequestDto(enteredEmail)

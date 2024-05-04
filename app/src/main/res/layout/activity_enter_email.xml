@@ -91,6 +91,8 @@
                     android:id="@+id/emailTextEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:fontFamily="@font/bentonsansmedium" />
 
             </com.google.android.material.textfield.TextInputLayout>
