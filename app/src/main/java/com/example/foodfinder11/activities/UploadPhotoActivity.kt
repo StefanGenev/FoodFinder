@@ -3,34 +3,56 @@ package com.example.foodfinder11.activities
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.foodfinder11.R
-import com.example.foodfinder11.databinding.ActivityEnterPasswordBinding
 import com.example.foodfinder11.databinding.ActivityUploadPhotoBinding
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.PriceRanges
-import com.example.foodfinder11.utils.CloudinaryManager
+import com.example.foodfinder11.utils.ImageUtils.createTempPictureUri
 import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.example.foodfinder11.utils.toEnum
+import com.example.foodfinder11.utils.toInt
+
 
 class UploadPhotoActivity : BaseNavigatableActivity() {
 
+    companion object {
+        const val IMAGE_URI = "image_uri"
+        const val FOOD_TYPE = "food_type"
+        const val PRICE_RANGE = "price_range"
+    }
+
     private lateinit var binding: ActivityUploadPhotoBinding
+    private lateinit var imageUri: Uri
 
     private var foodType: FoodType = FoodType()
     private var priceRange: PriceRanges = PriceRanges.CHEAP
 
     private val uploadActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
         if (result.resultCode == Activity.RESULT_OK) {
+
             val imageUri = result.data?.data
+
             if (imageUri != null) {
-                uploadImage(imageUri)
+
+                this.imageUri = imageUri
+                viewChosenImage()
+
             } else {
+
                 showToast("Failed to retrieve image URI")
             }
         }
     }
+
+    val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success: Boolean ->
+
+        if (success) {
+            viewChosenImage()
+        }
+
+    }
+
 
     override fun initializeActivity() {
         binding = ActivityUploadPhotoBinding.inflate(layoutInflater)
@@ -61,6 +83,11 @@ class UploadPhotoActivity : BaseNavigatableActivity() {
     }
 
     private fun onClickTakePhoto() {
+
+        imageUri = createTempPictureUri()
+        takePicture.launch(imageUri)
+
+
     }
 
     private fun chooseImage() {
@@ -69,18 +96,14 @@ class UploadPhotoActivity : BaseNavigatableActivity() {
         uploadActivityResultLauncher.launch(intent)
     }
 
-    private fun uploadImage(imageUri: Uri) {
-        CloudinaryManager.uploadImage(imageUri, object : CloudinaryManager.OnUploadListener {
-            override fun onUploadSuccess(imageUrl: String) {
-                // Handle successful upload (e.g., save the image URL to your database)
-                showToast("Image uploaded successfully. URL: $imageUrl")
-            }
+    private fun viewChosenImage() {
 
-            override fun onUploadError(error: String) {
-                // Handle upload error
-                showToast("Upload error: $error")
-            }
-        })
+        val intent = Intent(this@UploadPhotoActivity, ViewChosenPhotoActivity::class.java)
+        intent.putExtra(IMAGE_URI, imageUri.toString())
+        intent.putExtra(FOOD_TYPE, foodType)
+        intent.putExtra(PRICE_RANGE, priceRange.toInt())
+        startActivity(intent)
+
     }
 
 }

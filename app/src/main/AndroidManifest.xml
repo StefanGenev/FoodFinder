@@ -19,9 +19,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ChooseAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ViewChosenPhotoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.FoodTypesActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".activities.ChooseRoleActivity"
             android:exported="false" />
@@ -85,6 +90,17 @@
         <activity
             android:name=".activities.MainActivity"
             android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
 
 </manifest>

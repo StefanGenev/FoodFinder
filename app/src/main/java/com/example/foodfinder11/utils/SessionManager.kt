@@ -39,6 +39,7 @@ class SessionManager {
         }
 
         fun saveUserData(user: User) {
+            AppPreferences.userId = user.id
             AppPreferences.username = user.name
             AppPreferences.userEmail = user.email
             AppPreferences.userRole = user.role.toInt()
@@ -49,6 +50,7 @@ class SessionManager {
             val userRole = AppPreferences.userRole ?: 0
 
             return User(
+                AppPreferences.userId ?: 0,
                 AppPreferences.username.orEmpty(),
                 AppPreferences.userEmail.orEmpty(),
                 userRole.toEnum<Roles>() ?: Roles.CUSTOMER
@@ -56,6 +58,7 @@ class SessionManager {
         }
 
         fun logoutOperations() {
+            AppPreferences.userId = 0
             AppPreferences.username = ""
             AppPreferences.userEmail = ""
             AppPreferences.userRole = 0

@@ -2,6 +2,7 @@
 <resources>
     <color name="primary">#F2EAC1</color>
     <color name="salva">#973B38</color>
+    <color name="light_salva">#fce4d4</color>
     <color name="light_forest">#c7d5bd</color>
     <color name="lemon">#f4cb0f</color>
     <color name="forest">#396D21</color>

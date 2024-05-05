@@ -1,6 +1,11 @@
 package com.example.foodfinder11.utils
 
+import android.content.Context
+import android.net.Uri
+import androidx.core.content.FileProvider
+import com.intuit.sdp.BuildConfig
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.zip.DataFormatException
 import java.util.zip.Deflater
 import java.util.zip.Inflater
@@ -37,5 +42,19 @@ object ImageUtils {
         }
 
         return outputStream.toByteArray()
+    }
+
+    fun Context.createTempPictureUri(
+        provider: String = "${BuildConfig.APPLICATION_ID}.provider",
+        fileName: String = "picture_${System.currentTimeMillis()}",
+        fileExtension: String = ".png"
+    ): Uri {
+        val tempFile = File.createTempFile(
+            fileName, fileExtension, cacheDir
+        ).apply {
+            createNewFile()
+        }
+
+        return FileProvider.getUriForFile(applicationContext, provider, tempFile)
     }
 }

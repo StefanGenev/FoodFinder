@@ -7,7 +7,7 @@
     android:background="@color/background_gray"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.UploadPhotoActivity">
+    tools:context=".activities.ChooseAddressActivity">
 
     <ImageView
         android:id="@+id/pattern"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Upload store photo"
+            android:text="Choose address"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -69,12 +69,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/bentonsanslight"
-            android:text="The first thing that the users will see about you"
+            android:text="Your restaurant's address will be used by the customers"
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
         <LinearLayout
-            android:id="@+id/choosePhotoLayout"
+            android:id="@+id/selectLocationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
@@ -85,55 +85,48 @@
             android:background="@drawable/rounded_edge">
 
             <ImageView
-                android:id="@+id/choosePhoto"
+                android:id="@+id/locationPhoto"
                 android:layout_width="256px"
                 android:layout_height="256px"
                 android:layout_gravity="center"
-                android:src="@drawable/gallery" />
+                android:src="@drawable/location" />
 
             <TextView
-                android:id="@+id/choosePhotoText"
+                android:id="@+id/selectLocationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="From gallery"
+                android:text="Select location from map"
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/takePhotoLayout"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/continueButton"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:orientation="vertical"
-            android:elevation="1dp"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_10sdp"
-            android:background="@drawable/rounded_edge">
-
-            <ImageView
-                android:id="@+id/takePhoto"
-                android:layout_width="256px"
-                android:layout_height="256px"
-                android:layout_gravity="center"
-                android:src="@drawable/camera" />
-
-            <TextView
-                android:id="@+id/takePhotoText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_gravity="center"
-                android:fontFamily="@font/bentonsans"
-                android:text="Take photo"
-                android:textAlignment="center"
-                android:textSize="16dp" />
-
-        </LinearLayout>
+            android:layout_height="65dp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:fontFamily="@font/bentonsansmedium"
+            android:onClick="onContinue"
+            android:text="Continue"
+            android:textColor="@color/white"
+            app:strokeWidth="0dp"
+            android:textSize="18sp"
+            app:backgroundTint="@color/forest" />
 
     </LinearLayout>
 
