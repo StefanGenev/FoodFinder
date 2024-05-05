@@ -1,23 +1,20 @@
 package com.example.foodfinder11.activities
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.Toast
-import com.example.foodfinder11.OrderItem
-import com.example.foodfinder11.R
-import com.example.foodfinder11.databinding.ActivityEnterEmailBinding
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.foodfinder11.databinding.ActivityNewBusinessDataBinding
-import com.example.foodfinder11.dto.LoginRequestDto
-import com.example.foodfinder11.dto.LoginResponseDto
-import com.example.foodfinder11.dto.RegisterRequestDto
 import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.model.FoodType
+import com.example.foodfinder11.model.PriceRanges
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
-import com.example.foodfinder11.utils.SessionManager
-import com.example.foodfinder11.utils.getParcelableArrayListExtraProvider
+import com.example.foodfinder11.utils.getParcelableExtraProvider
+import com.example.foodfinder11.utils.toInt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,22 +23,32 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
 
     companion object {
         const val FOOD_TYPES = "food_types"
+        const val FOOD_TYPE = "food_type"
+        const val PRICE_RANGE = "price_range"
     }
 
     private lateinit var binding: ActivityNewBusinessDataBinding
     private var foodTypes: ArrayList<FoodType> = ArrayList()
+    private var selectedFoodType: FoodType = FoodType()
+    private var selectedPriceRange: PriceRanges = PriceRanges.CHEAP
 
+    private val startActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
 
-    override fun initializeActivity() {
-        binding = ActivityNewBusinessDataBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        if (result.resultCode == Activity.RESULT_OK) {
+
+            val intent = result.data
+            selectedFoodType = intent?.getParcelableExtraProvider<FoodType>(FoodTypesActivity.FOOD_TYPE)
+                ?: FoodType()
+
+            binding.foodTypeTextEdit.setText(selectedFoodType.name)
+        }
     }
 
-    override fun initializeViews() {
+    override fun initializeActivity() {
 
-        binding.foodTypesLayout.setOnClickListener {
-            onClickFoodTypes()
-        }
+        binding = ActivityNewBusinessDataBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
     }
 
@@ -49,6 +56,33 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
 
         loadFoodTypesRequest()
 
+        return true
+    }
+
+    override fun initializeViews() {
+
+        binding.chipCheap.setOnClickListener {
+            selectedPriceRange = PriceRanges.CHEAP
+        }
+
+        binding.chipMedium.setOnClickListener {
+            selectedPriceRange = PriceRanges.MIDRANGE
+        }
+
+        binding.chipExpensive.setOnClickListener {
+            selectedPriceRange = PriceRanges.EXPENSIVE
+        }
+
+    }
+
+    override fun commitData(): Boolean {
+
+        val intent = Intent(this@NewBusinessDataActivity, UploadPhotoActivity::class.java)
+        intent.putExtra(FOOD_TYPE, selectedFoodType)
+        intent.putExtra(PRICE_RANGE, selectedPriceRange.toInt())
+
+        startActivity(intent)
+        
         return true
     }
 
@@ -83,10 +117,10 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
             })
     }
 
-    fun onClickFoodTypes() {
+    fun onClickFoodType(view: View) {
 
         val intent = Intent(this@NewBusinessDataActivity, FoodTypesActivity::class.java)
         intent.putExtra(FOOD_TYPES, foodTypes)
-        startActivity(intent)
+        startActivityForResult.launch(intent)
     }
 }

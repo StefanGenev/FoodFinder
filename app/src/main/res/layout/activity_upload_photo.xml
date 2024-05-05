@@ -74,6 +74,7 @@
             android:textSize="16dp" />
 
         <LinearLayout
+            android:id="@+id/choosePhotoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
@@ -104,6 +105,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/takePhotoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"

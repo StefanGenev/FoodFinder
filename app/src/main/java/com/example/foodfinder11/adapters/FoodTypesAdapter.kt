@@ -9,6 +9,9 @@ import com.example.foodfinder11.databinding.FoodtypeItemBinding
 import com.example.foodfinder11.model.FoodType
 
 class FoodTypesAdapter : RecyclerView.Adapter<FoodTypesAdapter.FoodTypesViewHolder>(){
+
+    private var onClickListener: OnClickListener? = null
+
     inner class FoodTypesViewHolder(val binding: FoodtypeItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val diffUtil = object : DiffUtil.ItemCallback<FoodType>() {
@@ -32,10 +35,26 @@ class FoodTypesAdapter : RecyclerView.Adapter<FoodTypesAdapter.FoodTypesViewHold
         val foodType = differ.currentList[position]
         holder.binding.tvName.text = foodType.name
 
+       holder.binding.container.setOnClickListener {
+           if (onClickListener != null) {
+               onClickListener!!.onClick(position, foodType)
+           }
+       }
+
     }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+    // A function to bind the onclickListener.
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
+
+    // onClickListener Interface
+    interface OnClickListener {
+        fun onClick(position: Int, model: FoodType)
     }
 
 }

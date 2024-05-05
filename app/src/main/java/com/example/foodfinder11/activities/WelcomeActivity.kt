@@ -27,17 +27,6 @@ class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
     private lateinit var sessionManager: SessionManager
 
-    private val uploadActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val imageUri = result.data?.data
-            if (imageUri != null) {
-                uploadImage(imageUri)
-            } else {
-                showToast("Failed to retrieve image URI")
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppPreferences.setup(applicationContext)
@@ -100,27 +89,5 @@ class WelcomeActivity : AppCompatActivity() {
          */
     }
 
-    private fun chooseImage() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        uploadActivityResultLauncher.launch(intent)
-    }
-
-    private fun uploadImage(imageUri: Uri) {
-        CloudinaryManager.uploadImage(imageUri, object : CloudinaryManager.OnUploadListener {
-            override fun onUploadSuccess(imageUrl: String) {
-                // Handle successful upload (e.g., save the image URL to your database)
-                showToast("Image uploaded successfully. URL: $imageUrl")
-            }
-
-            override fun onUploadError(error: String) {
-                // Handle upload error
-                showToast("Upload error: $error")
-            }
-        })
-    }
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
 
 }

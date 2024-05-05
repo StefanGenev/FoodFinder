@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:elevation="10dp"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="@dimen/_10sdp"
     app:cardUseCompatPadding="true"
     android:scaleType="centerCrop"
     app:layout_constraintEnd_toEndOf="parent"
@@ -12,6 +11,7 @@
     app:layout_constraintBottom_toBottomOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

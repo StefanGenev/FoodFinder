@@ -86,14 +86,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Food type"
+                android:focusable="true"
+                android:onClick="onClickFoodType"
                 app:hintTextColor="@color/forest"
                 app:boxStrokeColor="@color/forest"
                 app:endIconDrawable="@drawable/chevron_right"
                 app:endIconMode="custom">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/foodTypeTextEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true"
+                    android:textIsSelectable="true"
+                    android:onClick="onClickFoodType"
                     android:fontFamily="@font/bentonsansmedium" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -104,7 +111,7 @@
             android:id="@+id/priceRange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/bentonsans"
             android:text="Price range"
             android:textAlignment="textStart"
@@ -165,6 +172,7 @@
         android:layout_marginHorizontal="@dimen/_20sdp"
         app:backgroundTint="@color/forest"
         android:text="Continue"
+        android:onClick="onContinue"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_marginBottom="@dimen/_20sdp"

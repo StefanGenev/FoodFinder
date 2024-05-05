@@ -1,5 +1,7 @@
 package com.example.foodfinder11.activities
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,6 +15,10 @@ import com.example.foodfinder11.utils.getParcelableArrayListExtraProvider
 
 class FoodTypesActivity : BaseNavigatableActivity() {
 
+    companion object {
+        const val FOOD_TYPE = "food_type"
+    }
+
     private lateinit var binding: ActivityFoodTypesBinding
 
     private lateinit var foodTypesAdapter: FoodTypesAdapter
@@ -24,24 +30,33 @@ class FoodTypesActivity : BaseNavigatableActivity() {
         binding = ActivityFoodTypesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // set toolbar as support action bar
-        setSupportActionBar(binding.toolbar)
-
-        supportActionBar?.apply {
-            title = "Food Types"
-
-            // show back button on toolbar
-            // on back button press, it will navigate to parent activity
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
-
         prepareRecyclerView()
-        fillFoodTypes()
+
+        // Applying OnClickListener to our Adapter
+        foodTypesAdapter.setOnClickListener(object :
+
+            FoodTypesAdapter.OnClickListener {
+
+            override fun onClick(position: Int, model: FoodType) {
+                passItemsToPreviousActivity(model)
+            }
+
+        })
+    }
+
+    private fun passItemsToPreviousActivity(foodType: FoodType) {
+        val data = Intent()
+        data.putExtra(FOOD_TYPE, foodType);
+        setResult(Activity.RESULT_OK, data)
+
+        finish()
     }
 
     override fun initializeData() {
+
         foodTypes = intent.getParcelableArrayListExtraProvider<FoodType>(NewBusinessDataActivity.FOOD_TYPES)!!
+
+        fillFoodTypes()
     }
 
     private fun prepareRecyclerView() {
