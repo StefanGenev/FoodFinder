@@ -4,15 +4,18 @@ import com.example.foodfinder11.dto.CheckIfEmailExistsRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
 import com.example.foodfinder11.dto.LoginRequestDto
 import com.example.foodfinder11.dto.LoginResponseDto
+import com.example.foodfinder11.dto.NoData
 import com.example.foodfinder11.dto.RegisterRequestDto
 import com.example.foodfinder11.dto.RegisterResponseDto
+import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
+import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Restaurant
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Multipart
 import retrofit2.http.POST
 
 
@@ -30,9 +33,11 @@ interface APItiteService {
     @GET("/api/restaurants/get-all")
     fun getAllRestaurants() : Call<ResponseWrapper<List<Restaurant>>>
 
-    @Multipart
     @POST("/api/restaurants/save")
-    fun saveRestaurant( @Body requestData: Restaurant ): Call<ResponseWrapper<Restaurant>>
+    fun saveRestaurant( @Body requestData: RegisterRestaurantRequestDto): Call<ResponseWrapper<RegisterRestaurantResponseDto>>
+
+    @POST("/api/restaurants/save_location")
+    fun saveRestaurantLocation( @Body requestData: SaveRestaurantLocationRequestDto): Call<ResponseWrapper<NoData>>
 
     @GET("/api/food_types/get-all")
     fun getAllFoodTypes() : Call<ResponseWrapper<List<FoodType>>>

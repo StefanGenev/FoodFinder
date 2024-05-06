@@ -15,6 +15,7 @@ enum class PriceRanges {
 
 @Parcelize
 data class Restaurant(
+
     var id: Long = 0,
 
     var name: String = "",
@@ -25,5 +26,8 @@ data class Restaurant(
 
     var imageUrl: String = "",
 
-    var rating: Double = 0.0
+    var rating: Double = 0.0,
+
+    var ownerId: Long = 0
+
 ) : Parcelable

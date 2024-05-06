@@ -21,20 +21,18 @@ class CongratulationsActivity : BaseNavigatableActivity() {
     }
 
     override fun initializeViews() {
-        val headerTextView = findViewById<TextView>(R.id.header_title)
-        val subtitleTextView = findViewById<TextView>(R.id.subtitle)
 
         val userData = SessionManager.fetchUserData()
 
         if ( userData.role == Roles.CUSTOMER ) {
 
-            headerTextView.text = "Registration successful!"
-            subtitleTextView.text = "Your profile is ready to use"
+            binding.headerTitle.text = "Registration successful!"
+            binding.subtitle.text = "Your profile is ready to use"
 
         } else {
 
-            headerTextView.text = "Successfully registered!"
-            subtitleTextView.text = "As a business, you need to enter some data such as cover photo, food type and location, that the customers will see. You can do so now or login later to fill in the data."
+            binding.headerTitle.text = "Successfully registered!"
+            binding.subtitle.text = "As a business, you need to enter some data such as cover photo, food type and location, that the customers will see. You can do so now or login later to fill in the data."
         }
     }
 

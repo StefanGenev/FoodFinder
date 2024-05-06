@@ -1,7 +1,7 @@
 package com.example.foodfinder11.model
 
 data class User(
-    var id: Int = 0,
+    var id: Long = 0,
 
     var name: String = "",
 

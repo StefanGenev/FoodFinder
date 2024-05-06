@@ -10,8 +10,7 @@ object AppPreferences {
 
     fun setup(context: Context) {
         sharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
-        token = null
-        refreshToken = null
+        reinitData()
     }
 
     var token: String?
@@ -34,9 +33,13 @@ object AppPreferences {
         get() = Key.USER_EMAIL.getString()
         set(value) = Key.USER_EMAIL.setString(value)
 
-    var userId: Int?
-        get() = Key.USER_ID.getInt()
-        set(value) = Key.USER_ID.setInt(value)
+    var userId: Long?
+        get() = Key.USER_ID.getLong()
+        set(value) = Key.USER_ID.setLong(value)
+
+    var restaurantId: Long?
+        get() = Key.RESTAURANT_ID.getLong()
+        set(value) = Key.RESTAURANT_ID.setLong(value)
 
 
     private enum class Key {
@@ -45,7 +48,8 @@ object AppPreferences {
         USERNAME,
         USER_ROLE,
         USER_EMAIL,
-        USER_ID;
+        USER_ID,
+        RESTAURANT_ID;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
         fun getFloat(): Float? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getFloat(name, 0f) else null
@@ -61,5 +65,15 @@ object AppPreferences {
 
         fun exists(): Boolean = sharedPreferences!!.contains(name)
         fun remove() = sharedPreferences!!.edit { remove(name) }
+    }
+
+    fun reinitData() {
+        token = ""
+        refreshToken = ""
+        username = ""
+        userRole = 0
+        userEmail = ""
+        userId = 0
+        restaurantId = 0
     }
 }

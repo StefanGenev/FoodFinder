@@ -1,14 +1,21 @@
 package com.example.foodfinder11.dto
 
-import android.os.Parcelable
 import com.example.foodfinder11.model.PriceRanges
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class RegisterRestaurantRequestDto(
+
+    var id: Long = 0,
+
     var name: String = "",
-    var priceRanges: PriceRanges = PriceRanges.CHEAP,
-    var imageUrl: String = "",
+
+    var priceRange: PriceRanges = PriceRanges.CHEAP,
+
     var address: String = "",
-    var ownerId: Int = 0
-) : Parcelable
+
+    var imageUrl: String = "",
+
+    var rating: Double = 0.0,
+
+    var ownerId: Long = 0
+
+)

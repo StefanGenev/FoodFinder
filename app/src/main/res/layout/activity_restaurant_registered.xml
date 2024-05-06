@@ -7,7 +7,7 @@
     android:background="@color/background_gray"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.CongratulationsActivity">
+    tools:context=".activities.RestaurantRegisteredActivity">
 
     <ImageView
         android:id="@+id/pattern"

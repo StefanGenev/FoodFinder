@@ -57,13 +57,16 @@ class SessionManager {
             )
         }
 
+        fun saveRestaurantId(id: Long) {
+            AppPreferences.restaurantId = id
+        }
+
+        fun fetchRestaurantId(): Long? {
+            return AppPreferences.restaurantId
+        }
+
         fun logoutOperations() {
-            AppPreferences.userId = 0
-            AppPreferences.username = ""
-            AppPreferences.userEmail = ""
-            AppPreferences.userRole = 0
-            AppPreferences.token = ""
-            AppPreferences.refreshToken = ""
+            AppPreferences.reinitData()
         }
     }
 }
