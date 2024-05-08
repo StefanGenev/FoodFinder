@@ -145,7 +145,6 @@
                 android:fontFamily="@font/bentonsansmedium"
                 android:text="$$ Medium"
                 android:textSize="@dimen/_12sdp"
-
                 android:textColor="@color/black"
                 app:chipBackgroundColor="@color/bg_chip_state_list" />
 

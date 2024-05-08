@@ -1,16 +1,11 @@
 package com.example.foodfinder11.model
 
-import android.os.Build
-import android.os.Parcel
 import android.os.Parcelable
-import android.util.Base64
-import androidx.annotation.RequiresApi
-import com.example.foodfinder11.utils.ImageUtils
 import kotlinx.parcelize.Parcelize
 
 
 enum class PriceRanges {
-    CHEAP, MIDRANGE, EXPENSIVE
+    Cheap, Midrange, Expensive
 }
 
 @Parcelize
@@ -20,7 +15,9 @@ data class Restaurant(
 
     var name: String = "",
 
-    var priceRange: PriceRanges = PriceRanges.CHEAP,
+    var owner: User = User(),
+
+    var priceRange: PriceRanges = PriceRanges.Cheap,
 
     var address: String = "",
 
@@ -28,6 +25,6 @@ data class Restaurant(
 
     var rating: Double = 0.0,
 
-    var ownerId: Long = 0
+    var foodType: FoodType = FoodType()
 
 ) : Parcelable

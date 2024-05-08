@@ -8,10 +8,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.foodfinder11.databinding.ActivityNewBusinessDataBinding
 import com.example.foodfinder11.dto.ResponseWrapper
-import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.PriceRanges
-import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.example.foodfinder11.utils.toInt
@@ -30,7 +28,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
     private lateinit var binding: ActivityNewBusinessDataBinding
     private var foodTypes: ArrayList<FoodType> = ArrayList()
     private var selectedFoodType: FoodType = FoodType()
-    private var selectedPriceRange: PriceRanges = PriceRanges.CHEAP
+    private var selectedPriceRange: PriceRanges = PriceRanges.Cheap
 
     private val startActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
@@ -62,15 +60,15 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
     override fun initializeViews() {
 
         binding.chipCheap.setOnClickListener {
-            selectedPriceRange = PriceRanges.CHEAP
+            selectedPriceRange = PriceRanges.Cheap
         }
 
         binding.chipMedium.setOnClickListener {
-            selectedPriceRange = PriceRanges.MIDRANGE
+            selectedPriceRange = PriceRanges.Midrange
         }
 
         binding.chipExpensive.setOnClickListener {
-            selectedPriceRange = PriceRanges.EXPENSIVE
+            selectedPriceRange = PriceRanges.Expensive
         }
 
     }

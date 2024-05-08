@@ -8,13 +8,15 @@ data class RegisterRestaurantRequestDto(
 
     var name: String = "",
 
-    var priceRange: PriceRanges = PriceRanges.CHEAP,
+    var priceRange: PriceRanges = PriceRanges.Cheap,
 
     var address: String = "",
 
     var imageUrl: String = "",
 
     var rating: Double = 0.0,
+
+    var foodTypeCode: Long = 0,
 
     var ownerId: Long = 0
 

@@ -5,6 +5,7 @@ import java.sql.Blob
 enum class MealCategory {
 
 }
+
 data class Meal(
     var id: Long = 0,
     var name: String = "",

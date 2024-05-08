@@ -140,6 +140,8 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
 
         } else {
 
+            val intent = Intent(this@EnterPasswordActivity, BusinessMainActivity::class.java)
+            startActivity(intent)
 
         }
     }

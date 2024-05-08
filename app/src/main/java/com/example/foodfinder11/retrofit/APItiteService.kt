@@ -2,6 +2,7 @@ package com.example.foodfinder11.retrofit
 
 import com.example.foodfinder11.dto.CheckIfEmailExistsRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
+import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.LoginRequestDto
 import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.dto.NoData
@@ -16,7 +17,10 @@ import com.example.foodfinder11.model.Restaurant
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Query
+import java.util.Optional
 
 
 interface APItiteService {
@@ -32,6 +36,9 @@ interface APItiteService {
 
     @GET("/api/restaurants/get-all")
     fun getAllRestaurants() : Call<ResponseWrapper<List<Restaurant>>>
+
+    @POST("/api/restaurants/get_by_owner_id")
+    fun getByOwnerId(@Body dto: IdentifierDto) : Call<ResponseWrapper<Restaurant?>>
 
     @POST("/api/restaurants/save")
     fun saveRestaurant( @Body requestData: RegisterRestaurantRequestDto): Call<ResponseWrapper<RegisterRestaurantResponseDto>>

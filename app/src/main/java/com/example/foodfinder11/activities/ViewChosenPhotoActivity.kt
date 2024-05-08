@@ -6,13 +6,11 @@ import android.net.Uri
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.databinding.ActivityViewChosenPhotoBinding
-import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
 import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.PriceRanges
-import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.CloudinaryManager
 import com.example.foodfinder11.utils.SessionManager
@@ -28,7 +26,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
 
     private lateinit var imageUri: Uri
     private var foodType: FoodType = FoodType()
-    private var priceRange: PriceRanges = PriceRanges.CHEAP
+    private var priceRange: PriceRanges = PriceRanges.Cheap
 
     override fun initializeActivity() {
         binding = ActivityViewChosenPhotoBinding.inflate(layoutInflater)
@@ -38,7 +36,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
     override fun initializeData() {
         imageUri = Uri.parse(intent.getStringExtra(UploadPhotoActivity.IMAGE_URI))
         foodType = intent.getParcelableExtraProvider<FoodType>(UploadPhotoActivity.FOOD_TYPE) ?: FoodType()
-        priceRange = intent.getIntExtra(UploadPhotoActivity.PRICE_RANGE, 0).toEnum<PriceRanges>() ?: PriceRanges.CHEAP
+        priceRange = intent.getIntExtra(UploadPhotoActivity.PRICE_RANGE, 0).toEnum<PriceRanges>() ?: PriceRanges.Cheap
     }
     override fun initializeViews() {
 
@@ -83,6 +81,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
             , address = ""
             , imageUrl = imageUrl
             , rating = 0.0
+            , foodTypeCode = foodType.id
             , ownerId = userData.id)
 
         RetrofitInstance.getApiService().saveRestaurant(dto)
