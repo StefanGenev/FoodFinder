@@ -28,7 +28,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
     private lateinit var binding: ActivityNewBusinessDataBinding
     private var foodTypes: ArrayList<FoodType> = ArrayList()
     private var selectedFoodType: FoodType = FoodType()
-    private var selectedPriceRange: PriceRanges = PriceRanges.Cheap
+    private var selectedPriceRange: PriceRanges = PriceRanges.CHEAP
 
     private val startActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
@@ -60,15 +60,15 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
     override fun initializeViews() {
 
         binding.chipCheap.setOnClickListener {
-            selectedPriceRange = PriceRanges.Cheap
+            selectedPriceRange = PriceRanges.CHEAP
         }
 
         binding.chipMedium.setOnClickListener {
-            selectedPriceRange = PriceRanges.Midrange
+            selectedPriceRange = PriceRanges.MIDRANGE
         }
 
         binding.chipExpensive.setOnClickListener {
-            selectedPriceRange = PriceRanges.Expensive
+            selectedPriceRange = PriceRanges.EXPENSIVE
         }
 
     }

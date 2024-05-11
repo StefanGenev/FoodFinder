@@ -6,6 +6,7 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityEnterPasswordBinding
 import com.example.foodfinder11.dto.LoginRequestDto
@@ -15,6 +16,7 @@ import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.HashingUtils
 import com.example.foodfinder11.utils.SessionManager
+import com.example.foodfinder11.viewModel.BusinessMainViewModel
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback

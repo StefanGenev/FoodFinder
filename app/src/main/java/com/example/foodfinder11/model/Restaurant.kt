@@ -5,7 +5,25 @@ import kotlinx.parcelize.Parcelize
 
 
 enum class PriceRanges {
-    Cheap, Midrange, Expensive
+    CHEAP {
+        override fun getName(): String {
+           return "Cheap"
+        }
+    },
+
+    MIDRANGE {
+        override fun getName(): String {
+            return "Midrange"
+        }
+    },
+
+    EXPENSIVE {
+        override fun getName(): String {
+            return "Expensive"
+        }
+    };
+
+    abstract fun getName(): String
 }
 
 @Parcelize
@@ -17,7 +35,7 @@ data class Restaurant(
 
     var owner: User = User(),
 
-    var priceRange: PriceRanges = PriceRanges.Cheap,
+    var priceRange: PriceRanges = PriceRanges.CHEAP,
 
     var address: String = "",
 

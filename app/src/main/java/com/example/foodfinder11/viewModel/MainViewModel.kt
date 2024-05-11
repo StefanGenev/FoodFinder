@@ -30,7 +30,7 @@ class MainViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<ResponseWrapper<List<Restaurant>>>, t: Throwable) {
-                Log.d("HomeFragment", t.message.toString())
+                Log.d("MainViewModel", t.message.toString())
             }
         })
     }

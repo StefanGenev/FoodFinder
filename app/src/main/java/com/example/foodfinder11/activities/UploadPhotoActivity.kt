@@ -25,7 +25,7 @@ class UploadPhotoActivity : BaseNavigatableActivity() {
     private lateinit var imageUri: Uri
 
     private var foodType: FoodType = FoodType()
-    private var priceRange: PriceRanges = PriceRanges.Cheap
+    private var priceRange: PriceRanges = PriceRanges.CHEAP
 
     private val uploadActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -74,7 +74,7 @@ class UploadPhotoActivity : BaseNavigatableActivity() {
 
         val intent = intent
         foodType = intent.getParcelableExtraProvider<FoodType>(NewBusinessDataActivity.FOOD_TYPE) ?: FoodType()
-        priceRange = intent.getIntExtra(NewBusinessDataActivity.PRICE_RANGE, 0).toEnum<PriceRanges>() ?: PriceRanges.Cheap
+        priceRange = intent.getIntExtra(NewBusinessDataActivity.PRICE_RANGE, 0).toEnum<PriceRanges>() ?: PriceRanges.CHEAP
 
     }
 

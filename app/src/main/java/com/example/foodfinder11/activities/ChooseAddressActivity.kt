@@ -14,6 +14,7 @@ import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.AddressUtils
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.google.android.gms.maps.model.LatLng
@@ -91,7 +92,7 @@ class ChooseAddressActivity : BaseNavigatableActivity() {
     }
 
     private fun showSelectedLocation(address: Address) {
-        binding.selectLocationText.text = "${address.countryName}, ${address.locality}, ${address.thoroughfare}, ${address.subThoroughfare}"
+        binding.selectLocationText.text = AddressUtils.getAddressVisualisationText(address)
     }
 
     private fun saveRestaurantLocationRequest() {

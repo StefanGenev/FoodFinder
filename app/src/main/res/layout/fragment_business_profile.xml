@@ -41,6 +41,18 @@
         app:layout_anchorGravity="bottom|end"
         app:tint="@color/forest" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_60sdp"
+        android:clickable="true"
+        android:src="@drawable/info"
+        app:backgroundTint="@color/white"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="bottom|end"
+        app:tint="@color/forest" />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
@@ -75,7 +87,7 @@
                     app:chipBackgroundColor="@color/light_forest" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipMedium"
+                    android:id="@+id/chipPrice"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,15 +139,15 @@
                     android:id="@+id/tvRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
                     android:drawableLeft="@drawable/star"
                     android:drawablePadding="@dimen/_8sdp"
                     android:drawableTint="@color/forest"
+                    android:fontFamily="@font/bentonsansmedium"
                     android:text="4.0 rating"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/_15ssp"
-                    android:fontFamily="@font/bentonsansmedium"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/tvOrders"

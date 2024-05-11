@@ -8,7 +8,7 @@ data class RegisterRestaurantRequestDto(
 
     var name: String = "",
 
-    var priceRange: PriceRanges = PriceRanges.Cheap,
+    var priceRange: PriceRanges = PriceRanges.CHEAP,
 
     var address: String = "",
 

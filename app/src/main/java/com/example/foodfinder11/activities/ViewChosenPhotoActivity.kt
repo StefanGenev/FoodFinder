@@ -26,7 +26,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
 
     private lateinit var imageUri: Uri
     private var foodType: FoodType = FoodType()
-    private var priceRange: PriceRanges = PriceRanges.Cheap
+    private var priceRange: PriceRanges = PriceRanges.CHEAP
 
     override fun initializeActivity() {
         binding = ActivityViewChosenPhotoBinding.inflate(layoutInflater)
@@ -36,7 +36,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
     override fun initializeData() {
         imageUri = Uri.parse(intent.getStringExtra(UploadPhotoActivity.IMAGE_URI))
         foodType = intent.getParcelableExtraProvider<FoodType>(UploadPhotoActivity.FOOD_TYPE) ?: FoodType()
-        priceRange = intent.getIntExtra(UploadPhotoActivity.PRICE_RANGE, 0).toEnum<PriceRanges>() ?: PriceRanges.Cheap
+        priceRange = intent.getIntExtra(UploadPhotoActivity.PRICE_RANGE, 0).toEnum<PriceRanges>() ?: PriceRanges.CHEAP
     }
     override fun initializeViews() {
 

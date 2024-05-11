@@ -35,6 +35,7 @@ class MapsActivity : BaseNavigatableActivity(), OnMapReadyCallback {
     }
 
     override fun initializeViews() {
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
