@@ -14,8 +14,6 @@ class BusinessMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_business_main)
 
-        AppPreferences.setup(applicationContext)
-
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val navController = Navigation.findNavController(this, R.id.host_fragment)
 

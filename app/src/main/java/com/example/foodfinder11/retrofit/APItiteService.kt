@@ -11,16 +11,16 @@ import com.example.foodfinder11.dto.RegisterResponseDto
 import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
 import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.dto.SaveMealRequestDto
+import com.example.foodfinder11.dto.SaveMealResponseDto
 import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
 import com.example.foodfinder11.model.FoodType
+import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.POST
-import retrofit2.http.Query
-import java.util.Optional
 
 
 interface APItiteService {
@@ -48,4 +48,9 @@ interface APItiteService {
 
     @GET("/api/food_types/get-all")
     fun getAllFoodTypes() : Call<ResponseWrapper<List<FoodType>>>
+
+    @POST("/api/meals/get_meals")
+    fun getMeals(@Body dto: IdentifierDto) : Call<ResponseWrapper<List<Meal>>>
+    @POST("/api/meals/save_meal")
+    fun saveMeal( @Body requestData: SaveMealRequestDto): Call<ResponseWrapper<SaveMealResponseDto>>
 }

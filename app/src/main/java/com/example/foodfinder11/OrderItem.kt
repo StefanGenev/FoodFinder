@@ -9,7 +9,7 @@ data class OrderItem(
     var idMeal: Long,
     var intMealCount: Int,
     var strMealName: String? = null,
-    var image: ByteArray? = null,
+    var imageUrl: String? = null,
 ) :
     Parcelable {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -17,7 +17,7 @@ data class OrderItem(
         parcel.readLong(),
         parcel.readInt(),
         parcel.readString(),
-        parcel.readBlob()
+        parcel.readString()
     ) {
     }
 
@@ -26,7 +26,7 @@ data class OrderItem(
         parcel.writeLong(idMeal)
         parcel.writeInt(intMealCount)
         parcel.writeString(strMealName)
-        parcel.writeBlob(image)
+        parcel.writeString(imageUrl)
     }
 
     override fun describeContents(): Int {

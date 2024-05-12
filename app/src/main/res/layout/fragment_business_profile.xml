@@ -82,8 +82,8 @@
                     android:checked="true"
                     android:fontFamily="@font/bentonsansmedium"
                     android:text="$ Cheap"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/forest"
                     app:chipBackgroundColor="@color/light_forest" />
 
                 <com.google.android.material.chip.Chip
@@ -93,8 +93,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bentonsansmedium"
                     android:text="Cheap"
-                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/lemon"
+                    android:textSize="@dimen/_12sdp"
                     app:chipBackgroundColor="@color/light_lemon" />
 
 
@@ -116,10 +116,10 @@
                     android:id="@+id/tv_title"
                     android:layout_width="@dimen/_180sdp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/bentonsans"
                     android:text="Title"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_22ssp"
-                    android:fontFamily="@font/bentonsans"/>
+                    android:textSize="@dimen/_22ssp" />
 
             </LinearLayout>
 
@@ -141,9 +141,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/_20sdp"
                     android:drawableLeft="@drawable/star"
-                    android:drawablePadding="@dimen/_8sdp"
+                    android:drawablePadding="@dimen/_5sdp"
                     android:drawableTint="@color/forest"
                     android:fontFamily="@font/bentonsansmedium"
+                    android:paddingRight="@dimen/_5sdp"
                     android:text="4.0 rating"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/_15ssp"
@@ -155,13 +156,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/_15sdp"
                     android:drawableLeft="@drawable/order"
-                    android:drawablePadding="@dimen/_8sdp"
+                    android:drawablePadding="@dimen/_5sdp"
                     android:drawableTint="@color/forest"
+                    android:fontFamily="@font/bentonsansmedium"
+                    android:paddingRight="@dimen/_5sdp"
                     android:text="100+ orders"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/_15ssp"
-                    android:fontFamily="@font/bentonsansmedium"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
@@ -186,7 +188,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:fontFamily="@font/gothambookitalic"
-                android:text="Offers:"
+                android:text="Offers"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
@@ -204,19 +206,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_offers" />
 
-            <TextView
-                android:id="@+id/tv_menu"
+            <LinearLayout
+                android:id="@+id/menuLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/gothambookitalic"
-                android:text="Menu:"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_offers" />
+                app:layout_constraintTop_toBottomOf="@id/rv_offers">
+
+                <TextView
+                    android:id="@+id/tv_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/gothambookitalic"
+                    android:text="Menu"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/addNewMealButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Add new"
+                    android:textSize="@dimen/_10sdp"
+                    android:backgroundTint="@color/light_forest"
+                    app:iconTint="@color/white"
+                    android:textColor="@color/white"
+                    app:icon="@drawable/ic_add"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    />
+
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_menu"
@@ -231,7 +255,7 @@
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_menu" />
+                app:layout_constraintTop_toBottomOf="@id/menuLayout" />
 
             <View
                 android:layout_width="match_parent"
@@ -245,22 +269,5 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/order_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/gothambookitalic"
-        android:text="Order 5 items"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:backgroundTint="@color/forest"
-        app:icon="@drawable/ic_cart"
-        app:iconTint="@color/white"
-        app:layout_anchor="@id/scrollview"
-        app:layout_anchorGravity="bottom"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
-        app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

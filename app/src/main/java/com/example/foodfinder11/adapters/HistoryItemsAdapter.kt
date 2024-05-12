@@ -32,7 +32,7 @@ class HistoryItemsAdapter : RecyclerView.Adapter<HistoryItemsAdapter.HistoryItem
     override fun onBindViewHolder(holder: HistoryItemsAdapter.HistoryItemsViewHolder, position: Int) {
         val meal = differ.currentList[position]
         holder.binding.shopName.text = meal.name
-        Glide.with(holder.itemView).load(meal.image).into(holder.binding.imgShop)
+        Glide.with(holder.itemView).load(meal.imageUrl).into(holder.binding.imgShop)
         holder.binding.tvPrice.text = "${String.format("%.2f", meal.price)} lv."
         //TODO Fix Date
         holder.binding.tvDate.text = "${Random.nextInt(1, 30)} May, ${Random.nextInt(0, 23)}:${Random.nextInt(10, 59)}"

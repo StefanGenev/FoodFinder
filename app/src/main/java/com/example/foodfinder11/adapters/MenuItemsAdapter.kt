@@ -33,8 +33,10 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
     override fun onBindViewHolder(holder: MenuItemsViewHolder, position: Int) {
         val meal = differ.currentList[position]
-        Glide.with(holder.itemView).load(meal.image).into(holder.binding.menuImage)
+        Glide.with(holder.itemView).load(meal.imageUrl).into(holder.binding.menuImage)
         holder.binding.mealName.text = meal.name
+        holder.binding.mealDescription.text = meal.description
+        holder.binding.price.text = "${meal.price} lv."
 
         holder.binding.addButton.setOnClickListener{
             onItemClick.onClickListener(differ.currentList[position])

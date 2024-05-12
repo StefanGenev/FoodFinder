@@ -121,7 +121,7 @@ class RestaurantActivity : AppCompatActivity() {
         }
 
         if (!hasItem) {
-            var orderItem = OrderItem(meal.id, 1, meal.name, meal.image)
+            var orderItem = OrderItem(meal.id, 1, meal.name, meal.imageUrl)
             orderedItemsArray.add(orderItem)
         }
 

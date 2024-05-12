@@ -30,7 +30,7 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
 
     override fun onBindViewHolder(holder: OrderItemsViewHolder, position: Int) {
         val meal = differ.currentList[position]
-        Glide.with(holder.itemView).load(meal.image).into(holder.binding.menuImage)
+        Glide.with(holder.itemView).load(meal.imageUrl).into(holder.binding.menuImage)
         holder.binding.mealName.text = meal.strMealName
         holder.binding.count.text = meal.intMealCount.toString()
 

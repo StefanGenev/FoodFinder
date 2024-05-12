@@ -35,7 +35,7 @@ class ReviewsAdapter : RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder>(){
         holder.binding.shopName.text = meal.name
         holder.binding.ratingbar.rating = Random.nextInt(1, 5).toFloat()
         holder.binding.tvReview.text = "A really nice place with affordable prices, but the service is not that great."
-        Glide.with(holder.itemView).load(meal.image).into(holder.binding.imgShop)
+        Glide.with(holder.itemView).load(meal.imageUrl).into(holder.binding.imgShop)
     }
 
     override fun getItemCount(): Int {

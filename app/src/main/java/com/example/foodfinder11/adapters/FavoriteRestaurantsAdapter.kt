@@ -38,7 +38,7 @@ class FavoriteRestaurantsAdapter : RecyclerView.Adapter<FavoriteRestaurantsAdapt
 
     override fun onBindViewHolder(holder: FavoriteMealsAdapterViewHolder, position: Int) {
         val meal = differ.currentList[position]
-        Glide.with(holder.itemView).load(meal.image).into(holder.binding.imgMeal)
+        Glide.with(holder.itemView).load(meal.imageUrl).into(holder.binding.imgMeal)
         holder.binding.tvMealName.text = meal.name
 
         holder.itemView.setOnClickListener {
