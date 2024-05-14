@@ -81,8 +81,8 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:fontFamily="@font/bentonsansmedium"
-                    android:text="$ Cheap"
-                    android:textColor="@color/white"
+                    android:text="Chinese"
+                    android:textColor="@color/forest"
                     android:textSize="@dimen/_12sdp"
                     app:chipBackgroundColor="@color/light_forest" />
 
@@ -188,7 +188,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:fontFamily="@font/gothambookitalic"
-                android:text="Offers"
+                android:text="Popular"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
@@ -233,8 +233,8 @@
                     android:text="Add new"
                     android:textSize="@dimen/_10sdp"
                     android:backgroundTint="@color/light_forest"
-                    app:iconTint="@color/white"
-                    android:textColor="@color/white"
+                    app:iconTint="@color/forest"
+                    android:textColor="@color/forest"
                     app:icon="@drawable/ic_add"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     />

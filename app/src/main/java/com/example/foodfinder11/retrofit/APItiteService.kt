@@ -14,6 +14,7 @@ import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.SaveMealRequestDto
 import com.example.foodfinder11.dto.SaveMealResponseDto
 import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
+import com.example.foodfinder11.dto.SaveRestaurantRequestDto
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
@@ -40,8 +41,11 @@ interface APItiteService {
     @POST("/api/restaurants/get_by_owner_id")
     fun getByOwnerId(@Body dto: IdentifierDto) : Call<ResponseWrapper<Restaurant?>>
 
+    @POST("/api/restaurants/register")
+    fun registerRestaurant(@Body requestData: RegisterRestaurantRequestDto): Call<ResponseWrapper<RegisterRestaurantResponseDto>>
+
     @POST("/api/restaurants/save")
-    fun saveRestaurant( @Body requestData: RegisterRestaurantRequestDto): Call<ResponseWrapper<RegisterRestaurantResponseDto>>
+    fun saveRestaurant(@Body requestData: SaveRestaurantRequestDto): Call<ResponseWrapper<Restaurant>>
 
     @POST("/api/restaurants/save_location")
     fun saveRestaurantLocation( @Body requestData: SaveRestaurantLocationRequestDto): Call<ResponseWrapper<NoData>>

@@ -5,13 +5,14 @@ import android.os.Bundle
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.example.foodfinder11.R
+import com.example.foodfinder11.databinding.ActivityChooseAddressBinding
 import com.example.foodfinder11.utils.AppPreferences
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class BusinessMainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+class BusinessMainActivity : BaseNavigatableActivity() {
 
-        super.onCreate(savedInstanceState)
+    override fun initializeActivity() {
+
         setContentView(R.layout.activity_business_main)
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_nav)

@@ -99,7 +99,7 @@ class ChooseAddressActivity : BaseNavigatableActivity() {
 
         val restaurantId = SessionManager.fetchRestaurantId()!!
 
-        val dto = SaveRestaurantLocationRequestDto(restaurantId, latLng.toString())
+        val dto = SaveRestaurantLocationRequestDto(restaurantId, AddressUtils.getStringFromLatLng(latLng))
 
         RetrofitInstance.getApiService().saveRestaurantLocation(dto)
             .enqueue(object : Callback<ResponseWrapper<NoData>> {

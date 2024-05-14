@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityMapsBinding
+import com.example.foodfinder11.fragments.BusinessProfileFragment
+import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -28,6 +31,8 @@ class MapsActivity : BaseNavigatableActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+
+    private var latLng: LatLng = LatLng(INITIAL_LATITUDE, INITIAL_LONGITUDE)
 
     override fun initializeActivity() {
         binding = ActivityMapsBinding.inflate(layoutInflater)
@@ -103,10 +108,19 @@ class MapsActivity : BaseNavigatableActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        val latitude = intent.getDoubleExtra(EditBusinessActivity.LATITUDE, INITIAL_LONGITUDE) ?: INITIAL_LONGITUDE
+        val longitude = intent.getDoubleExtra(EditBusinessActivity.LONGITUDE, INITIAL_LONGITUDE) ?: INITIAL_LONGITUDE
+
+        latLng = LatLng(latitude, longitude)
+
+
         // Add initial marker and move the camera
-        val initialMarker = LatLng(INITIAL_LATITUDE, INITIAL_LONGITUDE)
+        val initialMarker = latLng
+        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(initialMarker, 16f)
+
         mMap.addMarker(MarkerOptions().position(initialMarker))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(initialMarker))
+        mMap.animateCamera(cameraUpdate)
 
         mMap.setOnMapClickListener { latLng ->
             val returnIntent = Intent()

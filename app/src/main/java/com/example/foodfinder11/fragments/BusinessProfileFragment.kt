@@ -9,19 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.activities.BusinessInfoActivity
-import com.example.foodfinder11.activities.CongratulationsActivity
-import com.example.foodfinder11.activities.MainActivity
-import com.example.foodfinder11.activities.MapsActivity
+import com.example.foodfinder11.activities.EditBusinessActivity
 import com.example.foodfinder11.activities.MealInfoActivity
 import com.example.foodfinder11.adapters.MenuItemsAdapter
 import com.example.foodfinder11.databinding.FragmentBusinessProfileBinding
 import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
-import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
@@ -40,9 +36,16 @@ class BusinessProfileFragment : Fragment() {
     private lateinit var binding: FragmentBusinessProfileBinding
     private lateinit var menuItemsAdapter: MenuItemsAdapter
 
-    private var meals: ArrayList<Meal> = ArrayList()
+    private var restaurant: Restaurant = Restaurant()
 
-    private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val restaurantInfoActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            loadRestaurantData()
+        }
+    }
+
+    private val mealInfoActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
         if (result.resultCode == Activity.RESULT_OK) {
             loadMeals()
@@ -66,8 +69,7 @@ class BusinessProfileFragment : Fragment() {
 
         initializeMenuItemsAdapter()
 
-        val ownerId = SessionManager.fetchUserData().id
-        loadRestaurantData(ownerId)
+        loadRestaurantData()
     }
 
     private fun initializeMenuItemsAdapter() {
@@ -90,18 +92,19 @@ class BusinessProfileFragment : Fragment() {
     private fun createNewMeal() {
         val intent = Intent(activity, MealInfoActivity::class.java)
         intent.putExtra(MEAL, Meal())
-        activityResultLauncher.launch(intent)
+        mealInfoActivityResultLauncher.launch(intent)
     }
 
     private fun editMeal(meal: Meal) {
 
         val intent = Intent(activity, MealInfoActivity::class.java)
         intent.putExtra(MEAL, meal)
-        activityResultLauncher.launch(intent)
+        mealInfoActivityResultLauncher.launch(intent)
     }
 
-    private fun loadRestaurantData(ownerId: Long) {
+    private fun loadRestaurantData() {
 
+        val ownerId = SessionManager.fetchUserData().id
         val dto = IdentifierDto(id = ownerId)
 
         RetrofitInstance.getApiService().getByOwnerId(dto)
@@ -117,8 +120,9 @@ class BusinessProfileFragment : Fragment() {
                     if (responseBody.status == 200) {
 
                         val responseData = responseBody.data.takeIf { it != null } ?: return
+                        restaurant = responseData
 
-                        fillRestaurantData(responseData)
+                        fillRestaurantData()
                         loadMeals()
                     }
                 }
@@ -162,7 +166,7 @@ class BusinessProfileFragment : Fragment() {
             })
     }
 
-    private fun fillRestaurantData(restaurant: Restaurant) {
+    private fun fillRestaurantData() {
 
         SessionManager.saveRestaurantId(restaurant.id)
 
@@ -176,11 +180,24 @@ class BusinessProfileFragment : Fragment() {
         binding.tvRating.text = "${restaurant.rating} rating"
 
         binding.infoButton.setOnClickListener {
-
-            val intent = Intent(activity, BusinessInfoActivity::class.java)
-            intent.putExtra(RESTAURANT, restaurant)
-            startActivity(intent)
+            openInfoActivity()
         }
+
+        binding.editButton.setOnClickListener{
+            openEditBusinessActivity()
+        }
+    }
+
+    private fun openEditBusinessActivity() {
+        val intent = Intent(activity, EditBusinessActivity::class.java)
+        intent.putExtra(RESTAURANT, restaurant)
+        restaurantInfoActivityResultLauncher.launch(intent)
+    }
+
+    private fun openInfoActivity() {
+        val intent = Intent(activity, BusinessInfoActivity::class.java)
+        intent.putExtra(RESTAURANT, restaurant)
+        startActivity(intent)
     }
 
     private fun fillMealsData(meals: List<Meal>) {

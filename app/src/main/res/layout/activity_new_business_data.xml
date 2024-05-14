@@ -73,8 +73,6 @@
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
-
-
         <LinearLayout
             android:id="@+id/food_types_layout"
             android:layout_width="match_parent"

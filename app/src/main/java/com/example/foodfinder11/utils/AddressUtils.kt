@@ -19,4 +19,8 @@ object AddressUtils {
 
         return LatLng(latitude, longitude)
     }
+
+    fun getStringFromLatLng(latLng: LatLng): String {
+        return "${latLng.latitude}, ${latLng.longitude}"
+    }
 }

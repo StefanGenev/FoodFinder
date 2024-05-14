@@ -84,7 +84,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
             , foodTypeCode = foodType.id
             , ownerId = userData.id)
 
-        RetrofitInstance.getApiService().saveRestaurant(dto)
+        RetrofitInstance.getApiService().registerRestaurant(dto)
             .enqueue(object : Callback<ResponseWrapper<RegisterRestaurantResponseDto>> {
 
                 override fun onResponse(
