@@ -144,6 +144,19 @@
                     android:imeOptions="actionDone"
                     android:fontFamily="@font/bentonsansmedium" />
 
+                <Button
+                    android:id="@+id/promotionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="Add promotion"
+                    android:textSize="@dimen/_10sdp"
+                    android:backgroundTint="@color/light_salva"
+                    app:iconTint="@color/salva"
+                    android:textColor="@color/salva"
+                    app:icon="@drawable/ic_add"
+                    style="@style/Widget.MaterialComponents.Button.TextButton" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

@@ -19,6 +19,8 @@ import com.example.foodfinder11.databinding.FragmentBusinessProfileBinding
 import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Meal
+import com.example.foodfinder11.model.MenuItem
+import com.example.foodfinder11.model.Promotion
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.SessionManager
@@ -34,9 +36,11 @@ class BusinessProfileFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentBusinessProfileBinding
-    private lateinit var menuItemsAdapter: MenuItemsAdapter
+    private lateinit var promotionsAdapter: MenuItemsAdapter
+    private lateinit var menuAdapter: MenuItemsAdapter
 
     private var restaurant: Restaurant = Restaurant()
+    private var promotions: ArrayList<Promotion> = ArrayList()
 
     private val restaurantInfoActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -67,26 +71,42 @@ class BusinessProfileFragment : Fragment() {
             createNewMeal()
         }
 
-        initializeMenuItemsAdapter()
+        initializeAdapters()
 
         loadRestaurantData()
     }
 
-    private fun initializeMenuItemsAdapter() {
+    private fun initializeAdapters() {
 
-        menuItemsAdapter = MenuItemsAdapter()
+        promotionsAdapter = MenuItemsAdapter()
 
-        menuItemsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
-            override fun onClickListener(meal: Meal) {
-                editMeal(meal)
+        promotionsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
+
+            override fun onClickListener(menuItem: MenuItem) {
+                editMeal(menuItem.meal)
+            }
+
+        })
+
+        binding.rvPromotions.apply {
+            layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
+            adapter = promotionsAdapter
+        }
+
+        menuAdapter = MenuItemsAdapter()
+
+        menuAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
+            override fun onClickListener(menuItem: MenuItem) {
+                editMeal(menuItem.meal)
             }
 
         })
 
         binding.rvMenu.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
-            adapter = menuItemsAdapter
+            adapter = menuAdapter
         }
+
     }
 
     private fun createNewMeal() {
@@ -123,7 +143,8 @@ class BusinessProfileFragment : Fragment() {
                         restaurant = responseData
 
                         fillRestaurantData()
-                        loadMeals()
+
+                        loadPromotions()
                     }
                 }
 
@@ -166,6 +187,38 @@ class BusinessProfileFragment : Fragment() {
             })
     }
 
+    private fun loadPromotions() {
+        val restaurantId = SessionManager.fetchRestaurantId()!!
+        val dto = IdentifierDto(id = restaurantId)
+
+        RetrofitInstance.getApiService().getPromotions(dto)
+            .enqueue(object : Callback<ResponseWrapper<List<Promotion>>> {
+
+                override fun onResponse(
+                    call: Call<ResponseWrapper<List<Promotion>>>,
+                    response: Response<ResponseWrapper<List<Promotion>>>
+                ) {
+
+                    val responseBody = response.body().takeIf { it != null } ?: return
+
+                    if (responseBody.status == 200) {
+
+                        val responseData = responseBody.data.takeIf { it != null } ?: return
+                        fillPromotionsData(responseData)
+
+                        loadMeals()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseWrapper<List<Promotion>>>,
+                    t: Throwable
+                ) {
+                    Log.d("MainViewModel", t.message.toString())
+                }
+            })
+    }
+
     private fun fillRestaurantData() {
 
         SessionManager.saveRestaurantId(restaurant.id)
@@ -200,11 +253,36 @@ class BusinessProfileFragment : Fragment() {
         startActivity(intent)
     }
 
+    private fun fillPromotionsData(promotions: List<Promotion>) {
+
+        this.promotions.addAll(promotions)
+
+        if (promotions.isNotEmpty()) {
+
+            promotionsAdapter.differ.submitList( promotions.map { promotion -> MenuItem(promotion) } )
+
+        } else {
+
+        }
+    }
+
     private fun fillMealsData(meals: List<Meal>) {
 
        if (meals.isNotEmpty()) {
 
-           menuItemsAdapter.differ.submitList(meals)
+           menuAdapter.differ.submitList( meals.map { meal ->
+
+               val mealPromotion = promotions.find { it.meal.id == meal.id }
+
+               if (mealPromotion != null) {
+
+                   MenuItem(mealPromotion)
+
+               } else {
+
+                   MenuItem(meal)
+               }
+           } )
 
        } else {
 

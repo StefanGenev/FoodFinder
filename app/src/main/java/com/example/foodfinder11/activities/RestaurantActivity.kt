@@ -18,6 +18,7 @@ import com.example.foodfinder11.adapters.OffersAdapter
 import com.example.foodfinder11.databinding.ActivityRestaurantBinding
 import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.model.Meal
+import com.example.foodfinder11.model.MenuItem
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.example.foodfinder11.viewModel.MainViewModel
@@ -95,11 +96,12 @@ class RestaurantActivity : AppCompatActivity() {
     }
 
     private fun prepareMenuItems() {
+
         menuItemsAdapter = MenuItemsAdapter()
 
         menuItemsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
-            override fun onClickListener(meal: Meal) {
-                addMealToOrderedItems(meal)
+            override fun onClickListener(menuItem: MenuItem) {
+                addMealToOrderedItems(menuItem.meal)
             }
 
         })

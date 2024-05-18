@@ -11,6 +11,7 @@ import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.SaveMealRequestDto
 import com.example.foodfinder11.dto.SaveMealResponseDto
 import com.example.foodfinder11.fragments.BusinessProfileFragment
+import com.example.foodfinder11.fragments.PromotionBottomSheetFragment
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.CloudinaryManager
@@ -23,6 +24,8 @@ import retrofit2.Response
 class MealInfoActivity : BaseNavigatableActivity() {
 
     private lateinit var binding: ActivityMealInfoBinding
+    private lateinit var promotionBottomSheetDialog: PromotionBottomSheetFragment
+
     private lateinit var meal: Meal
 
     private lateinit var imageUri: Uri
@@ -67,6 +70,10 @@ class MealInfoActivity : BaseNavigatableActivity() {
         binding.descriptionTextEdit.setText(meal.description)
         binding.priceEditText.setText(meal.price.toString())
 
+        binding.promotionButton.setOnClickListener {
+            openPromotionBottomSheet()
+        }
+
         Glide.with(this@MealInfoActivity)
             .load(meal.imageUrl)
             .into(binding.menuImage)
@@ -85,6 +92,12 @@ class MealInfoActivity : BaseNavigatableActivity() {
         }
 
         return true
+    }
+
+    private fun openPromotionBottomSheet() {
+
+        promotionBottomSheetDialog = PromotionBottomSheetFragment()
+        promotionBottomSheetDialog.show(supportFragmentManager, "BottomSheetDialog")
     }
 
     private fun choosePhoto() {

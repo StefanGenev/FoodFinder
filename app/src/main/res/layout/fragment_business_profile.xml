@@ -181,44 +181,59 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_offers"
+            <LinearLayout
+                android:id="@+id/promotionsLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:fontFamily="@font/gothambookitalic"
-                android:text="Popular"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_16ssp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/category_layout" />
+                app:layout_constraintTop_toBottomOf="@id/category_layout">
+
+                <TextView
+                    android:id="@+id/tvPromotions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gothambookitalic"
+                    android:text="Promotions"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/category_layout" />
+
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_offers"
+                android:id="@+id/rv_promotions"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:elevation="2dp"
+                android:scrollbars="none"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_offers" />
+                app:layout_constraintTop_toBottomOf="@id/promotionsLayout" />
 
             <LinearLayout
                 android:id="@+id/menuLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_offers">
+                app:layout_constraintTop_toBottomOf="@id/rv_promotions">
 
                 <TextView
                     android:id="@+id/tv_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/gothambookitalic"
                     android:text="Menu"
                     android:textColor="@color/black"
@@ -240,7 +255,6 @@
                     />
 
             </LinearLayout>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_menu"
