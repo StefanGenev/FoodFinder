@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.activities.BaseNavigatableActivity
 import com.example.foodfinder11.activities.BusinessInfoActivity
 import com.example.foodfinder11.activities.EditBusinessActivity
 import com.example.foodfinder11.activities.MealInfoActivity
@@ -71,8 +72,10 @@ class BusinessProfileFragment : Fragment() {
             createNewMeal()
         }
 
-        initializeAdapters()
+        // set toolbar as support action bar
+        (activity as BaseNavigatableActivity).setSupportActionBar(binding.toolbar)
 
+        initializeAdapters()
         loadRestaurantData()
     }
 
@@ -223,13 +226,14 @@ class BusinessProfileFragment : Fragment() {
 
         SessionManager.saveRestaurantId(restaurant.id)
 
+        binding.collapsingToolbar.title = restaurant.name
+
         Glide.with(this@BusinessProfileFragment)
             .load(restaurant.imageUrl)
             .into(binding.coverPhoto)
 
         binding.chipCategory.text = restaurant.foodType.name
         binding.chipPrice.text = restaurant.priceRange.getName()
-        binding.tvTitle.text = restaurant.name
         binding.tvRating.text = "${restaurant.rating} rating"
 
         binding.infoButton.setOnClickListener {

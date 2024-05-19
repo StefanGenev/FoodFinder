@@ -4,7 +4,7 @@
         <item name="cornerSize">15%</item>
     </style>
 
-    <style name="ToggleButton" parent="Widget.Material3.Button.OutlinedButton">
+    <style name="ToggleButton" parent="@style/Widget.MaterialComponents.Button">
         <item name="backgroundTint">@drawable/toggle_button_background_selector</item>
         <item name="strokeColor">@drawable/toggle_button_outline_color_selector</item>
         <item name="android:textColor">@drawable/toggle_button_foreground_color_selector</item>

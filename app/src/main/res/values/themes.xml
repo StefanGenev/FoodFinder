@@ -21,4 +21,31 @@
         </item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+
+    <style name="Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <!-- Set proper title size -->
+        <item name="android:textSize">@dimen/_20ssp</item>
+        <!-- Set title color -->
+        <item name="android:textColor">@color/white</item>
+        <!-- Set title font -->
+        <item name="android:fontFamily">@font/bentonsans</item>
+    </style>
+
+    <style name="Toolbar.Title.Collapsed" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <!-- Set proper title size -->
+        <item name="android:textSize">@dimen/_20ssp</item>
+        <!-- Set title color -->
+        <item name="android:textColor">@color/white</item>
+        <!-- Set title font -->
+        <item name="android:fontFamily">@font/bentonsans</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_dialog</item>
+    </style>
+
 </resources>

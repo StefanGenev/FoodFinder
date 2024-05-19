@@ -43,7 +43,9 @@
             app:layout_constraintEnd_toStartOf="@+id/rightLayout"
             app:layout_constraintStart_toEndOf="@id/mealImageCard"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0">
 
             <TextView
                 android:id="@+id/meal_name"
@@ -52,9 +54,13 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/bentonsans"
                 android:maxLines="2"
-                android:text="Meal name"
+                android:text="Very long meal name with a lot of words"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="5dp"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipPromotion"
@@ -74,7 +80,6 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/bentonsansmedium"
                 android:gravity="fill"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:text="Light snack with onions and fresh tomatoes and also some bruschette with basil and garlic"
                 android:textColor="@color/light_gray"
                 android:textSize="@dimen/_10sdp" />
@@ -88,7 +93,7 @@
             android:gravity="right"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@id/mealInfoLayout">
 
             <TextView
                 android:id="@+id/price"
@@ -128,6 +133,7 @@
             app:iconGravity="textStart"
             app:iconPadding="0dp"
             app:iconTint="@color/forest"
+            app:layout_constraintTop_toBottomOf="@id/rightLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
