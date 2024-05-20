@@ -27,22 +27,73 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button"
+    <LinearLayout
+        android:id="@+id/leftButtonsLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:onClick="onGoBack"
-        android:scaleType="center"
-        app:backgroundTint="@color/light_salva"
-        app:fabCustomSize="48dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:maxImageSize="18dp"
-        app:srcCompat="@drawable/back"
-        app:tint="@color/salva" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:onClick="onGoBack"
+            android:scaleType="center"
+            app:backgroundTint="@color/light_salva"
+            app:fabCustomSize="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="18dp"
+            app:srcCompat="@drawable/back"
+            app:tint="@color/salva" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rightButtonsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/hideButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:onClick="onGoBack"
+            android:scaleType="center"
+            app:backgroundTint="@color/light_forest"
+            app:fabCustomSize="48dp"
+            app:maxImageSize="20dp"
+            app:srcCompat="@drawable/hide"
+            app:tint="@color/black" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:onClick="onGoBack"
+            android:scaleType="center"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:backgroundTint="@color/light_salva"
+            app:fabCustomSize="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="20dp"
+            app:srcCompat="@drawable/delete"
+            app:tint="@color/salva" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +102,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/floating_action_button">
+        app:layout_constraintTop_toBottomOf="@id/leftButtonsLayout">
 
         <TextView
             android:id="@+id/header_title"
@@ -82,17 +133,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
-                app:hintTextColor="@color/forest"
                 app:boxStrokeColor="@color/forest"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:hintTextColor="@color/forest">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nameTextEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
+                    android:fontFamily="@font/bentonsansmedium"
                     android:imeOptions="actionDone"
-                    android:fontFamily="@font/bentonsansmedium" />
+                    android:singleLine="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,16 +158,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Description"
-                app:hintTextColor="@color/forest"
                 app:boxStrokeColor="@color/forest"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:hintTextColor="@color/forest">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionTextEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionDone"
-                    android:fontFamily="@font/bentonsansmedium" />
+                    android:fontFamily="@font/bentonsansmedium"
+                    android:imeOptions="actionDone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,31 +182,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Price"
-                app:hintTextColor="@color/forest"
                 app:boxStrokeColor="@color/forest"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:hintTextColor="@color/forest">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/priceEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:inputType="numberDecimal"
+                    android:fontFamily="@font/bentonsansmedium"
                     android:imeOptions="actionDone"
-                    android:fontFamily="@font/bentonsansmedium" />
+                    android:inputType="numberDecimal"
+                    android:singleLine="true" />
 
                 <Button
                     android:id="@+id/promotionButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="Add promotion"
-                    android:textSize="@dimen/_10sdp"
                     android:backgroundTint="@color/light_salva"
-                    app:iconTint="@color/salva"
+                    android:text="Add promotion"
                     android:textColor="@color/salva"
+                    android:textSize="@dimen/_10sdp"
                     app:icon="@drawable/ic_add"
-                    style="@style/Widget.MaterialComponents.Button.TextButton" />
+                    app:iconTint="@color/salva" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -216,21 +267,28 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/continueButton"
-        style="?attr/materialButtonOutlinedStyle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        android:fontFamily="@font/bentonsansmedium"
-        android:text="Continue"
-        android:onClick="onContinue"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:backgroundTint="@color/forest"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/continueButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:fontFamily="@font/bentonsansmedium"
+            android:onClick="onContinue"
+            android:text="Continue"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:backgroundTint="@color/forest" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

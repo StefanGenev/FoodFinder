@@ -18,10 +18,10 @@ import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
 import com.example.foodfinder11.dto.SaveRestaurantRequestDto
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Meal
-import com.example.foodfinder11.model.Promotion
 import com.example.foodfinder11.model.Restaurant
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 
@@ -57,11 +57,10 @@ interface APItiteService {
 
     @POST("/api/meals/get_meals")
     fun getMeals(@Body dto: IdentifierDto) : Call<ResponseWrapper<List<Meal>>>
+
     @POST("/api/meals/save_meal")
     fun saveMeal( @Body requestData: SaveMealRequestDto): Call<ResponseWrapper<SaveMealResponseDto>>
 
-    @POST("/api/meals/get_promotions")
-    fun getPromotions(@Body dto: IdentifierDto) : Call<ResponseWrapper<List<Promotion>>>
-    @POST("/api/meals/save_promotion")
-    fun savePromotion( @Body requestData: SavePromotionRequestDto): Call<ResponseWrapper<NoData>>
+    @DELETE("/api/meals/delete_meal")
+    fun deleteMeal( @Body dto: IdentifierDto): Call<ResponseWrapper<NoData>>
 }

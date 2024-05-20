@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_gray"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,10 +12,10 @@
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/continueButton">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/header_title"
@@ -62,6 +62,7 @@
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
@@ -71,31 +72,52 @@
             app:hintTextColor="@color/forest">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameTextEdit"
+                android:id="@+id/textFieldTextEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bentonsansmedium"
                 android:imeOptions="actionDone"
+                android:inputType="number"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/continueButton"
-        style="?attr/materialButtonOutlinedStyle"
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        android:fontFamily="@font/bentonsansmedium"
-        android:text="Continue"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:backgroundTint="@color/forest"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/continueButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:fontFamily="@font/bentonsansmedium"
+            android:text="Confirm"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:backgroundTint="@color/forest" />
+
+        <Button
+            android:id="@+id/removeButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:fontFamily="@font/bentonsansmedium"
+            android:text="Remove promotion"
+            app:strokeWidth="0dp"
+            android:textColor="@color/salva"
+            android:textSize="18sp"
+            app:backgroundTint="@color/light_salva" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

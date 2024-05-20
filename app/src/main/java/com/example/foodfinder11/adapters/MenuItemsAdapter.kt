@@ -4,13 +4,12 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodfinder11.databinding.MenuItemCardBinding
-import com.example.foodfinder11.model.MenuItem
+import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.PromotionTypes
 
 
@@ -19,12 +18,12 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
     inner class MenuItemsViewHolder(val binding: MenuItemCardBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val diffUtil = object : DiffUtil.ItemCallback<MenuItem>() {
-        override fun areItemsTheSame(oldItem: MenuItem, newItem: MenuItem): Boolean {
-            return oldItem.meal.id == newItem.meal.id
+    private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
+        override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MenuItem, newItem: MenuItem): Boolean {
+        override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean {
             return oldItem == newItem
         }
     }
@@ -40,11 +39,11 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
         val menuItem = differ.currentList[position]
 
-        Glide.with(holder.itemView).load(menuItem.meal.imageUrl).into(holder.binding.menuImage)
+        Glide.with(holder.itemView).load(menuItem.imageUrl).into(holder.binding.menuImage)
 
-        holder.binding.mealName.text = menuItem.meal.name
-        holder.binding.mealDescription.text = menuItem.meal.description
-        holder.binding.price.text = "${String.format("%.2f", menuItem.meal.price)} lv."
+        holder.binding.mealName.text = menuItem.name
+        holder.binding.mealDescription.text = menuItem.description
+        holder.binding.price.text = "${String.format("%.2f", menuItem.price)} lv."
 
         if (menuItem.hasPromotion) {
 
@@ -76,7 +75,7 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
     }
 
     interface OnMenuItemClicked {
-        fun onClickListener(menuItem: MenuItem);
+        fun onClickListener(menuItem: Meal);
     }
 
     override fun getItemCount(): Int {

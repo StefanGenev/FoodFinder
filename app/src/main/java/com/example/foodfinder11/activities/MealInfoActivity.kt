@@ -2,17 +2,26 @@ package com.example.foodfinder11.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityMealInfoBinding
+import com.example.foodfinder11.dto.IdentifierDto
+import com.example.foodfinder11.dto.NoData
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.SaveMealRequestDto
 import com.example.foodfinder11.dto.SaveMealResponseDto
 import com.example.foodfinder11.fragments.BusinessProfileFragment
 import com.example.foodfinder11.fragments.PromotionBottomSheetFragment
+import com.example.foodfinder11.fragments.QuestionDialogFragment
 import com.example.foodfinder11.model.Meal
+import com.example.foodfinder11.model.PromotionTypes
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.CloudinaryManager
 import com.example.foodfinder11.utils.SessionManager
@@ -21,7 +30,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MealInfoActivity : BaseNavigatableActivity() {
+interface PromotionDialogActivityContract{
+    fun setHasPromotion(flag: Boolean)
+    fun setPromotionType(type: PromotionTypes)
+    fun setAdditionalMeals(count: Int)
+    fun setPercent(percent: Int)
+
+    fun getHasPromotion(): Boolean
+    fun getPromotionType(): PromotionTypes
+    fun getAdditionalMeals(): Int
+    fun getPercent(): Int
+}
+
+class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContract {
 
     private lateinit var binding: ActivityMealInfoBinding
     private lateinit var promotionBottomSheetDialog: PromotionBottomSheetFragment
@@ -62,6 +83,18 @@ class MealInfoActivity : BaseNavigatableActivity() {
 
     override fun initializeViews() {
 
+        binding.deleteButton.setOnClickListener {
+            onDelete()
+        }
+
+        if (meal.id > 0) {
+            binding.hideButton.visibility = View.GONE
+        }
+
+        binding.hideButton.setOnClickListener {
+            onHide()
+        }
+
         binding.choosePhotoLayout.setOnClickListener {
             choosePhoto()
         }
@@ -69,6 +102,20 @@ class MealInfoActivity : BaseNavigatableActivity() {
         binding.nameTextEdit.setText(meal.name)
         binding.descriptionTextEdit.setText(meal.description)
         binding.priceEditText.setText(meal.price.toString())
+
+        if (meal.hasPromotion) {
+
+            binding.promotionButton.text = "Edit promotion"
+            binding.promotionButton.setBackgroundColor( ContextCompat.getColor(applicationContext, R.color.light_salva) )
+            binding.promotionButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.salva))
+
+
+        } else {
+
+            binding.promotionButton.text = "Add promotion"
+            binding.promotionButton.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.light_forest))
+            binding.promotionButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.forest))
+        }
 
         binding.promotionButton.setOnClickListener {
             openPromotionBottomSheet()
@@ -92,6 +139,70 @@ class MealInfoActivity : BaseNavigatableActivity() {
         }
 
         return true
+    }
+
+    private fun onDelete() {
+
+        QuestionDialogFragment("Are you sure?",
+            "Yes",
+            "No",
+            onOkAction = { dialog, id ->
+
+                deleteMealRequest()
+                dialog.dismiss()
+            }
+            , onCancelAction = { dialog, id ->
+
+                dialog.dismiss()
+            } ).show(supportFragmentManager, "QuestionDialog")
+    }
+
+    private fun deleteMealRequest() {
+
+        val dto = IdentifierDto(id = meal.id)
+
+        RetrofitInstance.getApiService().deleteMeal(dto)
+
+            .enqueue(object : Callback<ResponseWrapper<NoData>> {
+
+                override fun onResponse(
+                    call: Call<ResponseWrapper<NoData>>,
+                    response: Response<ResponseWrapper<NoData>>
+                ) {
+
+                    val responseBody = response.body().takeIf { it != null } ?: return
+
+                    if (responseBody.status == 200) {
+                        Toast.makeText(this@MealInfoActivity, "Meal deleted", Toast.LENGTH_SHORT).show()
+                        returnOkIntent()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseWrapper<NoData>>,
+                    t: Throwable
+                ) {
+                    Log.d("MainViewModel", t.message.toString())
+                }
+            })
+    }
+
+    private fun onHide() {
+
+        val dialogTitle = if (!meal.isHidden) "Are you sure? This action will hide the current meal from your customers"
+                            else "Are you sure? This action will show the current meals to your customers"
+
+        QuestionDialogFragment(dialogTitle,
+            "Yes",
+            "No",
+            onOkAction = { dialog, id ->
+
+                meal.isHidden = !meal.isHidden
+            }
+            , onCancelAction = { dialog, id ->
+
+                dialog.dismiss()
+            } ).show(supportFragmentManager, "QuestionDialog")
     }
 
     private fun openPromotionBottomSheet() {
@@ -134,12 +245,7 @@ class MealInfoActivity : BaseNavigatableActivity() {
         meal.description = binding.descriptionTextEdit.text.toString()
         meal.price = binding.priceEditText.text.toString().toDouble()
 
-        val dto = SaveMealRequestDto( id = meal.id
-            , name = meal.name
-            , description = meal.description
-            , price = meal.price
-            , imageUrl = meal.imageUrl
-            , restaurantId = SessionManager.fetchRestaurantId()!!)
+        val dto = SaveMealRequestDto(meal)
 
         RetrofitInstance.getApiService().saveMeal(dto)
 
@@ -164,6 +270,45 @@ class MealInfoActivity : BaseNavigatableActivity() {
                     Log.d("MainViewModel", t.message.toString())
                 }
             })
+    }
+
+    override fun setHasPromotion(flag: Boolean) {
+
+        meal.hasPromotion = flag
+
+        if (!flag) {
+
+            meal.additionalMealsCount = 0
+            meal.promotionPercent = 0
+        }
+    }
+
+    override fun setPromotionType(type: PromotionTypes) {
+        meal.promotionType = type
+    }
+
+    override fun setAdditionalMeals(count: Int) {
+       meal.additionalMealsCount = count
+    }
+
+    override fun setPercent(percent: Int) {
+        meal.promotionPercent = percent
+    }
+
+    override fun getHasPromotion(): Boolean {
+        return meal.hasPromotion
+    }
+
+    override fun getPromotionType(): PromotionTypes {
+        return meal.promotionType
+    }
+
+    override fun getAdditionalMeals(): Int {
+        return meal.additionalMealsCount
+    }
+
+    override fun getPercent(): Int {
+        return meal.promotionPercent
     }
 
 }

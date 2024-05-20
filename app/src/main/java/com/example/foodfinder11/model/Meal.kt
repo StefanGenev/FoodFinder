@@ -10,5 +10,10 @@ data class Meal(
     var description: String = "",
     var price: Double = 0.0,
     var imageUrl: String = "",
-    var restaurant: Restaurant = Restaurant()
+    var restaurant: Restaurant = Restaurant(),
+    var hasPromotion: Boolean = false,
+    var promotionType: PromotionTypes = PromotionTypes.PERCENT,
+    var promotionPercent: Int = 0,
+    var additionalMealsCount: Int = 0,
+    var isHidden: Boolean = false,
 ) : Parcelable

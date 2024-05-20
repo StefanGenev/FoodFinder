@@ -20,8 +20,6 @@ import com.example.foodfinder11.databinding.FragmentBusinessProfileBinding
 import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Meal
-import com.example.foodfinder11.model.MenuItem
-import com.example.foodfinder11.model.Promotion
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.SessionManager
@@ -41,7 +39,6 @@ class BusinessProfileFragment : Fragment() {
     private lateinit var menuAdapter: MenuItemsAdapter
 
     private var restaurant: Restaurant = Restaurant()
-    private var promotions: ArrayList<Promotion> = ArrayList()
 
     private val restaurantInfoActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -85,8 +82,8 @@ class BusinessProfileFragment : Fragment() {
 
         promotionsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
 
-            override fun onClickListener(menuItem: MenuItem) {
-                editMeal(menuItem.meal)
+            override fun onClickListener(menuItem: Meal) {
+                editMeal(menuItem)
             }
 
         })
@@ -99,8 +96,8 @@ class BusinessProfileFragment : Fragment() {
         menuAdapter = MenuItemsAdapter()
 
         menuAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
-            override fun onClickListener(menuItem: MenuItem) {
-                editMeal(menuItem.meal)
+            override fun onClickListener(menuItem: Meal) {
+                editMeal(menuItem)
             }
 
         })
@@ -146,8 +143,7 @@ class BusinessProfileFragment : Fragment() {
                         restaurant = responseData
 
                         fillRestaurantData()
-
-                        loadPromotions()
+                        loadMeals()
                     }
                 }
 
@@ -190,38 +186,6 @@ class BusinessProfileFragment : Fragment() {
             })
     }
 
-    private fun loadPromotions() {
-        val restaurantId = SessionManager.fetchRestaurantId()!!
-        val dto = IdentifierDto(id = restaurantId)
-
-        RetrofitInstance.getApiService().getPromotions(dto)
-            .enqueue(object : Callback<ResponseWrapper<List<Promotion>>> {
-
-                override fun onResponse(
-                    call: Call<ResponseWrapper<List<Promotion>>>,
-                    response: Response<ResponseWrapper<List<Promotion>>>
-                ) {
-
-                    val responseBody = response.body().takeIf { it != null } ?: return
-
-                    if (responseBody.status == 200) {
-
-                        val responseData = responseBody.data.takeIf { it != null } ?: return
-                        fillPromotionsData(responseData)
-
-                        loadMeals()
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ResponseWrapper<List<Promotion>>>,
-                    t: Throwable
-                ) {
-                    Log.d("MainViewModel", t.message.toString())
-                }
-            })
-    }
-
     private fun fillRestaurantData() {
 
         SessionManager.saveRestaurantId(restaurant.id)
@@ -257,39 +221,24 @@ class BusinessProfileFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun fillPromotionsData(promotions: List<Promotion>) {
-
-        this.promotions.addAll(promotions)
-
-        if (promotions.isNotEmpty()) {
-
-            promotionsAdapter.differ.submitList( promotions.map { promotion -> MenuItem(promotion) } )
-
-        } else {
-
-        }
-    }
-
     private fun fillMealsData(meals: List<Meal>) {
 
        if (meals.isNotEmpty()) {
 
-           menuAdapter.differ.submitList( meals.map { meal ->
+           val promotions = meals.filter { meal -> meal.hasPromotion }
 
-               val mealPromotion = promotions.find { it.meal.id == meal.id }
+           if (promotions.isEmpty()) {
 
-               if (mealPromotion != null) {
+               binding.promotionsLayout.visibility = View.GONE
 
-                   MenuItem(mealPromotion)
+           } else {
+               promotionsAdapter.differ.submitList( promotions  )
+           }
 
-               } else {
-
-                   MenuItem(meal)
-               }
-           } )
+           menuAdapter.differ.submitList( meals )
 
        } else {
-
+           binding.promotionsLayout.visibility = View.GONE
        }
 
     }

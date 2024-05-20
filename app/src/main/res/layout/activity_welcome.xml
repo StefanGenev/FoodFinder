@@ -58,7 +58,6 @@
             android:text="Continue with Email"
             app:backgroundTint="@color/forest"
             android:textColor="@color/white"
-
             android:textSize="16sp"
             app:icon="@drawable/email"
             app:iconSize="@dimen/_20sdp"
