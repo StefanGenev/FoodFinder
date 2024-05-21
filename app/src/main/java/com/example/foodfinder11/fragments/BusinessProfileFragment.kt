@@ -2,15 +2,18 @@ package com.example.foodfinder11.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.BaseNavigatableActivity
 import com.example.foodfinder11.activities.BusinessInfoActivity
 import com.example.foodfinder11.activities.EditBusinessActivity
@@ -190,7 +193,9 @@ class BusinessProfileFragment : Fragment() {
 
         SessionManager.saveRestaurantId(restaurant.id)
 
+        binding.tvTitle.text = restaurant.name
         binding.collapsingToolbar.title = restaurant.name
+        binding.collapsingToolbar.setExpandedTitleColor( ContextCompat.getColor(activity?.applicationContext!!, R.color.none))
 
         Glide.with(this@BusinessProfileFragment)
             .load(restaurant.imageUrl)
@@ -198,7 +203,11 @@ class BusinessProfileFragment : Fragment() {
 
         binding.chipCategory.text = restaurant.foodType.name
         binding.chipPrice.text = restaurant.priceRange.getName()
-        binding.tvRating.text = "${restaurant.rating} rating"
+
+        if (restaurant.rating > 0.0)
+            binding.tvRating.text = "${restaurant.rating} rating"
+        else
+            binding.tvRating.visibility = View.GONE
 
         binding.infoButton.setOnClickListener {
             openInfoActivity()
@@ -223,23 +232,21 @@ class BusinessProfileFragment : Fragment() {
 
     private fun fillMealsData(meals: List<Meal>) {
 
-       if (meals.isNotEmpty()) {
+        val promotions = meals.filter { meal -> meal.hasPromotion }
 
-           val promotions = meals.filter { meal -> meal.hasPromotion }
+        promotionsAdapter.differ.submitList( promotions  )
+        menuAdapter.differ.submitList( meals )
+        menuAdapter.notifyDataSetChanged()
 
-           if (promotions.isEmpty()) {
+        if (promotions.isEmpty()) {
 
-               binding.promotionsLayout.visibility = View.GONE
+            binding.promotionsLayout.visibility = View.GONE
 
-           } else {
-               promotionsAdapter.differ.submitList( promotions  )
-           }
+        } else {
 
-           menuAdapter.differ.submitList( meals )
+            binding.promotionsLayout.visibility = View.VISIBLE
+        }
 
-       } else {
-           binding.promotionsLayout.visibility = View.GONE
-       }
-
+        binding.emptyStateLayout.visibility = if (meals.isEmpty()) View.VISIBLE else View.GONE
     }
 }

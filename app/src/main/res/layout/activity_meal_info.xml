@@ -7,6 +7,7 @@
     android:background="@color/background_gray"
     android:gravity="center"
     android:orientation="vertical"
+    android:clipChildren="false"
     tools:context=".activities.MealInfoActivity">
 
     <ImageView
@@ -27,38 +28,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/leftButtonsLayout"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:onClick="onGoBack"
+        android:scaleType="center"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
+        app:backgroundTint="@color/light_salva"
+        app:fabCustomSize="48dp"
+        app:maxImageSize="18dp"
+        app:srcCompat="@drawable/back"
+        app:tint="@color/salva"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:onClick="onGoBack"
-            android:scaleType="center"
-            app:backgroundTint="@color/light_salva"
-            app:fabCustomSize="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:maxImageSize="18dp"
-            app:srcCompat="@drawable/back"
-            app:tint="@color/salva" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:id="@+id/rightButtonsLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/_20sdp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_marginTop="@dimen/_20sdp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,11 +60,11 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/hideButton"
+            android:clipToPadding="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:onClick="onGoBack"
-            android:scaleType="center"
             app:backgroundTint="@color/light_forest"
             app:fabCustomSize="48dp"
             app:maxImageSize="20dp"
@@ -82,8 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
+
             android:onClick="onGoBack"
-            android:scaleType="center"
             android:layout_marginLeft="@dimen/_10sdp"
             app:backgroundTint="@color/light_salva"
             app:fabCustomSize="48dp"
@@ -102,7 +96,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leftButtonsLayout">
+        app:layout_constraintTop_toBottomOf="@id/backButton">
 
         <TextView
             android:id="@+id/header_title"

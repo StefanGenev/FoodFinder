@@ -4,6 +4,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.example.foodfinder11.model.PromotionTypes
 
 
 class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHolder>(){
+
     private lateinit var onItemClick: MenuItemsAdapter.OnMenuItemClicked
 
     inner class MenuItemsViewHolder(val binding: MenuItemCardBinding) : RecyclerView.ViewHolder(binding.root)
@@ -55,10 +57,8 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
             } else if (menuItem.promotionType == PromotionTypes.MANY_FOR_ONE) {
 
-                holder.binding.chipPromotion.text = "${menuItem.additionalMealsCount + 1} for 1%"
+                holder.binding.chipPromotion.text = "${menuItem.additionalMealsCount + 1} for 1"
             }
-
-            holder.binding.chipPromotion
 
         } else {
             holder.binding.oldPrice.visibility = View.GONE;

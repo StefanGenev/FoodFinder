@@ -123,6 +123,7 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
             promotionDialogActivityContract.setAdditionalMeals(value)
         }
 
+        promotionDialogActivityContract.onConfirmPromotion()
         dismiss()
     }
 
@@ -134,12 +135,14 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
             onOkAction = { dialog, id ->
 
                 promotionDialogActivityContract.setHasPromotion(false)
-                dialog.dismiss()
+                promotionDialogActivityContract.onRemovePromotion()
+                dismiss()
             }
             , onCancelAction = { dialog, id ->
 
-                dialog.dismiss()
+                dismiss()
             } ).show(parentFragmentManager, "QuestionDialog")
+
     }
 
 }

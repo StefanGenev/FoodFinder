@@ -23,6 +23,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
 
 
@@ -61,6 +62,6 @@ interface APItiteService {
     @POST("/api/meals/save_meal")
     fun saveMeal( @Body requestData: SaveMealRequestDto): Call<ResponseWrapper<SaveMealResponseDto>>
 
-    @DELETE("/api/meals/delete_meal")
+    @HTTP(method = "DELETE", path = "/api/meals/delete_meal", hasBody = true)
     fun deleteMeal( @Body dto: IdentifierDto): Call<ResponseWrapper<NoData>>
 }

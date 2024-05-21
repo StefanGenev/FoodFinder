@@ -39,7 +39,7 @@
             android:layout_width="@dimen/_150sdp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             app:layout_constraintEnd_toStartOf="@+id/rightLayout"
             app:layout_constraintStart_toEndOf="@id/mealImageCard"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,10 +57,6 @@
                 android:text="Very long meal name with a lot of words"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="5dp"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipPromotion"
@@ -127,6 +123,7 @@
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light_forest"
+            android:layout_marginTop="@dimen/_10sdp"
             android:padding="0dp"
             app:cornerRadius="10dp"
             app:icon="@drawable/edit_small"

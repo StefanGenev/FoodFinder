@@ -40,6 +40,9 @@ interface PromotionDialogActivityContract{
     fun getPromotionType(): PromotionTypes
     fun getAdditionalMeals(): Int
     fun getPercent(): Int
+
+    fun onConfirmPromotion()
+    fun onRemovePromotion()
 }
 
 class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContract {
@@ -87,10 +90,6 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
             onDelete()
         }
 
-        if (meal.id > 0) {
-            binding.hideButton.visibility = View.GONE
-        }
-
         binding.hideButton.setOnClickListener {
             onHide()
         }
@@ -99,31 +98,16 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
             choosePhoto()
         }
 
-        binding.nameTextEdit.setText(meal.name)
-        binding.descriptionTextEdit.setText(meal.description)
-        binding.priceEditText.setText(meal.price.toString())
-
-        if (meal.hasPromotion) {
-
-            binding.promotionButton.text = "Edit promotion"
-            binding.promotionButton.setBackgroundColor( ContextCompat.getColor(applicationContext, R.color.light_salva) )
-            binding.promotionButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.salva))
-
-
-        } else {
-
-            binding.promotionButton.text = "Add promotion"
-            binding.promotionButton.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.light_forest))
-            binding.promotionButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.forest))
-        }
-
         binding.promotionButton.setOnClickListener {
             openPromotionBottomSheet()
         }
 
-        Glide.with(this@MealInfoActivity)
-            .load(meal.imageUrl)
-            .into(binding.menuImage)
+        if (meal.id <= 0) {
+            binding.rightButtonsLayout.visibility = View.GONE
+
+        } else {
+            transferMealDataToControls()
+        }
 
         binding.tvUploadPhoto.setText("Upload new photo")
     }
@@ -139,6 +123,36 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
         }
 
         return true
+    }
+
+    private fun transferMealDataToControls() {
+
+        binding.nameTextEdit.setText(meal.name)
+        binding.descriptionTextEdit.setText(meal.description)
+        binding.priceEditText.setText(meal.price.toString())
+
+        initPromotionViews()
+
+        Glide.with(this@MealInfoActivity)
+            .load(meal.imageUrl)
+            .into(binding.menuImage)
+    }
+
+    private fun initPromotionViews() {
+
+        if (meal.hasPromotion) {
+
+            binding.promotionButton.text = "Edit promotion"
+            binding.promotionButton.setBackgroundColor( ContextCompat.getColor(applicationContext, R.color.light_salva) )
+            binding.promotionButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.salva))
+
+
+        } else {
+
+            binding.promotionButton.text = "Add promotion"
+            binding.promotionButton.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.light_forest))
+            binding.promotionButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.forest))
+        }
     }
 
     private fun onDelete() {
@@ -309,6 +323,16 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
 
     override fun getPercent(): Int {
         return meal.promotionPercent
+    }
+
+    override fun onConfirmPromotion() {
+
+        initPromotionViews()
+    }
+
+    override fun onRemovePromotion() {
+
+        initPromotionViews()
     }
 
 }
