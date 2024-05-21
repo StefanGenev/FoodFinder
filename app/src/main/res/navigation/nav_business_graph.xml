@@ -16,10 +16,11 @@
         android:name="com.example.foodfinder11.fragments.BusinessProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_business_profile" />
+
     <fragment
-        android:id="@+id/profileFragment2"
-        android:name="com.example.foodfinder11.fragments.BusinessProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_business_profile" />
+        android:id="@+id/settingsFragment"
+        android:name="com.example.foodfinder11.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>

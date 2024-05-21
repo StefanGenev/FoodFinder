@@ -4,24 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:clipChildren="false"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:clipToPadding="false"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mealImageCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/menu_image"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/light_gray"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/header_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/bentonsans"
             android:text="Promotion"
             android:textAlignment="center"
@@ -31,6 +54,7 @@
             android:id="@+id/toggleButtonGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20sdp"
             android:elevation="@dimen/_10sdp"
             app:checkedButton="@+id/btnPercent"
@@ -46,6 +70,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bentonsansmedium"
                 android:text="Percent"
+                android:textSize="@dimen/_9ssp"
+                app:cornerRadius="@dimen/_5sdp"
                 app:icon="@drawable/percent"
                 app:iconTint="@drawable/toggle_button_foreground_color_selector" />
 
@@ -56,6 +82,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bentonsansmedium"
                 android:text="Many for one"
+                android:textSize="@dimen/_9ssp"
+                app:cornerRadius="@dimen/_5sdp"
                 app:icon="@drawable/gift"
                 app:iconTint="@drawable/toggle_button_foreground_color_selector" />
 
@@ -65,7 +93,7 @@
             android:id="@+id/textFieldTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:hint="Additional"
             app:boxStrokeColor="@color/forest"
             app:endIconMode="clear_text"
@@ -88,9 +116,9 @@
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -113,10 +141,10 @@
             android:layout_height="65dp"
             android:fontFamily="@font/bentonsansmedium"
             android:text="Remove promotion"
-            app:strokeWidth="0dp"
             android:textColor="@color/salva"
             android:textSize="18sp"
-            app:backgroundTint="@color/light_salva" />
+            app:backgroundTint="@color/light_salva"
+            app:strokeWidth="0dp" />
 
     </LinearLayout>
 
