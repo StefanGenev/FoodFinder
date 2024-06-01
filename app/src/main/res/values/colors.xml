@@ -18,6 +18,8 @@
     <color name="facebook_blue">#3b5998</color>
     <color name="google_white">#f2f2f2</color>
     <color name="light_gray">#A9A9A9</color>
+    <color name="pink">#fbecec</color>
+    <color name="red">#ff1d1d</color>
 
     <color name="g_black">#33405f</color>
 </resources>

@@ -2,52 +2,38 @@ package com.example.foodfinder11.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.example.foodfinder11.OrderItem
 import com.example.foodfinder11.R
 import com.example.foodfinder11.adapters.MenuItemsAdapter
-import com.example.foodfinder11.adapters.OffersAdapter
 import com.example.foodfinder11.databinding.ActivityRestaurantBinding
+import com.example.foodfinder11.dto.IdentifierDto
+import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.fragments.BusinessProfileFragment
 import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.getParcelableExtraProvider
-import com.example.foodfinder11.viewModel.MainViewModel
-import kotlin.random.Random
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class RestaurantActivity : AppCompatActivity() {
-    private lateinit var restaurant: Restaurant
+class RestaurantActivity : BaseNavigatableActivity() {
 
-    private var isFavorite: Boolean = false;
-    private lateinit var homeMvvm: MainViewModel
     private lateinit var binding: ActivityRestaurantBinding
-    private lateinit var offersAdapter: OffersAdapter
-    private lateinit var menuItemsAdapter: MenuItemsAdapter
-    private var selectedItems: Int = 0;
-    private var totalPrice: Float = 0.0F;
-    private lateinit var orderedItemsArray: ArrayList<OrderItem>
+    private lateinit var promotionsAdapter: MenuItemsAdapter
+    private lateinit var menuAdapter: MenuItemsAdapter
 
-    companion object {
-        const val ORDERED_ITEMS_ARRAY = "ordered_items"
-    }
+    private var restaurant: Restaurant = Restaurant()
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.clear()
-        outState.remove("android:support:fragments")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initializeActivity() {
 
         binding = ActivityRestaurantBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -63,95 +49,21 @@ class RestaurantActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
-
-        homeMvvm = ViewModelProvider(this)[MainViewModel::class.java]
-
-        getRestaurantInformation()
-        setInformationInViews()
-        onFavoritesButtonClick()
-
-        //TODO Initialize viewmodel correctly
-        //homeMvvm.getAllRestaurants()
-        prepareOffers()
-        observeOffers()
-
-        prepareMenuItems()
-        observeMenuItems()
-
-        orderedItemsArray = ArrayList()
-
-        binding.orderButton.setOnClickListener {
-            val intent = Intent(this@RestaurantActivity, OrderActivity::class.java)
-            intent.putExtra(ORDERED_ITEMS_ARRAY, orderedItemsArray)
-            startActivity(intent)
-        }
-
     }
 
-    private fun observeMenuItems() {
-        homeMvvm.getAllRestaurantsLiveData().observe(this, Observer { meals ->
-            //TODO menuItemsAdapter.differ.submitList(meals)
-        })
+    override fun initializeData() {
+
+        val intent = intent
+        restaurant = intent.getParcelableExtraProvider<Restaurant>(HomeFragment.RESTAURANT)!!
     }
 
-    private fun prepareMenuItems() {
+    override fun initializeViews() {
 
-        menuItemsAdapter = MenuItemsAdapter()
+        initializeAdapters()
+        loadRestaurantData()
 
-        menuItemsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
-            override fun onClickListener(menuItem: Meal) {
-                addMealToOrderedItems(menuItem)
-            }
-
-        })
-
-        binding.rvMenu.apply {
-            layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
-            adapter = menuItemsAdapter
-        }
-    }
-
-    private fun addMealToOrderedItems(meal: Meal) {
-        var hasItem = false
-        for (item in orderedItemsArray) {
-            if (item.idMeal == meal.id) {
-                item.intMealCount++
-                hasItem = true
-                break
-            }
-        }
-
-        if (!hasItem) {
-            var orderItem = OrderItem(meal.id, 1, meal.name, meal.imageUrl)
-            orderedItemsArray.add(orderItem)
-        }
-
-        selectedItems++;
-        totalPrice += 10
-
-        binding.orderButton.visibility = View.VISIBLE
-        var text = "Order $selectedItems item"
-
-        if (selectedItems > 1)
-            text += "s"
-
-        text += "(${String.format("%.2f", totalPrice)} lv.)"
-
-        binding.orderButton.text = text
-
-    }
-
-    private fun observeOffers() {
-        homeMvvm.getAllRestaurantsLiveData().observe(this, Observer { meals ->
-            //TODO offersAdapter.differ.submitList(meals)
-        })
-    }
-
-    private fun prepareOffers() {
-        offersAdapter = OffersAdapter()
-        binding.rvOffers.apply {
-            layoutManager = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
-            adapter = offersAdapter
+        binding.favoriteButton.setOnClickListener {
+            binding.
         }
     }
 
@@ -160,85 +72,138 @@ class RestaurantActivity : AppCompatActivity() {
         return true
     }
 
-    private fun setInformationInViews() {
-        Glide.with(applicationContext)
-            .load(restaurant.imageUrl)
-            .into(binding.imgMealDetail)
+    private fun initializeAdapters() {
+
+        promotionsAdapter = MenuItemsAdapter()
+
+
+        binding.rvPromotions.apply {
+            layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
+            adapter = promotionsAdapter
+        }
+
+        menuAdapter = MenuItemsAdapter()
+
+        binding.rvMenu.apply {
+            layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
+            adapter = menuAdapter
+        }
+
+    }
+
+    private fun loadRestaurantData() {
+
+        val dto = IdentifierDto(id = restaurant.id)
+
+        RetrofitInstance.getApiService().getRestaurantById(dto)
+            .enqueue(object : Callback<ResponseWrapper<Restaurant?>> {
+
+                override fun onResponse(
+                    call: Call<ResponseWrapper<Restaurant?>>,
+                    response: Response<ResponseWrapper<Restaurant?>>
+                ) {
+
+                    val responseBody = response.body().takeIf { it != null } ?: return
+
+                    if (responseBody.status == 200) {
+
+                        val responseData = responseBody.data.takeIf { it != null } ?: return
+                        restaurant = responseData
+
+                        fillRestaurantData()
+                        loadMeals()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseWrapper<Restaurant?>>,
+                    t: Throwable
+                ) {
+                }
+            })
+    }
+
+    private fun loadMeals() {
+
+        val restaurantId = SessionManager.fetchRestaurantId()!!
+        val dto = IdentifierDto(id = restaurantId)
+
+        RetrofitInstance.getApiService().getMeals(dto)
+            .enqueue(object : Callback<ResponseWrapper<List<Meal>>> {
+
+                override fun onResponse(
+                    call: Call<ResponseWrapper<List<Meal>>>,
+                    response: Response<ResponseWrapper<List<Meal>>>
+                ) {
+
+                    val responseBody = response.body().takeIf { it != null } ?: return
+
+                    if (responseBody.status == 200) {
+
+                        val responseData = responseBody.data.takeIf { it != null } ?: return
+                        fillMealsData(responseData)
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseWrapper<List<Meal>>>,
+                    t: Throwable
+                ) {
+                    Log.d("MainViewModel", t.message.toString())
+                }
+            })
+    }
+
+    private fun fillRestaurantData() {
+
+        SessionManager.saveRestaurantId(restaurant.id)
 
         binding.tvTitle.text = restaurant.name
-        //binding.tvCategory.text = "Category: " + restaurant.
+        binding.collapsingToolbar.title = restaurant.name
+        binding.collapsingToolbar.setExpandedTitleColor( ContextCompat.getColor(applicationContext, R.color.none))
 
-        if (isFavorite) {
-            binding.favoriteButton.setImageDrawable(
-                ContextCompat.getDrawable(
-                    applicationContext,
-                    R.drawable.ic_favorite_full
-                )
-            )
-        }
+        Glide.with(this@RestaurantActivity)
+            .load(restaurant.imageUrl)
+            .into(binding.coverPhoto)
 
-        binding.ratingbar.rating = Random.nextInt(1, 5).toFloat()
-    }
+        binding.chipCategory.text = restaurant.foodType.name
+        binding.chipPrice.text = restaurant.priceRange.getName()
 
-    private fun getRestaurantInformation() {
-        restaurant = intent.getParcelableExtraProvider<Restaurant>(HomeFragment.RESTAURANT) ?: Restaurant()
-        //TODO Load Restaurant from new view model
-       // isFavorite = intent.getBooleanExtra(HomeFragment.MEAL_FAVORITE, false)!!
-    }
-
-    private fun onFavoritesButtonClick() {
-        binding.favoriteButton.setOnClickListener {
-            if (isFavorite) {
-                binding.favoriteButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        applicationContext,
-                        R.drawable.ic_favorite
-                    )
-                )
-                Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show()
-            } else {
-                binding.favoriteButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        applicationContext,
-                        R.drawable.ic_favorite_full
-                    )
-                )
-
-                Toast.makeText(this, "Saved to favorites", Toast.LENGTH_SHORT).show()
-
-            }
-            isFavorite = !isFavorite;
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(resultCode != Activity.RESULT_OK)
-            return
-
-        if (data != null) {
-            orderedItemsArray.clear()
-            //TODO
-            //orderedItemsArray = data?.getParcelableArrayListExtraProvider<List<OrderItem>>(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
-        }
-
-        if (orderedItemsArray.isEmpty())
-        {
-            binding.orderButton.visibility = View.GONE
-
-        }
+        if (restaurant.rating > 0.0)
+            binding.tvRating.text = "${restaurant.rating} rating"
         else
-        {
-            var text = "Order $selectedItems item"
+            binding.tvRating.visibility = View.GONE
 
-            if (orderedItemsArray.size > 1)
-                text += "s"
+        binding.infoButton.setOnClickListener {
+            openInfoActivity()
+        }
+    }
 
-            text += "(${String.format("%.2f", totalPrice)} lv.)"
+    private fun openInfoActivity() {
 
-            binding.orderButton.text = text
+        val intent = Intent(this@RestaurantActivity, BusinessInfoActivity::class.java)
+        intent.putExtra(BusinessProfileFragment.RESTAURANT, restaurant)
+        startActivity(intent)
+    }
+
+    private fun fillMealsData(meals: List<Meal>) {
+
+        val promotions = meals.filter { meal -> meal.hasPromotion }
+
+        promotionsAdapter.differ.submitList( promotions  )
+        menuAdapter.differ.submitList( meals )
+        menuAdapter.notifyDataSetChanged()
+
+        if (promotions.isEmpty()) {
+
+            binding.promotionsLayout.visibility = View.GONE
+
+        } else {
+
+            binding.promotionsLayout.visibility = View.VISIBLE
         }
 
+        binding.emptyStateLayout.visibility = if (meals.isEmpty()) View.VISIBLE else View.GONE
     }
+
 }

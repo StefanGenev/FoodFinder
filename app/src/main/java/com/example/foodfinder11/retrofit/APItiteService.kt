@@ -44,6 +44,9 @@ interface APItiteService {
     @POST("/api/restaurants/get_by_owner_id")
     fun getByOwnerId(@Body dto: IdentifierDto) : Call<ResponseWrapper<Restaurant?>>
 
+    @POST("/api/restaurants/get_by_id")
+    fun getRestaurantById(@Body dto: IdentifierDto) : Call<ResponseWrapper<Restaurant?>>
+
     @POST("/api/restaurants/register")
     fun registerRestaurant(@Body requestData: RegisterRestaurantRequestDto): Call<ResponseWrapper<RegisterRestaurantResponseDto>>
 

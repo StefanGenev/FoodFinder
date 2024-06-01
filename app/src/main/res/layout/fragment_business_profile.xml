@@ -176,7 +176,7 @@
                     android:layout_marginTop="@dimen/_30sdp"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/category_layout">
+                    app:layout_constraintTop_toBottomOf="@id/subtitleLayout">
 
                     <TextView
                         android:id="@+id/tvPromotions"

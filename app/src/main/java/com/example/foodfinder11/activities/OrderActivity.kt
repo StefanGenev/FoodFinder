@@ -79,7 +79,7 @@ class OrderActivity : AppCompatActivity() {
 
     private fun passItemsToPreviousActivity() {
         val data = Intent()
-        data.putExtra(RestaurantActivity.ORDERED_ITEMS_ARRAY, orderedItemsArray);
+       //TODO: data.putExtra(RestaurantActivity.ORDERED_ITEMS_ARRAY, orderedItemsArray);
         setResult(Activity.RESULT_OK, data)
 
         finish()
@@ -89,7 +89,7 @@ class OrderActivity : AppCompatActivity() {
         orderedItemsArray = ArrayList()
 
         val intent = intent
-        orderedItemsArray = intent.getParcelableArrayListExtraProvider<OrderItem>(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
+        //TODO: orderedItemsArray = intent.getParcelableArrayListExtraProvider<OrderItem>(RestaurantActivity.ORDERED_ITEMS_ARRAY)!!
         orderItemsAdapter.differ.submitList(orderedItemsArray)
 
         for (item in orderedItemsArray)
