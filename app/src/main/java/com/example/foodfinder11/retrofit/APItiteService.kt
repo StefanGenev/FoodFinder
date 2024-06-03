@@ -1,5 +1,6 @@
 package com.example.foodfinder11.retrofit
 
+import com.example.foodfinder11.dto.AddRemoveFavoriteRestaurantRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
 import com.example.foodfinder11.dto.IdentifierDto
@@ -55,6 +56,9 @@ interface APItiteService {
 
     @POST("/api/restaurants/save_location")
     fun saveRestaurantLocation( @Body requestData: SaveRestaurantLocationRequestDto): Call<ResponseWrapper<NoData>>
+
+    @POST("/api/restaurants/addRemoveFavoriteRestaurant")
+    fun addRemoveFavoriteRestaurant( @Body requestData: AddRemoveFavoriteRestaurantRequestDto): Call<ResponseWrapper<List<Restaurant>>>
 
     @GET("/api/food_types/get-all")
     fun getAllFoodTypes() : Call<ResponseWrapper<List<FoodType>>>

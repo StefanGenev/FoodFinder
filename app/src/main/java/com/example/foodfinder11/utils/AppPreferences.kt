@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.example.foodfinder11.R
+import com.example.foodfinder11.model.User
+import com.google.gson.Gson
 
 object AppPreferences {
     private var sharedPreferences: SharedPreferences? = null
@@ -21,21 +23,9 @@ object AppPreferences {
         get() = Key.REFRESHTOKEN.getString()
         set(value) = Key.REFRESHTOKEN.setString(value)
 
-    var username: String?
+    var user: String?
         get() = Key.USERNAME.getString()
         set(value) = Key.USERNAME.setString(value)
-
-    var userRole: Int?
-        get() = Key.USER_ROLE.getInt()
-        set(value) = Key.USER_ROLE.setInt(value)
-
-    var userEmail: String?
-        get() = Key.USER_EMAIL.getString()
-        set(value) = Key.USER_EMAIL.setString(value)
-
-    var userId: Long?
-        get() = Key.USER_ID.getLong()
-        set(value) = Key.USER_ID.setLong(value)
 
     var restaurantId: Long?
         get() = Key.RESTAURANT_ID.getLong()
@@ -70,10 +60,7 @@ object AppPreferences {
     fun reinitData() {
         token = ""
         refreshToken = ""
-        username = ""
-        userRole = 0
-        userEmail = ""
-        userId = 0
+        user = ""
         restaurantId = 0
     }
 }

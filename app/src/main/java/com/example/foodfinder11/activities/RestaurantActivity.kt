@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,7 +12,11 @@ import com.bumptech.glide.Glide
 import com.example.foodfinder11.R
 import com.example.foodfinder11.adapters.MenuItemsAdapter
 import com.example.foodfinder11.databinding.ActivityRestaurantBinding
+import com.example.foodfinder11.dto.AddRemoveFavoriteRestaurantRequestDto
 import com.example.foodfinder11.dto.IdentifierDto
+import com.example.foodfinder11.dto.NoData
+import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
+import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.fragments.BusinessProfileFragment
 import com.example.foodfinder11.fragments.HomeFragment
@@ -62,8 +67,10 @@ class RestaurantActivity : BaseNavigatableActivity() {
         initializeAdapters()
         loadRestaurantData()
 
+        initFavoriteButton()
+
         binding.favoriteButton.setOnClickListener {
-            binding.
+            addRemoveToFavoritesRequest()
         }
     }
 
@@ -205,5 +212,65 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         binding.emptyStateLayout.visibility = if (meals.isEmpty()) View.VISIBLE else View.GONE
     }
+
+    private fun initFavoriteButton() {
+
+        val userData = SessionManager.fetchUserData()
+        val restaurantIsInFavorites = userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
+
+        val drawable = if (restaurantIsInFavorites) R.drawable.ic_favorite_full else R.drawable.ic_favorite
+
+        binding.favoriteButton.setImageDrawable(
+            ContextCompat.getDrawable(
+                applicationContext,
+                drawable
+            )
+        )
+    }
+
+    private fun addRemoveToFavoritesRequest() {
+
+        val userData = SessionManager.fetchUserData()
+        val removeFromFavorites = userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
+
+        val dto = AddRemoveFavoriteRestaurantRequestDto(userId = userData.id,
+            restaurantId = restaurant.id,
+            removeFromFavorites = removeFromFavorites)
+
+        RetrofitInstance.getApiService().addRemoveFavoriteRestaurant(dto)
+            .enqueue(object : Callback<ResponseWrapper<List<Restaurant>>> {
+
+                override fun onResponse(
+                    call: Call<ResponseWrapper<List<Restaurant>>>,
+                    response: Response<ResponseWrapper<List<Restaurant>>>
+                ) {
+
+                    val responseBody = response.body().takeIf { it != null } ?: return
+                    val responseData = responseBody.data.takeIf { it != null } ?: return
+
+                    if (responseBody.status == 200) {
+
+                        val toastText = if (removeFromFavorites) "Removed from favorites" else "Added to favorites"
+                        Toast.makeText(this@RestaurantActivity, toastText, Toast.LENGTH_SHORT).show()
+
+                        SessionManager.saveFavoriteRestaurants(responseData)
+
+                        initFavoriteButton()
+
+                    } else {
+                        Toast.makeText(this@RestaurantActivity, responseBody.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseWrapper<List<Restaurant>>>,
+                    t: Throwable
+                ) {
+                    Toast.makeText(this@RestaurantActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+    }
+
 
 }

@@ -5,11 +5,15 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(
+
     var id: Long = 0,
 
     var name: String = "",
 
     var email: String = "",
 
-    var role: Roles = Roles.CUSTOMER
+    var role: Roles = Roles.CUSTOMER,
+
+    var favoriteRestaurants: List<Restaurant> = mutableListOf()
+
 ) : Parcelable

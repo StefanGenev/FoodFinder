@@ -1,10 +1,10 @@
 package com.example.foodfinder11.utils
 
-import android.content.Context
-import android.content.SharedPreferences
-import com.example.foodfinder11.R
+import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.model.User
+import com.google.gson.Gson
+
 
 class SessionManager {
 
@@ -39,22 +39,30 @@ class SessionManager {
         }
 
         fun saveUserData(user: User) {
-            AppPreferences.userId = user.id
-            AppPreferences.username = user.name
-            AppPreferences.userEmail = user.email
-            AppPreferences.userRole = user.role.toInt()
+
+            val gson = Gson()
+            val json = gson.toJson(user)
+            AppPreferences.user = json
+        }
+
+        fun saveFavoriteRestaurants(list: List<Restaurant>) {
+
+            var user = fetchUserData()
+            user.favoriteRestaurants = list
+            saveUserData(user)
         }
 
         fun fetchUserData(): User {
 
-            val userRole = AppPreferences.userRole ?: 0
+            val gson = Gson()
+            val json: String = AppPreferences.user!!
 
-            return User(
-                AppPreferences.userId ?: 0,
-                AppPreferences.username.orEmpty(),
-                AppPreferences.userEmail.orEmpty(),
-                userRole.toEnum<Roles>() ?: Roles.CUSTOMER
+            val user = gson.fromJson(
+                json,
+                User::class.java
             )
+
+            return user
         }
 
         fun saveRestaurantId(id: Long) {
