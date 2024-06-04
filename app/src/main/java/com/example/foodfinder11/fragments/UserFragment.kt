@@ -10,65 +10,51 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.foodfinder11.activities.HistoryActivity
 import com.example.foodfinder11.activities.ReviewsActivity
 import com.example.foodfinder11.activities.WelcomeActivity
+import com.example.foodfinder11.databinding.FragmentSettingsBinding
 import com.example.foodfinder11.databinding.FragmentUserBinding
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.viewModel.MainViewModel
 
 class UserFragment : Fragment() {
+
     private lateinit var binding: FragmentUserBinding
-    private lateinit var homeMvvm: MainViewModel
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        homeMvvm = ViewModelProvider(this)[MainViewModel::class.java]
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserBinding.inflate(inflater, container, false)
+
+        binding = FragmentUserBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
-        onOrdersClick()
-        onReviewsClick()
-        onLogoutClick()
-    }
+        val userData = SessionManager.fetchUserData()
+        binding.tvProfileName.text = userData.name
 
-    private fun onReviewsClick() {
-        binding.reviewsButton.setOnClickListener {
-            showReviews()
+        binding.signOutButton.setOnClickListener {
+            onSignOut()
         }
     }
 
-    private fun showReviews() {
-        val intent = Intent(activity, ReviewsActivity::class.java)
-        startActivity(intent)
+    private fun onSignOut() {
+
+        QuestionDialogFragment("Are you sure?",
+            "Yes",
+            "No",
+            onOkAction = { dialog, id ->
+
+                activity?.finish()
+                SessionManager.logoutOperations()
+
+                val intent = Intent(activity, WelcomeActivity::class.java)
+                startActivity(intent)
+            }
+            , onCancelAction = { dialog, id ->
+            } ).show(parentFragmentManager, "QuestionDialog")
     }
-
-    private fun onOrdersClick() {
-        binding.ordersButton.setOnClickListener {
-            val intent = Intent(activity, HistoryActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    private fun onLogoutClick() {
-        binding.logoutButton.setOnClickListener {
-
-            activity?.finish()
-            SessionManager.logoutOperations()
-
-            val intent = Intent(activity, WelcomeActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
 
 }

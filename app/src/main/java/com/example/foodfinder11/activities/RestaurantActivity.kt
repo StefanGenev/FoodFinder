@@ -218,7 +218,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
         val userData = SessionManager.fetchUserData()
         val restaurantIsInFavorites = userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
 
-        val drawable = if (restaurantIsInFavorites) R.drawable.ic_favorite_full else R.drawable.ic_favorite
+        val drawable = if (restaurantIsInFavorites) R.drawable.like else R.drawable.like_empty
 
         binding.favoriteButton.setImageDrawable(
             ContextCompat.getDrawable(
@@ -271,6 +271,4 @@ class RestaurantActivity : BaseNavigatableActivity() {
             })
 
     }
-
-
 }

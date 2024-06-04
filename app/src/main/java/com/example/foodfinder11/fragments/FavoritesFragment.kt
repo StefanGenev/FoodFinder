@@ -17,17 +17,27 @@ import com.bumptech.glide.Glide
 import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.adapters.FavoriteRestaurantsAdapter
 import com.example.foodfinder11.databinding.FragmentFavoritesBinding
+import com.example.foodfinder11.dto.IdentifierDto
+import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Meal
+import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.viewModel.MainViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.math.log
 
 
 class FavoritesFragment : Fragment() {
+
     private lateinit var binding: FragmentFavoritesBinding
 
-    private val mainViewModel: MainViewModel by activityViewModels()
-
     private lateinit var favoritesAdapter: FavoriteRestaurantsAdapter
+
+    private var favoriteRestaurants: List<Restaurant> = mutableListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,46 +47,55 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentFavoritesBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
-        //TODO Initialize viewmodel correctly
-        //homeMvvm.getAllRestaurants()
         prepareRecyclerView()
-        observeFavorites()
+        loadFavorites()
 
-        favoritesAdapter.onItemClicked(object : FavoriteRestaurantsAdapter.OnFavoriteMealItemClicked {
-            //TODO Chane with restaurant
-            override fun onClickListener(meal: Meal) {
-                val intent = Intent(activity, RestaurantActivity::class.java)
-               /*  intent.putExtra(HomeFragment.MEAL_ID, meal.idMeal)
-                intent.putExtra(HomeFragment.MEAL_NAME, meal.strMeal + " Shop")
-                intent.putExtra(HomeFragment.MEAL_THUMB, meal.strMealThumb)
-                intent.putExtra(HomeFragment.MEAL_CATEGORY, meal.strCategory)
-                intent.putExtra(HomeFragment.MEAL_FAVORITE, true)
-                startActivity(intent)
 
-                */
+        favoritesAdapter.onItemClicked(object : FavoriteRestaurantsAdapter.OnFavoriteRestaurantItemClicked {
+
+            override fun onClickListener(restaurant: Restaurant) {
+               onRestaurantTapped(restaurant)
             }
 
         })
     }
 
     private fun prepareRecyclerView() {
+
         favoritesAdapter = FavoriteRestaurantsAdapter()
+
         binding.rvFavorites.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
             adapter = favoritesAdapter
         }
     }
 
-    private fun observeFavorites() {
-        mainViewModel.getAllRestaurantsLiveData().observe(viewLifecycleOwner, Observer { restaurants ->
-            Log.d("FavoritesFragment", restaurants[0].name)
+    private fun loadFavorites() {
 
-        })
+        val userData = SessionManager.fetchUserData()
+        favoriteRestaurants = userData.favoriteRestaurants
+
+        favoritesAdapter.differ.submitList( favoriteRestaurants  )
+    }
+
+    private fun onRestaurantTapped(restaurant: Restaurant) {
+
+        val intent = Intent(activity, RestaurantActivity::class.java)
+        intent.putExtra(HomeFragment.RESTAURANT, restaurant)
+        startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadFavorites()
     }
 }
