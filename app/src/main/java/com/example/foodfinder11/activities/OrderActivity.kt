@@ -93,7 +93,7 @@ class OrderActivity : AppCompatActivity() {
         orderItemsAdapter.differ.submitList(orderedItemsArray)
 
         for (item in orderedItemsArray)
-            totalPrice += 10 * item.intMealCount
+            totalPrice += 10 * item.count
 
         binding.tvSubtotalPrice.text = "${String.format("%.2f", totalPrice)} lv."
         binding.tvTotalPrice.text = "${String.format("%.2f", totalPrice + 3)} lv."

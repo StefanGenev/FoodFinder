@@ -58,7 +58,6 @@ class FavoritesFragment : Fragment() {
         prepareRecyclerView()
         loadFavorites()
 
-
         favoritesAdapter.onItemClicked(object : FavoriteRestaurantsAdapter.OnFavoriteRestaurantItemClicked {
 
             override fun onClickListener(restaurant: Restaurant) {

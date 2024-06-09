@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,17 +15,16 @@ import com.example.foodfinder11.adapters.MenuItemsAdapter
 import com.example.foodfinder11.databinding.ActivityRestaurantBinding
 import com.example.foodfinder11.dto.AddRemoveFavoriteRestaurantRequestDto
 import com.example.foodfinder11.dto.IdentifierDto
-import com.example.foodfinder11.dto.NoData
-import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
-import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.fragments.BusinessProfileFragment
 import com.example.foodfinder11.fragments.HomeFragment
+import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.getParcelableExtraProvider
+import com.example.foodfinder11.utils.toInt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +37,19 @@ class RestaurantActivity : BaseNavigatableActivity() {
     private lateinit var menuAdapter: MenuItemsAdapter
 
     private var restaurant: Restaurant = Restaurant()
+
+    companion object {
+        const val MEAL = "Meal"
+    }
+
+    private val startOrderItemActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+
+
+        }
+    }
 
     override fun initializeActivity() {
 
@@ -83,6 +96,15 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         promotionsAdapter = MenuItemsAdapter()
 
+        promotionsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
+
+            override fun onClickListener(menuItem: Meal) {
+                val intent = Intent(this@RestaurantActivity, OrderItemActivity::class.java)
+                intent.putExtra(RestaurantActivity.MEAL, menuItem)
+                startActivity(intent)
+            }
+
+        })
 
         binding.rvPromotions.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
@@ -91,11 +113,20 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         menuAdapter = MenuItemsAdapter()
 
+        menuAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
+
+            override fun onClickListener(menuItem: Meal) {
+                val intent = Intent(this@RestaurantActivity, OrderItemActivity::class.java)
+                intent.putExtra(RestaurantActivity.MEAL, menuItem)
+                startActivity(intent)
+            }
+
+        })
+
         binding.rvMenu.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
             adapter = menuAdapter
         }
-
     }
 
     private fun loadRestaurantData() {

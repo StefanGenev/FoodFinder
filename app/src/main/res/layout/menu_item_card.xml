@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="12dp"
@@ -58,21 +59,11 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp"/>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPromotion"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_28sdp"
-                android:fontFamily="@font/bentonsansmedium"
-                android:minHeight="@dimen/_5sdp"
-                android:text="-20%"
-                android:textColor="@color/lemon"
-                app:chipBackgroundColor="@color/light_lemon" />
-
             <TextView
                 android:id="@+id/mealDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/bentonsansmedium"
                 android:gravity="fill"
@@ -117,22 +108,18 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/actionButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_forest"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:padding="0dp"
-            app:cornerRadius="10dp"
-            app:icon="@drawable/edit_small"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            app:iconTint="@color/forest"
-            app:layout_constraintTop_toBottomOf="@id/rightLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipPromotion"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_28sdp"
+            android:fontFamily="@font/bentonsansmedium"
+            android:minHeight="@dimen/_5sdp"
+            android:text="-20%"
+            android:textColor="@color/lemon"
+            app:chipBackgroundColor="@color/light_lemon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

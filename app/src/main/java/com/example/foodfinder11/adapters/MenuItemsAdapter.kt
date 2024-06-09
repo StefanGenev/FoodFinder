@@ -45,10 +45,11 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
         holder.binding.mealName.text = menuItem.name
         holder.binding.mealDescription.text = menuItem.description
-        holder.binding.price.text = "${String.format("%.2f", menuItem.price)} lv."
+        holder.binding.price.text = "${String.format("%.2f", menuItem.getActualPrice())} lv."
 
         if (menuItem.hasPromotion) {
 
+            holder.binding.oldPrice.text = "${String.format("%.2f", menuItem.price)} lv."
             holder.binding.oldPrice.paintFlags = holder.binding.oldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             if (menuItem.promotionType == PromotionTypes.PERCENT) {
@@ -57,6 +58,7 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
             } else if (menuItem.promotionType == PromotionTypes.MANY_FOR_ONE) {
 
+                holder.binding.oldPrice.visibility = View.GONE;
                 holder.binding.chipPromotion.text = "${menuItem.additionalMealsCount + 1} for 1"
             }
 
@@ -65,7 +67,7 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
             holder.binding.chipPromotion.visibility = View.GONE;
         }
 
-        holder.binding.actionButton.setOnClickListener{
+        holder.binding.cardView.setOnClickListener{
             onItemClick.onClickListener(differ.currentList[position])
         }
     }

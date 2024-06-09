@@ -18,7 +18,7 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
 
     private val diffUtil = object : DiffUtil.ItemCallback<OrderItem>() {
         override fun areItemsTheSame(oldItem: OrderItem, newItem: OrderItem): Boolean {
-            return oldItem.idMeal == newItem.idMeal
+            return oldItem.mealId == newItem.mealId
         }
 
         override fun areContentsTheSame(oldItem: OrderItem, newItem: OrderItem): Boolean {
@@ -29,23 +29,24 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
     val differ = AsyncListDiffer(this, diffUtil)
 
     override fun onBindViewHolder(holder: OrderItemsViewHolder, position: Int) {
+
         val meal = differ.currentList[position]
-        Glide.with(holder.itemView).load(meal.imageUrl).into(holder.binding.menuImage)
-        holder.binding.mealName.text = meal.strMealName
-        holder.binding.count.text = meal.intMealCount.toString()
+        //Glide.with(holder.itemView).load(meal.imageUrl).into(holder.binding.menuImage)
+        //holder.binding.mealName.text = meal.strMealName
+        holder.binding.count.text = meal.count.toString()
 
         holder.binding.addButton.setOnClickListener{
             onPlusClicked.onClickListener(meal)
-            meal.intMealCount++
-            holder.binding.count.text = meal.intMealCount.toString()
+            meal.count++
+            holder.binding.count.text = meal.count.toString()
         }
 
         holder.binding.removeButton.setOnClickListener{
-            meal.intMealCount--
-            holder.binding.count.text = meal.intMealCount.toString()
+            meal.count--
+            holder.binding.count.text = meal.count.toString()
 
             var isLast = false
-            if ( meal.intMealCount <= 0 )
+            if ( meal.count <= 0 )
             {
                 var list:MutableList <OrderItem> = differ.currentList.toMutableList()
                 list.removeAt(holder.adapterPosition)

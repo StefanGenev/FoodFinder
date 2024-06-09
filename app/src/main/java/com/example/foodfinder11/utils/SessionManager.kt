@@ -1,5 +1,6 @@
 package com.example.foodfinder11.utils
 
+import com.example.foodfinder11.OrderItem
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.model.User
@@ -52,6 +53,7 @@ class SessionManager {
             saveUserData(user)
         }
 
+
         fun fetchUserData(): User {
 
             val gson = Gson()
@@ -71,6 +73,35 @@ class SessionManager {
 
         fun fetchRestaurantId(): Long? {
             return AppPreferences.restaurantId
+        }
+
+        fun fetchOrderItems(): MutableList<OrderItem> {
+
+            val orderItemsString = AppPreferences.orderItems!!
+
+            if (orderItemsString.isEmpty()) {
+
+                val orderItems: MutableList<OrderItem> = mutableListOf()
+                saveOrderItems(orderItems)
+                return orderItems
+            }
+
+            val gson = Gson()
+            return gson.fromJson<MutableList<OrderItem>>(orderItemsString, MutableList::class.java)
+        }
+
+        fun saveOrderItem(orderItem: OrderItem) {
+
+            var orderItems = fetchOrderItems()
+            orderItems.add(orderItem)
+            saveOrderItems(orderItems)
+        }
+
+        fun saveOrderItems(orderItems: List<OrderItem>) {
+
+            val gson = Gson()
+            val json = gson.toJson(orderItems)
+            AppPreferences.orderItems = json
         }
 
         fun logoutOperations() {
