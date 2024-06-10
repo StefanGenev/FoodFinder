@@ -17,23 +17,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:onClick="onGoBack"
         android:scaleType="center"
-        app:backgroundTint="@color/light_salva"
+        app:backgroundTint="@color/background_gray"
         app:fabCustomSize="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="18dp"
-        app:srcCompat="@drawable/back"
-        app:tint="@color/salva" />
+        app:srcCompat="@drawable/close_small"
+        app:tint="@color/black" />
 
     <ImageView
         android:id="@+id/mealPhoto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/mealtest"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +46,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.4" />
+
+    <ImageView
+        android:id="@+id/pattern2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/food_pattern_diagonal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mealPhoto"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,7 +71,7 @@
             android:id="@+id/titleLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:orientation="horizontal">
@@ -155,10 +164,10 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:src="@drawable/minus"
-            app:backgroundTint="@color/white"
+            app:backgroundTint="@color/light_forest"
             app:borderWidth="0dp"
             app:elevation="5dp"
-            app:tint="@color/light_gray" />
+            app:tint="@color/forest" />
 
         <TextView
             android:id="@+id/count"
@@ -176,9 +185,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/plus"
-            app:backgroundTint="@color/white"
+            app:backgroundTint="@color/forest"
             app:elevation="5dp"
-            app:tint="@color/forest" />
+            app:tint="@color/white" />
 
     </LinearLayout>
 

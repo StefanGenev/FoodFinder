@@ -1,126 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="12dp"
-    app:cardCornerRadius="10dp"
-    app:cardUseCompatPadding="true">
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp">
+        android:layout_height="wrap_content"
+        android:elevation="12dp"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@id/orderInfoLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/mealImageCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            app:cardCornerRadius="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mealImageCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                app:cardCornerRadius="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/menu_image"
+                    android:layout_width="200px"
+                    android:layout_height="200px"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mealtest" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/mealInfoLayout"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/rightLayout"
+                app:layout_constraintStart_toEndOf="@id/mealImageCard"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <TextView
+                    android:id="@+id/meal_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/bentonsans"
+                    android:maxLines="2"
+                    android:text="Very long meal name with a lot of words"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/mealDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/bentonsansmedium"
+                    android:gravity="fill"
+                    android:text="Light snack with onions and fresh tomatoes and also some bruschette with basil and garlic"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rightLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/mealInfoLayout">
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/bentonsansmedium"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:text="10.00 lv"
+                    android:textColor="@color/forest"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/oldPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/bentonsansmedium"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:text="20.00 lv"
+                    android:textColor="@color/light_forest"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipPromotion"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_28sdp"
+                android:fontFamily="@font/bentonsansmedium"
+                android:minHeight="@dimen/_5sdp"
+                android:text="-20%"
+                android:textColor="@color/lemon"
+                app:chipBackgroundColor="@color/light_lemon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/orderInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:background="@drawable/rounded_bottom_corners"
+        android:backgroundTint="@color/background_gray"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_60sdp">
 
             <ImageView
-                android:id="@+id/menu_image"
-                android:layout_width="200px"
-                android:layout_height="200px"
-                android:layout_alignParentTop="true"
+                android:id="@+id/pattern1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mealtest" />
+                android:rotationY="180"
+                android:src="@drawable/food_pattern_bottom"
+                app:tint="@color/forest"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/mealInfoLayout"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:layout_constraintEnd_toStartOf="@+id/rightLayout"
-            app:layout_constraintStart_toEndOf="@id/mealImageCard"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintVertical_bias="0">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/meal_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/bentonsans"
-                android:maxLines="2"
-                android:text="Very long meal name with a lot of words"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp"/>
+                    <TextView
+                        android:id="@+id/itemCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/bentonsans"
+                        android:maxLines="2"
+                        android:text="3x"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
 
-            <TextView
-                android:id="@+id/mealDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/bentonsansmedium"
-                android:gravity="fill"
-                android:text="Light snack with onions and fresh tomatoes and also some bruschette with basil and garlic"
-                android:textColor="@color/light_gray"
-                android:textSize="@dimen/_10sdp" />
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/orderPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/bentonsansmedium"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:text="30.00 lv"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
 
-        <LinearLayout
-            android:id="@+id/rightLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/mealInfoLayout">
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/bentonsansmedium"
-                android:gravity="right"
-                android:maxLines="1"
-                android:text="10.00 lv"
-                android:textColor="@color/forest"
-                android:textSize="@dimen/_12sdp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/oldPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/bentonsansmedium"
-                android:gravity="right"
-                android:maxLines="1"
-                android:text="20.00 lv"
-                android:textColor="@color/light_forest"
-                android:textSize="@dimen/_10sdp" />
+                    <Button
+                        android:id="@+id/removeButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="30dp"
+                        android:layout_height="35dp"
+                        android:textSize="18sp"
+                        app:backgroundTint="@color/light_forest"
+                        app:icon="@drawable/ic_remove"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/forest"
+                        app:strokeWidth="0dp" />
 
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipPromotion"
-            style="@style/Widget.MaterialComponents.Chip.Action"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_28sdp"
-            android:fontFamily="@font/bentonsansmedium"
-            android:minHeight="@dimen/_5sdp"
-            android:text="-20%"
-            android:textColor="@color/lemon"
-            app:chipBackgroundColor="@color/light_lemon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+                    <Button
+                        android:id="@+id/addButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="30dp"
+                        android:layout_height="35dp"
+                        android:textSize="18sp"
+                        app:backgroundTint="@color/forest"
+                        app:icon="@drawable/ic_add"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/white"
+                        app:strokeWidth="0dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

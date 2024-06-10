@@ -81,7 +81,7 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
 
             if (isChecked) {
 
-                selectedPromotionType = PromotionTypes.MANY_FOR_ONE
+                selectedPromotionType = PromotionTypes.TWO_FOR_ONE
                 textFieldLayout?.hint = "Additional meals"
             }
         }
@@ -89,19 +89,20 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
         if (promotionDialogActivityContract.getHasPromotion()) {
 
             buttonPercent?.isChecked = promotionDialogActivityContract.getPromotionType() == PromotionTypes.PERCENT
-            buttonManyForOne?.isChecked = promotionDialogActivityContract.getPromotionType() == PromotionTypes.MANY_FOR_ONE
+            buttonManyForOne?.isChecked = promotionDialogActivityContract.getPromotionType() == PromotionTypes.TWO_FOR_ONE
 
             val textFieldEditText: TextInputEditText? = getView()?.findViewById<TextInputEditText>(R.id.textFieldTextEdit)
 
             if ( promotionDialogActivityContract.getPromotionType() == PromotionTypes.PERCENT ) {
 
                 textFieldLayout?.hint = "Percent"
+                textFieldLayout?.visibility = View.VISIBLE
+
                 textFieldEditText?.setText(promotionDialogActivityContract.getPercent().toString())
 
-            } else if ( promotionDialogActivityContract.getPromotionType() == PromotionTypes.MANY_FOR_ONE ) {
+            } else if ( promotionDialogActivityContract.getPromotionType() == PromotionTypes.TWO_FOR_ONE ) {
 
-                textFieldLayout?.hint = "Additional meals"
-                textFieldEditText?.setText(promotionDialogActivityContract.getAdditionalMeals().toString())
+                textFieldLayout?.visibility = View.GONE
             }
         }
     }
@@ -117,10 +118,6 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
         if ( selectedPromotionType == PromotionTypes.PERCENT ) {
 
             promotionDialogActivityContract.setPercent(value)
-
-        } else if ( selectedPromotionType == PromotionTypes.MANY_FOR_ONE ) {
-
-            promotionDialogActivityContract.setAdditionalMeals(value)
         }
 
         promotionDialogActivityContract.onConfirmPromotion()

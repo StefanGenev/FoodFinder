@@ -31,16 +31,16 @@ object AppPreferences {
         get() = Key.RESTAURANT_ID.getLong()
         set(value) = Key.RESTAURANT_ID.setLong(value)
 
-    var orderItems: String?
-        get() = Key.ORDER_ITEMS.getString()
-        set(value) = Key.ORDER_ITEMS.setString(value)
+    var order: String?
+        get() = Key.ORDER.getString()
+        set(value) = Key.ORDER.setString(value)
 
     private enum class Key {
         TOKEN,
         REFRESHTOKEN,
         USERNAME,
         RESTAURANT_ID,
-        ORDER_ITEMS;
+        ORDER;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
         fun getFloat(): Float? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getFloat(name, 0f) else null
@@ -63,6 +63,6 @@ object AppPreferences {
         refreshToken = ""
         user = ""
         restaurantId = 0
-        orderItems = ""
+        order = ""
     }
 }

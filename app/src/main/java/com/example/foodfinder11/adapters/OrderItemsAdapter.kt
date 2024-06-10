@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.foodfinder11.databinding.OrderItemCardBinding
-import com.example.foodfinder11.OrderItem
+import com.example.foodfinder11.model.OrderItem
 
 
 class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewHolder>(){
@@ -18,7 +17,7 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
 
     private val diffUtil = object : DiffUtil.ItemCallback<OrderItem>() {
         override fun areItemsTheSame(oldItem: OrderItem, newItem: OrderItem): Boolean {
-            return oldItem.mealId == newItem.mealId
+            return oldItem.meal.id == newItem.meal.id
         }
 
         override fun areContentsTheSame(oldItem: OrderItem, newItem: OrderItem): Boolean {

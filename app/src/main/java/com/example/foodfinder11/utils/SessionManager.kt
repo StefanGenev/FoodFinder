@@ -1,8 +1,8 @@
 package com.example.foodfinder11.utils
 
-import com.example.foodfinder11.OrderItem
+import com.example.foodfinder11.model.OrderItem
+import com.example.foodfinder11.model.Order
 import com.example.foodfinder11.model.Restaurant
-import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.model.User
 import com.google.gson.Gson
 
@@ -75,33 +75,64 @@ class SessionManager {
             return AppPreferences.restaurantId
         }
 
-        fun fetchOrderItems(): MutableList<OrderItem> {
+        fun fetchOrder(): Order {
 
-            val orderItemsString = AppPreferences.orderItems!!
+            var order = Order()
+            val orderString = AppPreferences.order!!
 
-            if (orderItemsString.isEmpty()) {
+            if (orderString.isEmpty()) {
 
-                val orderItems: MutableList<OrderItem> = mutableListOf()
-                saveOrderItems(orderItems)
-                return orderItems
+                saveOrder(order)
+
+            } else {
+
+                val gson = Gson()
+                order = gson.fromJson(
+                    orderString,
+                    Order::class.java
+                )
             }
 
-            val gson = Gson()
-            return gson.fromJson<MutableList<OrderItem>>(orderItemsString, MutableList::class.java)
+            return order
+        }
+
+        fun fetchOrderItems(): MutableList<OrderItem> {
+
+            val order = fetchOrder()
+            return order.orderItems
+        }
+
+        fun fetchOrderByItemMealId(mealId: Long): OrderItem? {
+
+            val orderItems = SessionManager.fetchOrderItems()
+            val orderItem = orderItems.filter { item -> item.meal.id == mealId }.firstOrNull()
+
+            return orderItem
         }
 
         fun saveOrderItem(orderItem: OrderItem) {
 
             var orderItems = fetchOrderItems()
+            orderItems = orderItems.filter { item -> item.meal.id != orderItem.meal.id }.toMutableList()
+
             orderItems.add(orderItem)
+
             saveOrderItems(orderItems)
         }
 
-        fun saveOrderItems(orderItems: List<OrderItem>) {
+        fun saveOrderItems(orderItems: MutableList<OrderItem>) {
+
+            var order = fetchOrder()
+            order.orderItems = orderItems
+
+            saveOrder(order)
+        }
+
+        fun saveOrder(order: Order) {
 
             val gson = Gson()
-            val json = gson.toJson(orderItems)
-            AppPreferences.orderItems = json
+            val json = gson.toJson(order)
+            AppPreferences.order = json
         }
 
         fun logoutOperations() {

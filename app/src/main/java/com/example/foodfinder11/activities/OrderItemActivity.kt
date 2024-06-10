@@ -1,12 +1,14 @@
 package com.example.foodfinder11.activities
 
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Paint
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.example.foodfinder11.OrderItem
+import com.example.foodfinder11.model.OrderItem
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityOrderItemBinding
 import com.example.foodfinder11.model.Meal
@@ -47,15 +49,25 @@ class OrderItemActivity : BaseNavigatableActivity() {
             onRemoveTap()
         }
 
+        fillOrderItemData()
         fillMealData()
     }
 
+
     override fun commitData(): Boolean {
 
-        var orderItem = OrderItem(mealId = meal.id, count = count)
+        var order = SessionManager.fetchOrder()
+        order.restaurantId = meal.restaurant.id
+        SessionManager.saveOrder(order)
+
+        val orderItem = OrderItem(meal = meal, count = count)
         SessionManager.saveOrderItem(orderItem)
 
+        val data = Intent()
+        setResult(Activity.RESULT_OK, data)
+
         finish()
+
         return true
     }
 
@@ -78,10 +90,10 @@ class OrderItemActivity : BaseNavigatableActivity() {
 
                 binding.chipPromotion.text = "-${meal.promotionPercent}%"
 
-            } else if (meal.promotionType == PromotionTypes.MANY_FOR_ONE) {
+            } else if (meal.promotionType == PromotionTypes.TWO_FOR_ONE) {
 
                 binding.oldMealPrice.visibility = View.GONE;
-                binding.chipPromotion.text = "${meal.additionalMealsCount + 1} for 1"
+                binding.chipPromotion.text = "2 for 1"
             }
 
         } else {
@@ -90,6 +102,19 @@ class OrderItemActivity : BaseNavigatableActivity() {
         }
 
         updatePriceOnButton()
+    }
+
+    private fun fillOrderItemData() {
+
+        val orderItems = SessionManager.fetchOrderItems()
+        var existingOrderItems = orderItems.filter { item -> item.meal.id == meal.id }
+
+        if (existingOrderItems.isNotEmpty()) {
+
+            val existingOrderItem = existingOrderItems.first()
+            count = existingOrderItem.count
+            binding.count.text = count.toString()
+        }
     }
 
     private fun onAddTap() {

@@ -1,4 +1,4 @@
-package com.example.foodfinder11
+package com.example.foodfinder11.model
 
 
 import android.os.Parcelable
@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class OrderItem(
 
     var id: Long = 0,
-    var mealId: Long,
-    var count: Int
+    var meal: Meal = Meal(),
+    var count: Int = 0,
 
 ) : Parcelable

@@ -33,12 +33,10 @@ import retrofit2.Response
 interface PromotionDialogActivityContract{
     fun setHasPromotion(flag: Boolean)
     fun setPromotionType(type: PromotionTypes)
-    fun setAdditionalMeals(count: Int)
     fun setPercent(percent: Int)
 
     fun getHasPromotion(): Boolean
     fun getPromotionType(): PromotionTypes
-    fun getAdditionalMeals(): Int
     fun getPercent(): Int
 
     fun onConfirmPromotion()
@@ -292,17 +290,12 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
 
         if (!flag) {
 
-            meal.additionalMealsCount = 0
             meal.promotionPercent = 0
         }
     }
 
     override fun setPromotionType(type: PromotionTypes) {
         meal.promotionType = type
-    }
-
-    override fun setAdditionalMeals(count: Int) {
-       meal.additionalMealsCount = count
     }
 
     override fun setPercent(percent: Int) {
@@ -315,10 +308,6 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
 
     override fun getPromotionType(): PromotionTypes {
         return meal.promotionType
-    }
-
-    override fun getAdditionalMeals(): Int {
-        return meal.additionalMealsCount
     }
 
     override fun getPercent(): Int {

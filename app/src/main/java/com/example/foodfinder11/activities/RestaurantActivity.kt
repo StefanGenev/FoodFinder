@@ -18,13 +18,11 @@ import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.fragments.BusinessProfileFragment
 import com.example.foodfinder11.fragments.HomeFragment
-import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.getParcelableExtraProvider
-import com.example.foodfinder11.utils.toInt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,8 +44,8 @@ class RestaurantActivity : BaseNavigatableActivity() {
             result: ActivityResult ->
 
         if (result.resultCode == Activity.RESULT_OK) {
-
-
+            updateOrderButton()
+            resetAdapters()
         }
     }
 
@@ -85,6 +83,16 @@ class RestaurantActivity : BaseNavigatableActivity() {
         binding.favoriteButton.setOnClickListener {
             addRemoveToFavoritesRequest()
         }
+
+        updateOrderButton()
+    }
+
+    override fun commitData(): Boolean {
+
+        val intent = Intent(this@RestaurantActivity, OrderActivity::class.java)
+        startActivity(intent)
+
+        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -95,33 +103,53 @@ class RestaurantActivity : BaseNavigatableActivity() {
     private fun initializeAdapters() {
 
         promotionsAdapter = MenuItemsAdapter()
+        initAdapterClickListeners(promotionsAdapter)
 
-        promotionsAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
+        menuAdapter = MenuItemsAdapter()
+        initAdapterClickListeners(menuAdapter)
+
+        resetAdapters()
+    }
+
+    private fun initAdapterClickListeners(adapter: MenuItemsAdapter) {
+
+        adapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
 
             override fun onClickListener(menuItem: Meal) {
+
                 val intent = Intent(this@RestaurantActivity, OrderItemActivity::class.java)
                 intent.putExtra(RestaurantActivity.MEAL, menuItem)
-                startActivity(intent)
+
+                startOrderItemActivityForResult.launch(intent)
             }
 
         })
+
+        adapter.onPlusClicked(object : MenuItemsAdapter.OnPlusClicked {
+
+            override fun onClickListener(menuItem: Meal) {
+                updateOrderButton()
+                resetAdapters()
+            }
+
+        })
+
+        adapter.onMinusClicked(object : MenuItemsAdapter.OnMinusClicked {
+
+            override fun onClickListener(menuItem: Meal) {
+                updateOrderButton()
+                resetAdapters()
+            }
+
+        })
+    }
+
+    private fun resetAdapters() {
 
         binding.rvPromotions.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
             adapter = promotionsAdapter
         }
-
-        menuAdapter = MenuItemsAdapter()
-
-        menuAdapter.onItemClicked(object : MenuItemsAdapter.OnMenuItemClicked {
-
-            override fun onClickListener(menuItem: Meal) {
-                val intent = Intent(this@RestaurantActivity, OrderItemActivity::class.java)
-                intent.putExtra(RestaurantActivity.MEAL, menuItem)
-                startActivity(intent)
-            }
-
-        })
 
         binding.rvMenu.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
@@ -228,7 +256,8 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         val promotions = meals.filter { meal -> meal.hasPromotion }
 
-        promotionsAdapter.differ.submitList( promotions  )
+        promotionsAdapter.differ.submitList( promotions )
+
         menuAdapter.differ.submitList( meals )
         menuAdapter.notifyDataSetChanged()
 
@@ -301,5 +330,21 @@ class RestaurantActivity : BaseNavigatableActivity() {
                 }
             })
 
+    }
+
+    private fun updateOrderButton() {
+
+        val order = SessionManager.fetchOrder()
+
+        if (order.restaurantId == restaurant.id && order.orderItems.isNotEmpty()) {
+
+            binding.continueButton.visibility = if (order.getTotalItemsCount() > 0) View.VISIBLE else View.GONE
+            binding.continueButton.text = "Order ${order.getTotalItemsCount()} for ${order.getOrderPrice()} lv."
+
+        } else {
+
+            binding.continueButton.visibility = View.GONE
+
+        }
     }
 }
