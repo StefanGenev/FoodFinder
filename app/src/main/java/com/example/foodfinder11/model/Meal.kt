@@ -20,13 +20,14 @@ data class Meal(
 
     fun getActualPrice(count: Int = 1): Double {
 
-        var actualPrice = price
+        var actualPrice = price * count
 
         if (hasPromotion) {
 
             if (promotionType == PromotionTypes.PERCENT) {
 
-               actualPrice = price - price * (promotionPercent / 100)
+                actualPrice = price - price * (promotionPercent / 100)
+                actualPrice *= count
 
             } else if (promotionType == PromotionTypes.TWO_FOR_ONE) {
 

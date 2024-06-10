@@ -19,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/mealImageCard"
             android:layout_width="wrap_content"
@@ -46,55 +45,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Promotion"
+            android:text="Card number"
             android:textAlignment="center"
             android:textSize="25dp" />
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/toggleButtonGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:elevation="@dimen/_10sdp"
-            app:checkedButton="@+id/btnPercent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:singleSelection="true">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPercent"
-                style="@style/ToggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="Percent"
-                android:textSize="@dimen/_9ssp"
-                app:cornerRadius="@dimen/_5sdp"
-                app:icon="@drawable/percent"
-                app:iconTint="@drawable/toggle_button_foreground_color_selector" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnManyForOne"
-                style="@style/ToggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="Many for one"
-                android:textSize="@dimen/_9ssp"
-                app:cornerRadius="@dimen/_5sdp"
-                app:icon="@drawable/gift"
-                app:iconTint="@drawable/toggle_button_foreground_color_selector" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:hint="Percent"
+            android:hint="Number"
             app:boxStrokeColor="@color/forest"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/forest">
@@ -134,17 +95,6 @@
             android:textSize="18sp"
             app:backgroundTint="@color/forest" />
 
-        <Button
-            android:id="@+id/removeButton"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:fontFamily="@font/bentonsansmedium"
-            android:text="Remove promotion"
-            android:textColor="@color/salva"
-            android:textSize="18sp"
-            app:backgroundTint="@color/light_salva"
-            app:strokeWidth="0dp" />
 
     </LinearLayout>
 

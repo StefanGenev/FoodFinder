@@ -40,14 +40,21 @@ class RestaurantActivity : BaseNavigatableActivity() {
         const val MEAL = "Meal"
     }
 
-    private val startOrderItemActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result: ActivityResult ->
+    private val startOrderItemActivityForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
 
-        if (result.resultCode == Activity.RESULT_OK) {
+            if (result.resultCode == Activity.RESULT_OK) {
+                updateOrderButton()
+                resetAdapters()
+            }
+        }
+
+    private val startOrderActivityForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+
             updateOrderButton()
             resetAdapters()
         }
-    }
 
     override fun initializeActivity() {
 
@@ -90,7 +97,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
     override fun commitData(): Boolean {
 
         val intent = Intent(this@RestaurantActivity, OrderActivity::class.java)
-        startActivity(intent)
+        startOrderActivityForResult.launch(intent)
 
         return true
     }
@@ -226,7 +233,12 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         binding.tvTitle.text = restaurant.name
         binding.collapsingToolbar.title = restaurant.name
-        binding.collapsingToolbar.setExpandedTitleColor( ContextCompat.getColor(applicationContext, R.color.none))
+        binding.collapsingToolbar.setExpandedTitleColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.none
+            )
+        )
 
         Glide.with(this@RestaurantActivity)
             .load(restaurant.imageUrl)
@@ -256,9 +268,9 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         val promotions = meals.filter { meal -> meal.hasPromotion }
 
-        promotionsAdapter.differ.submitList( promotions )
+        promotionsAdapter.differ.submitList(promotions)
 
-        menuAdapter.differ.submitList( meals )
+        menuAdapter.differ.submitList(meals)
         menuAdapter.notifyDataSetChanged()
 
         if (promotions.isEmpty()) {
@@ -276,7 +288,8 @@ class RestaurantActivity : BaseNavigatableActivity() {
     private fun initFavoriteButton() {
 
         val userData = SessionManager.fetchUserData()
-        val restaurantIsInFavorites = userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
+        val restaurantIsInFavorites =
+            userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
 
         val drawable = if (restaurantIsInFavorites) R.drawable.like else R.drawable.like_empty
 
@@ -291,11 +304,14 @@ class RestaurantActivity : BaseNavigatableActivity() {
     private fun addRemoveToFavoritesRequest() {
 
         val userData = SessionManager.fetchUserData()
-        val removeFromFavorites = userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
+        val removeFromFavorites =
+            userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
 
-        val dto = AddRemoveFavoriteRestaurantRequestDto(userId = userData.id,
+        val dto = AddRemoveFavoriteRestaurantRequestDto(
+            userId = userData.id,
             restaurantId = restaurant.id,
-            removeFromFavorites = removeFromFavorites)
+            removeFromFavorites = removeFromFavorites
+        )
 
         RetrofitInstance.getApiService().addRemoveFavoriteRestaurant(dto)
             .enqueue(object : Callback<ResponseWrapper<List<Restaurant>>> {
@@ -310,15 +326,21 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
                     if (responseBody.status == 200) {
 
-                        val toastText = if (removeFromFavorites) "Removed from favorites" else "Added to favorites"
-                        Toast.makeText(this@RestaurantActivity, toastText, Toast.LENGTH_SHORT).show()
+                        val toastText =
+                            if (removeFromFavorites) "Removed from favorites" else "Added to favorites"
+                        Toast.makeText(this@RestaurantActivity, toastText, Toast.LENGTH_SHORT)
+                            .show()
 
                         SessionManager.saveFavoriteRestaurants(responseData)
 
                         initFavoriteButton()
 
                     } else {
-                        Toast.makeText(this@RestaurantActivity, responseBody.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@RestaurantActivity,
+                            responseBody.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
@@ -326,7 +348,11 @@ class RestaurantActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<List<Restaurant>>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@RestaurantActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@RestaurantActivity,
+                        "Problem with request",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
 
@@ -336,10 +362,16 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         val order = SessionManager.fetchOrder()
 
-        if (order.restaurantId == restaurant.id && order.orderItems.isNotEmpty()) {
+        if (order.restaurant.id == restaurant.id && order.orderItems.isNotEmpty()) {
 
-            binding.continueButton.visibility = if (order.getTotalItemsCount() > 0) View.VISIBLE else View.GONE
-            binding.continueButton.text = "Order ${order.getTotalItemsCount()} for ${order.getOrderPrice()} lv."
+            binding.continueButton.visibility =
+                if (order.getTotalItemsCount() > 0) View.VISIBLE else View.GONE
+            binding.continueButton.text = "Order ${order.getTotalItemsCount()} for ${
+                String.format(
+                    "%.2f",
+                    order.getOrderPrice()
+                )
+            } lv."
 
         } else {
 

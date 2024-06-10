@@ -109,7 +109,7 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
     private fun fillOrderData(holder: MenuItemsViewHolder, orderItem: OrderItem) {
         holder.binding.orderInfoLayout.visibility = if (orderItem.count > 0) View.VISIBLE else View.GONE
         holder.binding.itemCount.text = "${orderItem.count}x"
-        holder.binding.orderPrice.text ="${orderItem.meal.getActualPrice(orderItem.count)} lv."
+        holder.binding.orderPrice.text ="${String.format("%.2f", orderItem.meal.getActualPrice(orderItem.count))} lv."
     }
 
     private fun updateOrderCount(holder: MenuItemsViewHolder, menuItem: Meal, addToCount: Int, position: Int) {

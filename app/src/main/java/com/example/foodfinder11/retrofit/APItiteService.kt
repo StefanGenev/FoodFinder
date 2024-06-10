@@ -19,6 +19,7 @@ import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
 import com.example.foodfinder11.dto.SaveRestaurantRequestDto
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Meal
+import com.example.foodfinder11.model.Order
 import com.example.foodfinder11.model.Restaurant
 import retrofit2.Call
 import retrofit2.http.Body
@@ -71,4 +72,7 @@ interface APItiteService {
 
     @HTTP(method = "DELETE", path = "/api/meals/delete_meal", hasBody = true)
     fun deleteMeal( @Body dto: IdentifierDto): Call<ResponseWrapper<NoData>>
+
+    @POST("/api/orders/confirm")
+    fun confirmOrder( @Body requestData: Order): Call<ResponseWrapper<NoData>>
 }

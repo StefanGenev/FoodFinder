@@ -20,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp">
 
@@ -28,10 +28,11 @@
                 android:id="@+id/mealImageCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
                 app:cardCornerRadius="12dp"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/mealInfoLayout">
 
                 <ImageView
                     android:id="@+id/menu_image"
@@ -45,16 +46,14 @@
 
             <LinearLayout
                 android:id="@+id/mealInfoLayout"
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/rightLayout"
-                app:layout_constraintStart_toEndOf="@id/mealImageCard"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0"
-                app:layout_constraintVertical_chainStyle="packed">
+                app:layout_constraintStart_toEndOf="@id/mealImageCard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/mealInfoLayout">
 
                 <TextView
                     android:id="@+id/meal_name"
@@ -86,16 +85,16 @@
                 android:id="@+id/rightLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mealInfoLayout"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="match_parent"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     android:orientation="horizontal">

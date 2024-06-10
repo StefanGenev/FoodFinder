@@ -57,7 +57,7 @@ class OrderItemActivity : BaseNavigatableActivity() {
     override fun commitData(): Boolean {
 
         var order = SessionManager.fetchOrder()
-        order.restaurantId = meal.restaurant.id
+        order.restaurant = meal.restaurant
         SessionManager.saveOrder(order)
 
         val orderItem = OrderItem(meal = meal, count = count)
@@ -150,6 +150,6 @@ class OrderItemActivity : BaseNavigatableActivity() {
 
     private fun updatePriceOnButton() {
 
-        binding.continueButton.text = "Order for ${meal.getActualPrice(count)} lv."
+        binding.continueButton.text = "Order for ${String.format("%.2f", meal.getActualPrice(count))} lv."
     }
 }

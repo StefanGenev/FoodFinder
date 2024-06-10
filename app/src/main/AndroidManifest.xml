@@ -19,6 +19,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.SuccessfulOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ChoosePaymentMethodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ConfirmOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.OrderItemActivity"
             android:exported="false" />
         <activity

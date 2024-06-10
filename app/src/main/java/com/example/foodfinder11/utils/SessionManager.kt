@@ -77,7 +77,7 @@ class SessionManager {
 
         fun fetchOrder(): Order {
 
-            var order = Order()
+            var order = Order(user = fetchUserData())
             val orderString = AppPreferences.order!!
 
             if (orderString.isEmpty()) {
@@ -112,10 +112,22 @@ class SessionManager {
 
         fun saveOrderItem(orderItem: OrderItem) {
 
+            var order = fetchOrder()
+
+            if (order.restaurant.id != orderItem.meal.restaurant.id) {
+
+                order.restaurant.id = orderItem.meal.restaurant.id
+                order.orderItems.clear()
+
+                saveOrder(order)
+            }
+
             var orderItems = fetchOrderItems()
             orderItems = orderItems.filter { item -> item.meal.id != orderItem.meal.id }.toMutableList()
 
-            orderItems.add(orderItem)
+            if (orderItem.count > 0) {
+                orderItems.add(orderItem)
+            }
 
             saveOrderItems(orderItems)
         }
@@ -133,6 +145,11 @@ class SessionManager {
             val gson = Gson()
             val json = gson.toJson(order)
             AppPreferences.order = json
+        }
+
+        fun resetOrder() {
+            var order = Order(user = fetchUserData())
+            saveOrder(order)
         }
 
         fun logoutOperations() {

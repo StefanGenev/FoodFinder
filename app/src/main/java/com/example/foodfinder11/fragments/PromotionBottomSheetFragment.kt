@@ -73,6 +73,7 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
 
                 selectedPromotionType = PromotionTypes.PERCENT
                 textFieldLayout?.hint = "Percent"
+                textFieldLayout?.visibility = View.VISIBLE
             }
         }
 
@@ -82,7 +83,7 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
             if (isChecked) {
 
                 selectedPromotionType = PromotionTypes.TWO_FOR_ONE
-                textFieldLayout?.hint = "Additional meals"
+                textFieldLayout?.visibility = View.GONE
             }
         }
 

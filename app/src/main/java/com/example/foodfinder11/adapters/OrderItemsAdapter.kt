@@ -1,19 +1,26 @@
 package com.example.foodfinder11.adapters;
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.OrderItemCardBinding
+import com.example.foodfinder11.fragments.QuestionDialogFragment
 import com.example.foodfinder11.model.OrderItem
+import com.example.foodfinder11.utils.SessionManager
 
 
-class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewHolder>(){
+class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewHolder>() {
+
     private lateinit var onPlusClicked: OrderItemsAdapter.OnPlusClicked
     private lateinit var onMinusClick: OrderItemsAdapter.OnMinusClick
 
-    inner class OrderItemsViewHolder(val binding: OrderItemCardBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class OrderItemsViewHolder(val binding: OrderItemCardBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     private val diffUtil = object : DiffUtil.ItemCallback<OrderItem>() {
         override fun areItemsTheSame(oldItem: OrderItem, newItem: OrderItem): Boolean {
@@ -29,39 +36,45 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
 
     override fun onBindViewHolder(holder: OrderItemsViewHolder, position: Int) {
 
-        val meal = differ.currentList[position]
-        //Glide.with(holder.itemView).load(meal.imageUrl).into(holder.binding.menuImage)
-        //holder.binding.mealName.text = meal.strMealName
-        holder.binding.count.text = meal.count.toString()
+        val orderItem = differ.currentList[position]
 
-        holder.binding.addButton.setOnClickListener{
-            onPlusClicked.onClickListener(meal)
-            meal.count++
-            holder.binding.count.text = meal.count.toString()
+        Glide.with(holder.itemView).load(orderItem.meal.imageUrl).into(holder.binding.menuImage)
+        holder.binding.mealName.text = orderItem.meal.name
+
+        updateOrderItemData(holder, orderItem)
+
+        holder.binding.addButton.setOnClickListener {
+
+            orderItem.count++
+            updateOrderItemData(holder, orderItem)
+
+            onPlusClicked.onClickListener(orderItem)
         }
 
-        holder.binding.removeButton.setOnClickListener{
-            meal.count--
-            holder.binding.count.text = meal.count.toString()
-
-            var isLast = false
-            if ( meal.count <= 0 )
-            {
-                var list:MutableList <OrderItem> = differ.currentList.toMutableList()
-                list.removeAt(holder.adapterPosition)
-                differ.submitList(list)
-
-                isLast = list.isEmpty()
-
-            }
-
-           onMinusClick.onClickListener(meal, isLast)
+        holder.binding.removeButton.setOnClickListener {
+            onMinusTap(holder, orderItem, position)
         }
+    }
+
+    private fun onMinusTap(holder: OrderItemsViewHolder, orderItem: OrderItem, position: Int) {
+
+        if (!onMinusClick.onClickListener(orderItem, position))
+            return
+    }
+
+    private fun updateOrderItemData(holder: OrderItemsViewHolder, orderItem: OrderItem) {
+
+        holder.binding.price.text =
+            "${String.format("%.2f", orderItem.meal.getActualPrice(orderItem.count))} lv."
+        holder.binding.count.text = orderItem.count.toString()
+
+        SessionManager.saveOrderItem(orderItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemsViewHolder {
         return OrderItemsViewHolder(
-            OrderItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false) )
+            OrderItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -72,17 +85,15 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
         fun onClickListener(orderItem: OrderItem)
     }
 
-    fun onPlusClick(onPlusClicked: OnPlusClicked)
-    {
+    fun onPlusClick(onPlusClicked: OnPlusClicked) {
         this.onPlusClicked = onPlusClicked
     }
 
     interface OnMinusClick {
-        fun onClickListener(orderItem: OrderItem, isLast: Boolean)
+        fun onClickListener(orderItem: OrderItem, position: Int): Boolean
     }
 
-    fun onMinusClick(onMinusClick: OnMinusClick)
-    {
+    fun onMinusClick(onMinusClick: OnMinusClick) {
         this.onMinusClick = onMinusClick
     }
 
