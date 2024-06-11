@@ -40,13 +40,14 @@
 
         <TextView
             android:id="@+id/header_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
+            android:layout_marginTop="@dimen/_30sdp"
             android:text="Settings"
-            android:textAlignment="textStart"
-            android:textSize="25dp" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/_25sdp"
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/mealImageCard"

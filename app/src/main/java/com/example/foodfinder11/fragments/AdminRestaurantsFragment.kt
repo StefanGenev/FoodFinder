@@ -5,40 +5,40 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.foodfinder11.adapters.UsersAdapter
-import com.example.foodfinder11.databinding.FragmentAdminUsersBinding
+import com.example.foodfinder11.adapters.RestaurantsAdapter
+import com.example.foodfinder11.databinding.FragmentAdminRestaurantsBinding
 import com.example.foodfinder11.dto.ResponseWrapper
-import com.example.foodfinder11.model.User
+import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Locale
 
-class AdminUsersFragment : Fragment() {
 
-    private lateinit var binding: FragmentAdminUsersBinding
+class AdminRestaurantsFragment : Fragment() {
 
-    private var users: ArrayList<User> = ArrayList()
+    private lateinit var binding: FragmentAdminRestaurantsBinding
 
-    private lateinit var usersAdapter: UsersAdapter
+    private var restaurants: ArrayList<Restaurant> = ArrayList()
+
+    private lateinit var restaurantsAdapter: RestaurantsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentAdminUsersBinding.inflate(inflater)
+        binding = FragmentAdminRestaurantsBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadUsersRequest()
+        loadRestaurantsRequest()
 
         // below line is to call set on query text listener method.
         binding.idSearchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -57,16 +57,19 @@ class AdminUsersFragment : Fragment() {
 
     private fun filter(text: String) {
 
-        val filteredlist = ArrayList<User>()
+        val filteredlist = ArrayList<Restaurant>()
 
-        for (user in users) {
+        for (restaurant in restaurants) {
 
-            val nameMatches = user.name.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))
-            val emailMatches = user.email.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))
+            val nameMatches = restaurant.name.lowercase(Locale.getDefault()).contains(text.lowercase(
+                Locale.getDefault()))
 
-            if (nameMatches || emailMatches) {
+            val foodTypeMatches = restaurant.foodType.name.lowercase(Locale.getDefault()).contains(text.lowercase(
+                Locale.getDefault()))
 
-                filteredlist.add(user)
+            if (nameMatches || foodTypeMatches) {
+
+                filteredlist.add(restaurant)
             }
         }
         if (filteredlist.isEmpty()) {
@@ -74,18 +77,18 @@ class AdminUsersFragment : Fragment() {
         } else {
 
             resetAdapters()
-            usersAdapter.differ.submitList( filteredlist )
+            restaurantsAdapter.differ.submitList( filteredlist )
         }
     }
 
-    private fun loadUsersRequest() {
+    private fun loadRestaurantsRequest() {
 
-        RetrofitInstance.getApiService().getAllUsers()
-            .enqueue(object : Callback<ResponseWrapper<List<User>>> {
+        RetrofitInstance.getApiService().getAllRestaurants()
+            .enqueue(object : Callback<ResponseWrapper<List<Restaurant>>> {
 
                 override fun onResponse(
-                    call: Call<ResponseWrapper<List<User>>>,
-                    response: Response<ResponseWrapper<List<User>>>
+                    call: Call<ResponseWrapper<List<Restaurant>>>,
+                    response: Response<ResponseWrapper<List<Restaurant>>>
                 ) {
 
                     val responseBody = response.body().takeIf { it != null } ?: return
@@ -93,9 +96,9 @@ class AdminUsersFragment : Fragment() {
                     if (responseBody.status == 200) {
 
                         val responseData = responseBody.data.takeIf { it != null } ?: return
-                        users.addAll(responseData)
+                        restaurants.addAll(responseData)
 
-                        initUsers()
+                        initRestaurants()
 
                     } else {
                         Toast.makeText(activity, responseBody.message, Toast.LENGTH_SHORT).show()
@@ -103,7 +106,7 @@ class AdminUsersFragment : Fragment() {
                 }
 
                 override fun onFailure(
-                    call: Call<ResponseWrapper<List<User>>>,
+                    call: Call<ResponseWrapper<List<Restaurant>>>,
                     t: Throwable
                 ) {
                     Toast.makeText(activity, "Problem with request", Toast.LENGTH_SHORT).show()
@@ -112,27 +115,27 @@ class AdminUsersFragment : Fragment() {
 
     }
 
-    private fun initUsers() {
+    private fun initRestaurants() {
 
-        usersAdapter = UsersAdapter()
+        restaurantsAdapter = RestaurantsAdapter()
 
-        usersAdapter.onItemClicked(object : UsersAdapter.OnItemClicked {
+        restaurantsAdapter.onItemClicked(object : RestaurantsAdapter.OnItemClicked {
 
-            override fun onClickListener(user: User) {
+            override fun onClickListener(restaurant: Restaurant) {
 
             }
 
         })
 
         resetAdapters()
-        usersAdapter.differ.submitList( users )
+        restaurantsAdapter.differ.submitList( restaurants )
     }
 
     private fun resetAdapters() {
 
-        binding.rvUsers.apply {
+        binding.rvRestaurants.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
-            adapter = usersAdapter
+            adapter = restaurantsAdapter
         }
     }
 

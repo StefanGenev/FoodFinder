@@ -10,7 +10,7 @@
     tools:context=".fragments.AdminUsersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvUsers"
+        android:id="@+id/rvRestaurants"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_20sdp"
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bentonsans"
-            android:text="Users"
+            android:text="Restaurants"
             android:textColor="@color/black"
             android:textSize="@dimen/_25sdp"
             android:textStyle="bold" />

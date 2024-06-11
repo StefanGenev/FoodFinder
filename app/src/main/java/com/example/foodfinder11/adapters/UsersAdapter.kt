@@ -5,16 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.foodfinder11.databinding.HistoryItemCardBinding
 import com.example.foodfinder11.databinding.UserCardBinding
-import com.example.foodfinder11.model.Meal
-import com.example.foodfinder11.model.Order
 import com.example.foodfinder11.model.User
 
 class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     private lateinit var onItemClick: UsersAdapter.OnItemClicked
+
     inner class UsersViewHolder(val binding: UserCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val diffUtil = object : DiffUtil.ItemCallback<User>() {
