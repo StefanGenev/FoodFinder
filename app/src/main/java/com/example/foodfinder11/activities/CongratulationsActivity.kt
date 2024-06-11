@@ -9,6 +9,7 @@ import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityCongratulationsBinding
 import com.example.foodfinder11.databinding.ActivityEnterEmailBinding
 import com.example.foodfinder11.model.Roles
+import com.example.foodfinder11.utils.ActivityUtils
 import com.example.foodfinder11.utils.SessionManager
 
 class CongratulationsActivity : BaseNavigatableActivity() {
@@ -38,19 +39,7 @@ class CongratulationsActivity : BaseNavigatableActivity() {
 
     override fun commitData(): Boolean {
 
-        val userData = SessionManager.fetchUserData()
-
-        if ( userData.role == Roles.CUSTOMER ) {
-
-            val intent = Intent(this@CongratulationsActivity, MainActivity::class.java)
-            startActivity(intent)
-
-        } else {
-
-            val intent = Intent(this@CongratulationsActivity, NewBusinessDataActivity::class.java)
-            startActivity(intent)
-
-        }
+        ActivityUtils.openMainActivityByRole(this@CongratulationsActivity)
 
         return true
     }

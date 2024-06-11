@@ -17,6 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_margin="@dimen/_10sdp">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -44,6 +45,7 @@
                 android:id="@+id/idSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:queryBackground="@null"
                 android:background="@color/white"
                 android:elevation="5dp"
                 app:iconifiedByDefault="false"

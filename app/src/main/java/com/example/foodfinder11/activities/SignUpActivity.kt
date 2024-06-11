@@ -10,6 +10,7 @@ import com.example.foodfinder11.dto.RegisterResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.ActivityUtils
 import com.example.foodfinder11.utils.HashingUtils
 import com.example.foodfinder11.utils.SessionManager
 import retrofit2.Call
@@ -43,8 +44,8 @@ class SignUpActivity : AppCompatActivity() {
                         SessionManager.saveAuthToken(responseData.accessToken)
                         SessionManager.saveRefreshToken(responseData.token)
 
-                        val intent = Intent(this@SignUpActivity, MainActivity::class.java)
-                        startActivity(intent)
+                        ActivityUtils.openMainActivityByRole(this@SignUpActivity)
+
                     } else {
                         //TODO Log
                     }

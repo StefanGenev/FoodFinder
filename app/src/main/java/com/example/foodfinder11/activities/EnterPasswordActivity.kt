@@ -14,6 +14,7 @@ import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.ActivityUtils
 import com.example.foodfinder11.utils.HashingUtils
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.viewModel.BusinessMainViewModel
@@ -132,19 +133,6 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
     }
 
     fun startNextActivityOnSucessfullLogin() {
-
-        val userData = SessionManager.fetchUserData()
-
-        if ( userData.role == Roles.CUSTOMER ) {
-
-            val intent = Intent(this@EnterPasswordActivity, MainActivity::class.java)
-            startActivity(intent)
-
-        } else {
-
-            val intent = Intent(this@EnterPasswordActivity, BusinessMainActivity::class.java)
-            startActivity(intent)
-
-        }
+        ActivityUtils.openMainActivityByRole(this@EnterPasswordActivity)
     }
 }

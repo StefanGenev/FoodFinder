@@ -21,6 +21,7 @@ import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Order
 import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.model.User
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -78,4 +79,7 @@ interface APItiteService {
 
     @POST("/api/orders/get_by_user")
     fun getOrders( @Body dto: IdentifierDto): Call<ResponseWrapper<List<Order>>>
+
+    @GET("/api/users/get-all")
+    fun getAllUsers() : Call<ResponseWrapper<List<User>>>
 }

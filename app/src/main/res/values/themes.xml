@@ -42,6 +42,18 @@
         <item name="android:fontFamily">@font/bentonsans</item>
     </style>
 
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <!-- Text Size -->
+        <item name="android:textSize">@dimen/_15sdp</item>
+        <!-- Query Text Color -->
+        <item name="android:textColorPrimary">@color/salva</item>
+        <!-- Hint Color -->
+        <item name="android:textColorHint">@color/salva</item>
+        <!-- Icon Color -->
+        <item name="android:tint">@color/salva</item>
+        <item name="android:fontFamily">@font/bentonsansmedium</item>
+    </style>
+
     <!-- BottomSheet -->
     <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>

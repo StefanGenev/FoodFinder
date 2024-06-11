@@ -1,16 +1,15 @@
 package com.example.foodfinder11.activities
 
-
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.example.foodfinder11.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class BusinessMainActivity : BaseNavigatableActivity() {
+class AdminMainActivity : BaseNavigatableActivity() {
 
     override fun initializeActivity() {
 
-        setContentView(R.layout.activity_business_main)
+        setContentView(R.layout.activity_admin_main)
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val navController = Navigation.findNavController(this, R.id.host_fragment)

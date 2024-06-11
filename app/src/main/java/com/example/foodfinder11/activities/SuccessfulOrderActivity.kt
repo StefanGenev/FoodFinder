@@ -3,6 +3,7 @@ package com.example.foodfinder11.activities
 import android.content.Intent
 import com.example.foodfinder11.databinding.ActivitySuccessfulOrderBinding
 import com.example.foodfinder11.model.Roles
+import com.example.foodfinder11.utils.ActivityUtils
 import com.example.foodfinder11.utils.SessionManager
 
 class SuccessfulOrderActivity : BaseNavigatableActivity() {
@@ -24,13 +25,7 @@ class SuccessfulOrderActivity : BaseNavigatableActivity() {
 
     override fun commitData(): Boolean {
 
-        val userData = SessionManager.fetchUserData()
-
-        if ( userData.role == Roles.CUSTOMER ) {
-
-            val intent = Intent(this@SuccessfulOrderActivity, MainActivity::class.java)
-            startActivity(intent)
-        }
+        ActivityUtils.openMainActivityByRole(this@SuccessfulOrderActivity)
 
         return true
     }

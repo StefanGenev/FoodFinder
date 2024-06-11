@@ -2,6 +2,7 @@ package com.example.foodfinder11.activities
 
 import android.content.Intent
 import com.example.foodfinder11.databinding.ActivityRestaurantRegisteredBinding
+import com.example.foodfinder11.utils.ActivityUtils
 
 class RestaurantRegisteredActivity : BaseNavigatableActivity() {
 
@@ -19,8 +20,7 @@ class RestaurantRegisteredActivity : BaseNavigatableActivity() {
 
     override fun commitData(): Boolean {
 
-        val intent = Intent(this@RestaurantRegisteredActivity, BusinessMainActivity::class.java)
-        startActivity(intent)
+        ActivityUtils.openMainActivityByRole(this@RestaurantRegisteredActivity)
 
         return true
     }
