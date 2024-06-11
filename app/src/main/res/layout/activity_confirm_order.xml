@@ -127,8 +127,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/bentonsansmedium"
-                    android:text="Apple Street 57, New York"
-                    android:textSize="18dp" />
+                    android:text="Apple Street 57, New York Apple Street 57, New York"
+                    android:textSize="18dp"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 

@@ -85,7 +85,8 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
 
     private fun confirmOrderRequest() {
 
-        val order = SessionManager.fetchOrder()
+        var order = SessionManager.fetchOrder()
+        order.address = AddressUtils.getStringFromLatLng(latLng)
 
         RetrofitInstance.getApiService().confirmOrder(order)
             .enqueue(object : Callback<ResponseWrapper<NoData>> {

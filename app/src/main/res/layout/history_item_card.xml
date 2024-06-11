@@ -1,106 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="180dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="2dp"
-    app:cardCornerRadius="10dp"
-    app:cardUseCompatPadding="true">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:elevation="12dp"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/img_shop"
-            android:layout_width="@dimen/_100sdp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/mealtest"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:scaleType="centerCrop"/>
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
 
-        <TextView
-            android:id="@+id/shop_name"
-            android:layout_width="@dimen/_185sdp"
-            android:layout_height="70dp"
-            android:layout_below="@+id/img_shop"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:ellipsize="end"
-            android:hyphenationFrequency="none"
-            android:maxLines="2"
-            android:text="Shop name"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/img_shop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="@dimen/_185sdp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/img_shop"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:ellipsize="end"
-            android:gravity="left"
-            android:hyphenationFrequency="none"
-            android:maxLines="4"
-            android:text="8 May, 11:37"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            app:layout_constraintStart_toEndOf="@id/img_shop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shop_name"
-            app:layout_constraintVertical_bias="0.0" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/imageCardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp">
 
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="@dimen/_185sdp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/img_shop"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:ellipsize="end"
-            android:gravity="left"
-            android:hyphenationFrequency="none"
-            android:maxLines="4"
-            android:text="Delivered at Osmi Primorski Polk 12"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            app:layout_constraintStart_toEndOf="@id/img_shop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_date"
-            app:layout_constraintVertical_bias="0.0" />
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="200px"
+                        android:layout_height="200px"
+                        android:layout_alignParentTop="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/mealtest" />
 
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="@dimen/_185sdp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/img_shop"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:ellipsize="end"
-            android:gravity="left"
-            android:hyphenationFrequency="none"
-            android:maxLines="4"
-            android:text="15.89 lv."
-            android:textColor="@color/salva"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/img_shop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_address"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/mealInfoLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/bentonsans"
+                        android:maxLines="2"
+                        android:text="Very long meal name with a lot of words"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/bentonsansmedium"
+                        android:maxLines="2"
+                        android:text="3x Red velvet cake \n2x Delicious cake"
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_11sdp" />
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/bentonsans"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:text="10.00 lv"
+                        android:textColor="@color/forest"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:clipChildren="false">
 
     <!--fragment to display our maps-->
     <fragment xmlns:tools="http://schemas.android.com/tools"
@@ -42,7 +44,7 @@
                 android:id="@+id/idSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_salva"
+                android:background="@color/white"
                 android:elevation="5dp"
                 app:iconifiedByDefault="false"
                 app:queryHint="Search Here"

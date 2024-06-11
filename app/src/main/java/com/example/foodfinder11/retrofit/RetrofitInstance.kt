@@ -1,11 +1,12 @@
 package com.example.foodfinder11.retrofit
 
-import android.content.Context
 import com.example.foodfinder11.retrofit.interceptors.AuthInterceptor
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 object RetrofitInstance {
     //private const val API_BASE_URL = "http://10.0.2.2:8080/"
@@ -14,11 +15,17 @@ object RetrofitInstance {
     private lateinit var apiService: APItiteService
 
     fun getApiService(): APItiteService {
+
         // Initialize ApiService if not initialized yet
         if (!::apiService.isInitialized) {
+
+            val gson = GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .create()
+
             val retrofit = Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okhttpClient())
                 .build()
 

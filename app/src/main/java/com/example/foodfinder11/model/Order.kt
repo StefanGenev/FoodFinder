@@ -2,6 +2,7 @@ package com.example.foodfinder11.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.util.Date
 
 enum class OrderStatuses {
 
@@ -24,7 +25,10 @@ data class Order(
     var status: OrderStatuses = OrderStatuses.INITIALISED,
     var paymentMethod: PaymentMethods = PaymentMethods.CASH,
     var cardNumber: String = "",
+    var address: String = "",
     var orderItems: MutableList<OrderItem> = mutableListOf(),
+    var orderedOn: Date = Date(),
+    var deliveredOn: Date = Date(),
 
     ) : Parcelable {
 

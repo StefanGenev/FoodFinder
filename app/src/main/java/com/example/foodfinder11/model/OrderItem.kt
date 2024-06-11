@@ -11,4 +11,9 @@ data class OrderItem(
     var meal: Meal = Meal(),
     var count: Int = 0,
 
-) : Parcelable
+) : Parcelable {
+
+    override fun toString(): String {
+        return "${count}x ${meal.name}"
+    }
+}

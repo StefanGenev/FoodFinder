@@ -4,14 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.foodfinder11.adapters.HistoryItemsAdapter
+import com.example.foodfinder11.adapters.OrdersAdapter
 import com.example.foodfinder11.databinding.ActivityHistoryBinding
 import com.example.foodfinder11.viewModel.MainViewModel
 
 class HistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHistoryBinding
-    private lateinit var historyItemsAdapter: HistoryItemsAdapter
+    private lateinit var ordersAdapter: OrdersAdapter
 
     private lateinit var homeMvvm: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +42,11 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun prepareRecyclerView() {
-        historyItemsAdapter = HistoryItemsAdapter()
+        ordersAdapter = OrdersAdapter()
 
         binding.rvOrders.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
-            adapter = historyItemsAdapter
+            adapter = ordersAdapter
         }
     }
 

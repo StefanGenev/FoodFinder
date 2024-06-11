@@ -33,8 +33,6 @@ data class Restaurant(
 
     var name: String = "",
 
-    var owner: User = User(),
-
     var priceRange: PriceRanges = PriceRanges.CHEAP,
 
     var address: String = "",

@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.foodfinder11.activities.HistoryActivity
+import com.example.foodfinder11.activities.MainActivity
+import com.example.foodfinder11.activities.OrdersActivity
+import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.activities.ReviewsActivity
 import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.FragmentSettingsBinding
@@ -35,9 +38,20 @@ class UserFragment : Fragment() {
         val userData = SessionManager.fetchUserData()
         binding.tvProfileName.text = userData.name
 
+        binding.ordersButton.setOnClickListener {
+            onOrders()
+        }
+
         binding.signOutButton.setOnClickListener {
             onSignOut()
         }
+
+    }
+
+    private fun onOrders() {
+
+        val intent = Intent(activity, OrdersActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onSignOut() {
