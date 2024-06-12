@@ -86,10 +86,10 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
         for (restaurant in restaurants) {
 
             val nameMatches = restaurant.name.lowercase(Locale.getDefault()).contains(text.lowercase(
-                Locale.getDefault()))
+                Locale.getDefault())) || text.isEmpty()
 
             val foodTypeMatches = restaurant.foodType.name.lowercase(Locale.getDefault()).contains(text.lowercase(
-                Locale.getDefault()))
+                Locale.getDefault())) || text.isEmpty()
 
             val stringMatches = nameMatches || foodTypeMatches
 
@@ -177,7 +177,7 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
 
     override fun onClearFilter() {
         filterApplied = false
-        filter(binding.idSearchView.toString())
+        filter(binding.idSearchView.query.toString())
     }
 
     override fun setRestaurantStatusFilter(status: RestaurantStatuses) {
@@ -187,7 +187,7 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
 
     override fun onApplyFilter() {
         filterApplied = true
-        filter(binding.idSearchView.toString())
+        filter(binding.idSearchView.query.toString())
     }
 
     private fun openFilterBottomSheet() {
