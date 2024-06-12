@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_admin_graph"
-    app:startDestination="@id/usersFragment">
-
-    <fragment
-        android:id="@+id/usersFragment"
-        android:name="com.example.foodfinder11.fragments.AdminUsersFragment"
-        android:label="fragment_users"
-        tools:layout="@layout/fragment_admin_users" />
+    app:startDestination="@id/restaurantsFragment">
 
     <fragment
         android:id="@+id/restaurantsFragment"
         android:name="com.example.foodfinder11.fragments.AdminRestaurantsFragment"
         android:label="fragment_restaurants"
         tools:layout="@layout/fragment_admin_restaurants" />
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.example.foodfinder11.fragments.AdminUsersFragment"
+        android:label="fragment_users"
+        tools:layout="@layout/fragment_admin_users" />
 
     <fragment
         android:id="@+id/adminSettingsFragment"

@@ -13,20 +13,33 @@ import retrofit2.Response
 
 
 class MainViewModel: ViewModel() {
+
     private val allRestaurantsLiveData = MutableLiveData<List<Restaurant>>()
     private var currentRestaurantIndex = MutableLiveData<Int>(0)
     private var restaurantsLoaded = MutableLiveData<Boolean>(false)
 
     fun loadAllRestaurants() {
-        RetrofitInstance.getApiService().getAllRestaurants().enqueue(object :
-            Callback<ResponseWrapper<List<Restaurant>>> {
-            override fun onResponse(call: Call<ResponseWrapper<List<Restaurant>>>, response: Response<ResponseWrapper<List<Restaurant>>>) {
-                val responseBody = response.body().takeIf {it != null} ?: return
-                val responseData = responseBody.data.takeIf {it != null} ?: return
 
-                allRestaurantsLiveData.value = responseData
-                restaurantsLoaded.value = true
-                currentRestaurantIndex.value = 0
+        RetrofitInstance.getApiService().getAllVisibleRestaurants().enqueue(object :
+
+            Callback<ResponseWrapper<List<Restaurant>>> {
+
+            override fun onResponse(call: Call<ResponseWrapper<List<Restaurant>>>, response: Response<ResponseWrapper<List<Restaurant>>>) {
+
+                val responseBody = response.body().takeIf {it != null} ?: return
+
+                if (responseBody.status == 200) {
+
+                    val responseData = responseBody.data.takeIf {it != null} ?: return
+
+                    allRestaurantsLiveData.value = responseData
+                    restaurantsLoaded.value = true
+                    currentRestaurantIndex.value = 0
+
+                } else {
+                    //TODO: Log
+                }
+
             }
 
             override fun onFailure(call: Call<ResponseWrapper<List<Restaurant>>>, t: Throwable) {
@@ -39,8 +52,13 @@ class MainViewModel: ViewModel() {
         return allRestaurantsLiveData
     }
 
+    fun getRestaurantsCount(): Int {
+
+        return allRestaurantsLiveData.value?.count() ?: 0
+    }
+
     fun getCurrentRestaurantIndex(): Int {
-        return currentRestaurantIndex.value ?: 0
+        return currentRestaurantIndex.value ?: -1
     }
 
     fun getRestaurantsLoaded(): Boolean {
@@ -48,6 +66,7 @@ class MainViewModel: ViewModel() {
     }
 
     fun moveToNextRestaurant(){
+
         val currentValue = currentRestaurantIndex.value ?: 0
 
         var newValue = currentValue + 1

@@ -1,5 +1,6 @@
 package com.example.foodfinder11.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.adapters.RestaurantsAdapter
 import com.example.foodfinder11.databinding.FragmentAdminRestaurantsBinding
 import com.example.foodfinder11.dto.ResponseWrapper
@@ -25,6 +27,10 @@ class AdminRestaurantsFragment : Fragment() {
     private var restaurants: ArrayList<Restaurant> = ArrayList()
 
     private lateinit var restaurantsAdapter: RestaurantsAdapter
+
+    companion object {
+        const val RESTAURANT = "restaurant"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +78,7 @@ class AdminRestaurantsFragment : Fragment() {
                 filteredlist.add(restaurant)
             }
         }
+
         if (filteredlist.isEmpty()) {
             //TODO: Empty state
         } else {
@@ -122,13 +129,20 @@ class AdminRestaurantsFragment : Fragment() {
         restaurantsAdapter.onItemClicked(object : RestaurantsAdapter.OnItemClicked {
 
             override fun onClickListener(restaurant: Restaurant) {
-
+                onRestaurantTap(restaurant)
             }
 
         })
 
         resetAdapters()
         restaurantsAdapter.differ.submitList( restaurants )
+    }
+
+    private fun onRestaurantTap(restaurant: Restaurant) {
+
+        val intent = Intent(activity, RestaurantActivity::class.java)
+        intent.putExtra(RESTAURANT, restaurant)
+        startActivity(intent)
     }
 
     private fun resetAdapters() {

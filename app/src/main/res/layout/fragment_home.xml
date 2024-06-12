@@ -81,48 +81,58 @@
             android:textSize="@dimen/_22ssp" />
 
         <LinearLayout
-            android:id="@+id/mainButtonsLayout"
-            android:layout_width="wrap_content"
+            android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layout_dodgeInsetEdges="bottom">
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/discard_button"
+            <LinearLayout
+                android:id="@+id/mainButtonsLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:clipToPadding="false"
-                android:src="@drawable/close"
+                android:orientation="horizontal"
+                app:layout_dodgeInsetEdges="bottom">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/discard_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:src="@drawable/close"
+                    app:backgroundTint="@color/white"
+                    app:borderWidth="0dp"
+                    app:elevation="5dp"
+                    app:tint="@color/salva" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/details_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_80ssp"
+                    android:src="@drawable/check"
+                    app:backgroundTint="@color/white"
+                    app:elevation="5dp"
+                    app:tint="@color/forest" />
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/favorite_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/like"
                 app:backgroundTint="@color/white"
                 app:borderWidth="0dp"
                 app:elevation="5dp"
-                app:tint="@color/salva" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/details_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_80ssp"
-                android:src="@drawable/check"
-                app:backgroundTint="@color/white"
-                app:elevation="5dp"
-                app:tint="@color/forest" />
+                app:tint="@color/red" />
 
         </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/like"
-            app:backgroundTint="@color/white"
-            app:borderWidth="0dp"
-            app:elevation="5dp"
-            app:tint="@color/red" />
 
     </LinearLayout>
 

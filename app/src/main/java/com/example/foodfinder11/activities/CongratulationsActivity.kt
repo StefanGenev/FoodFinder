@@ -39,7 +39,18 @@ class CongratulationsActivity : BaseNavigatableActivity() {
 
     override fun commitData(): Boolean {
 
-        ActivityUtils.openMainActivityByRole(this@CongratulationsActivity)
+        val userData = SessionManager.fetchUserData()
+
+        if ( userData.role == Roles.CUSTOMER ) {
+
+            ActivityUtils.openMainActivityByRole(this@CongratulationsActivity)
+
+        } else {
+
+            val intent = Intent(this@CongratulationsActivity, NewBusinessDataActivity::class.java)
+            startActivity(intent)
+
+        }
 
         return true
     }

@@ -38,6 +38,8 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
         holder.binding.name.text = user.name
         holder.binding.email.text = user.email
+        holder.binding.role.text = "${user.role.name}"
+
 
         holder.binding.cardView.setOnClickListener {
             onItemClick.onClickListener(user)

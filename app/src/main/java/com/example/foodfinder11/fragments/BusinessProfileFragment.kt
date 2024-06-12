@@ -24,6 +24,7 @@ import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.model.RestaurantStatuses
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.SessionManager
 import retrofit2.Call
@@ -68,8 +69,29 @@ class BusinessProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (restaurant.status == RestaurantStatuses.HIDDEN) {
+
+            binding.statusInfoLayout.visibility = View.VISIBLE
+            binding.statusInfoTitle.text = "Your profile has been hidden."
+            binding.statusInfoReason.text = "Reason: ${restaurant.statusNote}\n Please contact support for more information."
+
+        } else if (restaurant.status == RestaurantStatuses.REGISTERED) {
+
+            binding.statusInfoLayout.visibility = View.VISIBLE
+            binding.statusInfoTitle.text = "Your profile has not yet been approved, so it won't be shown to customers."
+            binding.statusInfoReason.text = "If more than 2 days have passed since registration, please contact support for more information."
+        }
+
         binding.addNewMealButton.setOnClickListener {
             createNewMeal()
+        }
+
+        binding.infoButton.setOnClickListener {
+            openInfoActivity()
+        }
+
+        binding.editButton.setOnClickListener{
+            openEditBusinessActivity()
         }
 
         // set toolbar as support action bar
@@ -208,14 +230,6 @@ class BusinessProfileFragment : Fragment() {
             binding.tvRating.text = "${restaurant.rating} rating"
         else
             binding.tvRating.visibility = View.GONE
-
-        binding.infoButton.setOnClickListener {
-            openInfoActivity()
-        }
-
-        binding.editButton.setOnClickListener{
-            openEditBusinessActivity()
-        }
     }
 
     private fun openEditBusinessActivity() {

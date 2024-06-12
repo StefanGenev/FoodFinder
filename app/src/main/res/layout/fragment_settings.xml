@@ -31,7 +31,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
         android:clipToPadding="false"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"

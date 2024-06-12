@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ class HomeFragment : Fragment() {
 
     private val mainViewModel: MainViewModel by activityViewModels()
     private var currentRestaurant: Restaurant = Restaurant()
+    private var empty: Boolean = false
 
     companion object {
         const val RESTAURANT = "restaurant"
@@ -69,7 +71,11 @@ class HomeFragment : Fragment() {
             mainViewModel.loadAllRestaurants()
     }
 
-    private fun openCurrentRestaurant(){
+    private fun openCurrentRestaurant() {
+
+        if (empty) {
+            return
+        }
 
         val intent = Intent(activity, RestaurantActivity::class.java)
         intent.putExtra(RESTAURANT, currentRestaurant)
@@ -78,6 +84,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun showCurrentRestaurant() {
+
+        if (mainViewModel.getRestaurantsCount() <= 0) {
+
+            empty = true
+            showEmptyState()
+
+            return
+        }
 
         val currentRestaurantIndex = mainViewModel.getCurrentRestaurantIndex()
 
@@ -94,6 +108,24 @@ class HomeFragment : Fragment() {
 
             binding.favoriteButton.setOnClickListener { addRemoveToFavoritesRequest() }
         })
+    }
+
+    private fun showEmptyState() {
+
+        binding.bottomLayout.visibility = View.GONE
+
+        binding.tvMealName.text = "No restaurants found"
+
+        binding.imgRandomMeal.setImageDrawable(
+            activity?.let {
+            ContextCompat.getDrawable(
+                it.applicationContext,
+                R.drawable.empty_state
+            )
+        })
+
+        binding.imgRandomMeal.scaleType = ImageView.ScaleType.CENTER_INSIDE
+        binding.imgRandomMeal.setBackgroundColor(ContextCompat.getColor(activity?.applicationContext!!, R.color.white))
     }
 
     private fun changeRestaurant(){

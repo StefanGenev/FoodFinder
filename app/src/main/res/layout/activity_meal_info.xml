@@ -64,7 +64,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:onClick="onGoBack"
             app:backgroundTint="@color/light_forest"
             app:fabCustomSize="48dp"
             app:maxImageSize="20dp"
@@ -76,8 +75,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-
-            android:onClick="onGoBack"
             android:layout_marginLeft="@dimen/_10sdp"
             app:backgroundTint="@color/light_salva"
             app:fabCustomSize="48dp"

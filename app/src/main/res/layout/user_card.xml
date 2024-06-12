@@ -83,6 +83,19 @@
                         android:textColor="@color/light_gray"
                         android:textSize="@dimen/_12sdp" />
 
+                    <TextView
+                        android:id="@+id/role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/bentonsansmedium"
+                        android:maxLines="2"
+                        android:text="Owner - Cherry"
+                        android:textColor="@color/forest"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_13sdp" />
+
                 </LinearLayout>
 
                 <ImageView

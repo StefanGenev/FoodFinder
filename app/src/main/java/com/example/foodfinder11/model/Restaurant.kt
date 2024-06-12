@@ -26,6 +26,29 @@ enum class PriceRanges {
     abstract fun getName(): String
 }
 
+enum class RestaurantStatuses {
+
+    REGISTERED {
+        override fun getName(): String {
+            return "Registered"
+        }
+    },
+
+    APPROVED {
+        override fun getName(): String {
+            return "Approved"
+        }
+    },
+
+    HIDDEN {
+        override fun getName(): String {
+            return "Hidden"
+        }
+    };
+
+    abstract fun getName(): String
+}
+
 @Parcelize
 data class Restaurant(
 
@@ -41,6 +64,10 @@ data class Restaurant(
 
     var rating: Double = 0.0,
 
-    var foodType: FoodType = FoodType()
+    var foodType: FoodType = FoodType(),
 
-) : Parcelable
+    var status: RestaurantStatuses = RestaurantStatuses.REGISTERED,
+
+    var statusNote: String = "",
+
+    ) : Parcelable

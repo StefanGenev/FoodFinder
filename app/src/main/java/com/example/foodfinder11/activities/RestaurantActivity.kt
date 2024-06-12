@@ -20,6 +20,7 @@ import com.example.foodfinder11.fragments.BusinessProfileFragment
 import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.getParcelableExtraProvider
@@ -56,6 +57,15 @@ class RestaurantActivity : BaseNavigatableActivity() {
             resetAdapters()
         }
 
+    private val startEditActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+
+            finish()
+        }
+    }
+
     override fun initializeActivity() {
 
         binding = ActivityRestaurantBinding.inflate(layoutInflater)
@@ -85,14 +95,52 @@ class RestaurantActivity : BaseNavigatableActivity() {
         initializeAdapters()
         loadRestaurantData()
 
-        initFavoriteButton()
-
-        binding.favoriteButton.setOnClickListener {
-            addRemoveToFavoritesRequest()
-        }
+        initButtonTwo()
 
         updateOrderButton()
     }
+
+    private fun initButtonTwo() {
+
+        val user = SessionManager.fetchUserData()
+
+        if (user.role == Roles.CUSTOMER) {
+
+            updateFavoriteButton()
+
+            binding.buttonTwo.setOnClickListener {
+                addRemoveToFavoritesRequest()
+            }
+
+        } else if (user.role == Roles.ADMIN) {
+
+            binding.buttonTwo.setImageDrawable(
+                ContextCompat.getDrawable(
+                    applicationContext,
+                    R.drawable.edit
+                )
+            )
+
+            binding.buttonTwo.setBackgroundColor(
+                ContextCompat.getColor(
+                    applicationContext,
+                    R.color.light_forest
+                )
+            )
+            binding.buttonTwo.setColorFilter(
+                ContextCompat.getColor(
+                    applicationContext,
+                    R.color.forest
+                )
+            )
+
+            binding.buttonTwo.setOnClickListener {
+                onEditRestaurant()
+            }
+        }
+
+    }
+
 
     override fun commitData(): Boolean {
 
@@ -201,7 +249,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
         val restaurantId = SessionManager.fetchRestaurantId()!!
         val dto = IdentifierDto(id = restaurantId)
 
-        RetrofitInstance.getApiService().getMeals(dto)
+        RetrofitInstance.getApiService().getVisibleMeals(dto)
             .enqueue(object : Callback<ResponseWrapper<List<Meal>>> {
 
                 override fun onResponse(
@@ -252,7 +300,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
         else
             binding.tvRating.visibility = View.GONE
 
-        binding.infoButton.setOnClickListener {
+        binding.buttonOne.setOnClickListener {
             openInfoActivity()
         }
     }
@@ -285,7 +333,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
         binding.emptyStateLayout.visibility = if (meals.isEmpty()) View.VISIBLE else View.GONE
     }
 
-    private fun initFavoriteButton() {
+    private fun updateFavoriteButton() {
 
         val userData = SessionManager.fetchUserData()
         val restaurantIsInFavorites =
@@ -293,7 +341,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         val drawable = if (restaurantIsInFavorites) R.drawable.like else R.drawable.like_empty
 
-        binding.favoriteButton.setImageDrawable(
+        binding.buttonTwo.setImageDrawable(
             ContextCompat.getDrawable(
                 applicationContext,
                 drawable
@@ -333,7 +381,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
                         SessionManager.saveFavoriteRestaurants(responseData)
 
-                        initFavoriteButton()
+                        updateFavoriteButton()
 
                     } else {
                         Toast.makeText(
@@ -378,5 +426,16 @@ class RestaurantActivity : BaseNavigatableActivity() {
             binding.continueButton.visibility = View.GONE
 
         }
+    }
+
+    private fun onEditRestaurant() {
+
+        if (SessionManager.fetchUserData().role != Roles.ADMIN) {
+            return
+        }
+
+        val intent = Intent(this@RestaurantActivity, AdminEditRestaurantActivity::class.java)
+        intent.putExtra(AdminEditRestaurantActivity.RESTAURANT, restaurant)
+        startEditActivityForResult.launch(intent)
     }
 }

@@ -108,6 +108,7 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
         }
 
         binding.tvUploadPhoto.setText("Upload new photo")
+        updateHideButton()
     }
 
     override fun commitData(): Boolean {
@@ -210,11 +211,27 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
             onOkAction = { dialog, id ->
 
                 meal.isHidden = !meal.isHidden
+
+                updateHideButton()
+
+
             }
             , onCancelAction = { dialog, id ->
 
                 dialog.dismiss()
             } ).show(supportFragmentManager, "QuestionDialog")
+    }
+
+    private fun updateHideButton() {
+
+        val drawable = if (meal.isHidden) R.drawable.show else R.drawable.hide
+
+        binding.hideButton.setImageDrawable(
+            ContextCompat.getDrawable(
+                applicationContext,
+                drawable
+            )
+        )
     }
 
     private fun openPromotionBottomSheet() {
