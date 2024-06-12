@@ -24,7 +24,7 @@ data class SaveMealRequestDto(
         description = meal.description
         price = meal.price
         imageUrl = meal.imageUrl
-        restaurantId = SessionManager.fetchRestaurantId()!!
+        restaurantId = SessionManager.fetchRestaurant().id
         hasPromotion = meal.hasPromotion
         promotionType = meal.promotionType
         promotionPercent = meal.promotionPercent

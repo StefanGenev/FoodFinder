@@ -69,19 +69,6 @@ class BusinessProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (restaurant.status == RestaurantStatuses.HIDDEN) {
-
-            binding.statusInfoLayout.visibility = View.VISIBLE
-            binding.statusInfoTitle.text = "Your profile has been hidden."
-            binding.statusInfoReason.text = "Reason: ${restaurant.statusNote}\n Please contact support for more information."
-
-        } else if (restaurant.status == RestaurantStatuses.REGISTERED) {
-
-            binding.statusInfoLayout.visibility = View.VISIBLE
-            binding.statusInfoTitle.text = "Your profile has not yet been approved, so it won't be shown to customers."
-            binding.statusInfoReason.text = "If more than 2 days have passed since registration, please contact support for more information."
-        }
-
         binding.addNewMealButton.setOnClickListener {
             createNewMeal()
         }
@@ -182,7 +169,7 @@ class BusinessProfileFragment : Fragment() {
 
     private fun loadMeals() {
 
-        val restaurantId = SessionManager.fetchRestaurantId()!!
+        val restaurantId = SessionManager.fetchRestaurant().id
         val dto = IdentifierDto(id = restaurantId)
 
         RetrofitInstance.getApiService().getMeals(dto)
@@ -213,7 +200,7 @@ class BusinessProfileFragment : Fragment() {
 
     private fun fillRestaurantData() {
 
-        SessionManager.saveRestaurantId(restaurant.id)
+        SessionManager.saveRestaurant(restaurant)
 
         binding.tvTitle.text = restaurant.name
         binding.collapsingToolbar.title = restaurant.name
@@ -230,6 +217,19 @@ class BusinessProfileFragment : Fragment() {
             binding.tvRating.text = "${restaurant.rating} rating"
         else
             binding.tvRating.visibility = View.GONE
+
+        if (restaurant.status == RestaurantStatuses.HIDDEN) {
+
+            binding.statusInfoLayout.visibility = View.VISIBLE
+            binding.statusInfoTitle.text = "Your profile has been hidden."
+            binding.statusInfoReason.text = "Reason: ${restaurant.statusNote}\n Please contact support for more information."
+
+        } else if (restaurant.status == RestaurantStatuses.REGISTERED) {
+
+            binding.statusInfoLayout.visibility = View.VISIBLE
+            binding.statusInfoTitle.text = "Your profile has not yet been approved, so it won't be shown to customers."
+            binding.statusInfoReason.text = "If more than 2 days have passed since registration, please contact support for more information."
+        }
     }
 
     private fun openEditBusinessActivity() {

@@ -27,9 +27,9 @@ object AppPreferences {
         get() = Key.USERNAME.getString()
         set(value) = Key.USERNAME.setString(value)
 
-    var restaurantId: Long?
-        get() = Key.RESTAURANT_ID.getLong()
-        set(value) = Key.RESTAURANT_ID.setLong(value)
+    var restaurant: String?
+        get() = Key.RESTAURANT.getString()
+        set(value) = Key.RESTAURANT.setString(value)
 
     var order: String?
         get() = Key.ORDER.getString()
@@ -39,7 +39,7 @@ object AppPreferences {
         TOKEN,
         REFRESHTOKEN,
         USERNAME,
-        RESTAURANT_ID,
+        RESTAURANT,
         ORDER;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
@@ -62,7 +62,7 @@ object AppPreferences {
         token = ""
         refreshToken = ""
         user = ""
-        restaurantId = 0
+        restaurant = ""
         order = ""
     }
 }

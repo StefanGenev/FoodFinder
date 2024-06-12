@@ -77,7 +77,7 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
 
     override fun commitData(): Boolean {
 
-        val enteredPassword = binding.passwordTextEdit.text.toString()
+        val enteredPassword = binding.passwordTextEdit.text.toString().trim()
         val hashedPassword = HashingUtils.getSHA512(enteredPassword)
 
         if (userExists) {

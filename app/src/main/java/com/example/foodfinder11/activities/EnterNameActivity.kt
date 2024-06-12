@@ -68,7 +68,7 @@ class EnterNameActivity : BaseNavigatableActivity() {
 
     override fun commitData(): Boolean {
 
-        registerRequestDto.name = binding.nameTextEdit.text.toString()
+        registerRequestDto.name = binding.nameTextEdit.text.toString().trim()
         registerRequest()
 
         return true

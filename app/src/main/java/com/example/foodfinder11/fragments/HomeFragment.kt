@@ -85,28 +85,30 @@ class HomeFragment : Fragment() {
 
     private fun showCurrentRestaurant() {
 
-        if (mainViewModel.getRestaurantsCount() <= 0) {
-
-            empty = true
-            showEmptyState()
-
-            return
-        }
-
         val currentRestaurantIndex = mainViewModel.getCurrentRestaurantIndex()
 
         mainViewModel.getAllRestaurantsLiveData().observe(viewLifecycleOwner, Observer { restaurants ->
-            currentRestaurant = restaurants[currentRestaurantIndex]
 
-            Glide.with(this@HomeFragment)
-                .load(currentRestaurant.imageUrl)
-                .into(binding.imgRandomMeal)
+            if (restaurants.isEmpty()) {
 
-            binding.tvMealName.text = currentRestaurant.name
+                empty = true
+                showEmptyState()
 
-            initFavoriteButton()
+            } else {
 
-            binding.favoriteButton.setOnClickListener { addRemoveToFavoritesRequest() }
+                currentRestaurant = restaurants[currentRestaurantIndex]
+
+                Glide.with(this@HomeFragment)
+                    .load(currentRestaurant.imageUrl)
+                    .into(binding.imgRandomMeal)
+
+                binding.tvMealName.text = currentRestaurant.name
+
+                initFavoriteButton()
+
+                binding.favoriteButton.setOnClickListener { addRemoveToFavoritesRequest() }
+            }
+
         })
     }
 

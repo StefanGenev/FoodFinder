@@ -26,6 +26,9 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val restaurant = SessionManager.fetchRestaurant()
+        binding.tvProfileName.text = restaurant.name
+
         binding.signOutButton.setOnClickListener {
             onSignOut()
         }

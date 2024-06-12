@@ -109,6 +109,9 @@ interface APItiteService {
     // USERS
     // -------------------------------
 
-    @GET("/api/users/get-all")
-    fun getAllUsers() : Call<ResponseWrapper<List<User>>>
+    @GET("/api/users/get_customers")
+    fun getCustomers() : Call<ResponseWrapper<List<User>>>
+
+    @HTTP(method = "DELETE", path = "/api/users/delete", hasBody = true)
+    fun deleteUser( @Body dto: IdentifierDto): Call<ResponseWrapper<NoData>>
 }

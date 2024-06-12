@@ -16,11 +16,4 @@ data class User(
 
     var favoriteRestaurants: List<Restaurant> = mutableListOf(),
 
-) : Parcelable {
-    fun getRoleName(): String {
-
-        var roleName = role.getName()
-
-        return roleName
-    }
-}
+) : Parcelable

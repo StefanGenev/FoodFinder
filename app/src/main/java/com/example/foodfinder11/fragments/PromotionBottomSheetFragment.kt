@@ -114,10 +114,9 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
         promotionDialogActivityContract.setPromotionType(selectedPromotionType)
 
         val textField: TextInputEditText? = getView()?.findViewById<TextInputEditText>(R.id.textFieldTextEdit)
-        val value = textField?.text.toString().toInt()
 
         if ( selectedPromotionType == PromotionTypes.PERCENT ) {
-
+            val value = textField?.text.toString().toInt()
             promotionDialogActivityContract.setPercent(value)
         }
 

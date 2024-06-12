@@ -97,7 +97,7 @@ class ChooseAddressActivity : BaseNavigatableActivity() {
 
     private fun saveRestaurantLocationRequest() {
 
-        val restaurantId = SessionManager.fetchRestaurantId()!!
+        val restaurantId = SessionManager.fetchRestaurant().id
 
         val dto = SaveRestaurantLocationRequestDto(restaurantId, AddressUtils.getStringFromLatLng(latLng))
 

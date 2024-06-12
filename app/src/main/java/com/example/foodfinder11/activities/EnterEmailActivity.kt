@@ -53,7 +53,7 @@ class EnterEmailActivity : BaseNavigatableActivity() {
         val enteredEmail = binding.emailTextEdit.text.toString()
 
         var checkIfEmailExistsRequestDto =
-            CheckIfEmailExistsRequestDto(enteredEmail)
+            CheckIfEmailExistsRequestDto(enteredEmail.trim())
 
         RetrofitInstance.getApiService().checkIfEmailExists(checkIfEmailExistsRequestDto)
             .enqueue(object : Callback<ResponseWrapper<CheckIfEmailExistsResponseDto>> {

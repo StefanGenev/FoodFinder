@@ -67,12 +67,30 @@ class SessionManager {
             return user
         }
 
-        fun saveRestaurantId(id: Long) {
-            AppPreferences.restaurantId = id
+        fun saveRestaurant(restaurant: Restaurant) {
+            val gson = Gson()
+            val json = gson.toJson(restaurant)
+            AppPreferences.restaurant = json
         }
 
-        fun fetchRestaurantId(): Long? {
-            return AppPreferences.restaurantId
+        fun saveRestaurantId(id: Long) {
+
+            var restaurant = fetchRestaurant()
+            restaurant.id = id
+            saveRestaurant(restaurant)
+        }
+
+        fun fetchRestaurant(): Restaurant {
+
+            val gson = Gson()
+            val json: String = AppPreferences.restaurant!!
+
+            val restaurant = gson.fromJson(
+                json,
+                Restaurant::class.java
+            )
+
+            return restaurant
         }
 
         fun fetchOrder(): Order {

@@ -246,7 +246,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
     private fun loadMeals() {
 
-        val restaurantId = SessionManager.fetchRestaurantId()!!
+        val restaurantId = SessionManager.fetchRestaurant().id
         val dto = IdentifierDto(id = restaurantId)
 
         RetrofitInstance.getApiService().getVisibleMeals(dto)
@@ -277,7 +277,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
     private fun fillRestaurantData() {
 
-        SessionManager.saveRestaurantId(restaurant.id)
+        SessionManager.saveRestaurant(restaurant)
 
         binding.tvTitle.text = restaurant.name
         binding.collapsingToolbar.title = restaurant.name

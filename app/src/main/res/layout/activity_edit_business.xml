@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:orientation="vertical"
     tools:context=".activities.EditBusinessActivity">
 
@@ -56,6 +58,8 @@
         android:fillViewport="true"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:layout_constraintBottom_toTopOf="@id/continueButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -178,7 +182,6 @@
                     app:chipBackgroundColor="@color/bg_chip_state_list" />
 
             </com.google.android.material.chip.ChipGroup>
-
 
             <TextView
                 android:id="@+id/photoTitle"

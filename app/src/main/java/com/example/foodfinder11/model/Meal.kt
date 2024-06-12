@@ -26,7 +26,9 @@ data class Meal(
 
             if (promotionType == PromotionTypes.PERCENT) {
 
-                actualPrice = price - price * (promotionPercent / 100)
+                val discountPart: Double = promotionPercent.toDouble() / 100
+                val discount: Double = price * discountPart
+                actualPrice = price - discount
                 actualPrice *= count
 
             } else if (promotionType == PromotionTypes.TWO_FOR_ONE) {

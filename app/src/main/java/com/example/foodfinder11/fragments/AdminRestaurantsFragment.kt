@@ -13,18 +13,32 @@ import com.example.foodfinder11.adapters.RestaurantsAdapter
 import com.example.foodfinder11.databinding.FragmentAdminRestaurantsBinding
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.model.RestaurantStatuses
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Locale
 
+interface AdminRestaurantsFilterContract {
 
-class AdminRestaurantsFragment : Fragment() {
+    fun onClearFilter()
+
+    fun setRestaurantStatusFilter(status: RestaurantStatuses)
+
+    fun onApplyFilter()
+}
+
+class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
 
     private lateinit var binding: FragmentAdminRestaurantsBinding
 
     private var restaurants: ArrayList<Restaurant> = ArrayList()
+
+    private var restaurantStatusFilter: RestaurantStatuses = RestaurantStatuses.REGISTERED
+    private var filterApplied: Boolean = false
+
+    private lateinit var filterBottomSheetDialog: AdminRestaurantsFilterBottomSheet
 
     private lateinit var restaurantsAdapter: RestaurantsAdapter
 
@@ -59,6 +73,10 @@ class AdminRestaurantsFragment : Fragment() {
                 return false
             }
         })
+
+        binding.filterButton.setOnClickListener {
+            openFilterBottomSheet()
+        }
     }
 
     private fun filter(text: String) {
@@ -73,7 +91,11 @@ class AdminRestaurantsFragment : Fragment() {
             val foodTypeMatches = restaurant.foodType.name.lowercase(Locale.getDefault()).contains(text.lowercase(
                 Locale.getDefault()))
 
-            if (nameMatches || foodTypeMatches) {
+            val stringMatches = nameMatches || foodTypeMatches
+
+            val filterMatches = if (filterApplied) restaurant.status == restaurantStatusFilter else true
+
+            if (stringMatches && filterMatches) {
 
                 filteredlist.add(restaurant)
             }
@@ -151,6 +173,27 @@ class AdminRestaurantsFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
             adapter = restaurantsAdapter
         }
+    }
+
+    override fun onClearFilter() {
+        filterApplied = false
+        filter(binding.idSearchView.toString())
+    }
+
+    override fun setRestaurantStatusFilter(status: RestaurantStatuses) {
+        restaurantStatusFilter = status
+        filterApplied = true
+    }
+
+    override fun onApplyFilter() {
+        filterApplied = true
+        filter(binding.idSearchView.toString())
+    }
+
+    private fun openFilterBottomSheet() {
+
+        filterBottomSheetDialog = AdminRestaurantsFilterBottomSheet()
+        filterBottomSheetDialog.show(parentFragmentManager, "BottomSheetDialog")
     }
 
 }

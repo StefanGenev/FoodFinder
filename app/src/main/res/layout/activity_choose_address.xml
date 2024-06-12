@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:gravity="center"
+    android:clipToPadding="false"
+    android:clipChildren="false"
     android:orientation="vertical"
     tools:context=".activities.ChooseAddressActivity">
 

@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.adapters.UsersAdapter
 import com.example.foodfinder11.databinding.FragmentAdminUsersBinding
+import com.example.foodfinder11.dto.IdentifierDto
+import com.example.foodfinder11.dto.NoData
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.User
 import com.example.foodfinder11.retrofit.RetrofitInstance
@@ -17,6 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Locale
+
 
 class AdminUsersFragment : Fragment() {
 
@@ -80,7 +82,7 @@ class AdminUsersFragment : Fragment() {
 
     private fun loadUsersRequest() {
 
-        RetrofitInstance.getApiService().getAllUsers()
+        RetrofitInstance.getApiService().getCustomers()
             .enqueue(object : Callback<ResponseWrapper<List<User>>> {
 
                 override fun onResponse(
@@ -118,14 +120,60 @@ class AdminUsersFragment : Fragment() {
 
         usersAdapter.onItemClicked(object : UsersAdapter.OnItemClicked {
 
-            override fun onClickListener(user: User) {
-
+            override fun onClickListener(user: User, position: Int) {
+                onTapUser(user, position)
             }
 
         })
 
-        resetAdapters()
         usersAdapter.differ.submitList( users )
+        resetAdapters()
+    }
+
+    private fun onTapUser(user: User, position: Int) {
+        QuestionDialogFragment("Are you sure you want to delete this user?",
+            "Yes",
+            "No",
+            onOkAction = { dialog, id ->
+
+                deleteUserRequest(user, position)
+            }
+            , onCancelAction = { dialog, id ->
+            } ).show(parentFragmentManager, "QuestionDialog")
+    }
+
+    private fun deleteUserRequest(user: User, position: Int) {
+
+        val dto = IdentifierDto(id = user.id)
+
+        RetrofitInstance.getApiService().deleteUser(dto)
+
+            .enqueue(object : Callback<ResponseWrapper<NoData>> {
+
+                override fun onResponse(
+                    call: Call<ResponseWrapper<NoData>>,
+                    response: Response<ResponseWrapper<NoData>>
+                ) {
+
+                    val responseBody = response.body().takeIf { it != null } ?: return
+
+                    if (responseBody.status == 200) {
+
+                        Toast.makeText(activity, "User deleted", Toast.LENGTH_SHORT).show()
+
+                        resetAdapters()
+                        users.remove(user)
+                        usersAdapter.differ.submitList( users )
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseWrapper<NoData>>,
+                    t: Throwable
+                ) {
+                    Toast.makeText(activity, "Problem with request", Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     private fun resetAdapters() {

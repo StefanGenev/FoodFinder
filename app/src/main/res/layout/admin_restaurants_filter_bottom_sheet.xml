@@ -66,69 +66,75 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Promotion"
+            android:text="Filter"
             android:textAlignment="center"
             android:textSize="25dp" />
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/toggleButtonGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:elevation="@dimen/_10sdp"
-            app:checkedButton="@+id/btnPercent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:singleSelection="true">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPercent"
-                style="@style/ToggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="Percent"
-                android:textSize="@dimen/_9ssp"
-                app:cornerRadius="@dimen/_5sdp"
-                app:icon="@drawable/percent"
-                app:iconTint="@drawable/toggle_button_foreground_color_selector" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnManyForOne"
-                style="@style/ToggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="Many for one"
-                android:textSize="@dimen/_9ssp"
-                app:cornerRadius="@dimen/_5sdp"
-                app:icon="@drawable/gift"
-                app:iconTint="@drawable/toggle_button_foreground_color_selector" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textFieldTextLayout"
+        <TextView
+            android:id="@+id/statusTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:hint="Percent"
-            app:boxStrokeColor="@color/forest"
-            app:endIconMode="clear_text"
-            app:hintTextColor="@color/forest">
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/bentonsans"
+            android:text="Status"
+            android:textSize="23dp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textFieldTextEdit"
-                android:layout_width="match_parent"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="All"
+                android:textColor="@color/bg_chip_state_text_style"
+                android:textSize="@dimen/_12sdp"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipRegistered"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bentonsansmedium"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:singleLine="true" />
+                android:text="Registered"
+                android:textColor="@color/bg_chip_state_text_style"
+                android:textSize="@dimen/_12sdp"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipApproved"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="Approved"
+                android:textColor="@color/bg_chip_state_text_style"
+                android:textSize="@dimen/_12sdp"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipHidden"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="Hidden"
+                android:textColor="@color/bg_chip_state_text_style"
+                android:textSize="@dimen/_12sdp"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+
 
     </LinearLayout>
 
@@ -144,23 +150,24 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/continueButton"
+            android:id="@+id/applyButton"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:fontFamily="@font/bentonsansmedium"
-            android:text="Confirm"
+            android:text="Apply filter"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:backgroundTint="@color/forest" />
 
         <Button
-            android:id="@+id/removeButton"
+            android:id="@+id/clearFilterButton"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:fontFamily="@font/bentonsansmedium"
-            android:text="Remove promotion"
+            android:drawableTint="@color/salva"
+            android:text="Clear filter"
             android:textColor="@color/salva"
             android:textSize="18sp"
             app:backgroundTint="@color/light_salva"

@@ -38,11 +38,9 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
         holder.binding.name.text = user.name
         holder.binding.email.text = user.email
-        holder.binding.role.text = "${user.role.name}"
 
-
-        holder.binding.cardView.setOnClickListener {
-            onItemClick.onClickListener(user)
+        holder.binding.removeButton.setOnClickListener {
+            onItemClick.onClickListener(user, position)
         }
     }
 
@@ -55,7 +53,7 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
     }
 
     interface OnItemClicked {
-        fun onClickListener(user: User);
+        fun onClickListener(user: User, position: Int);
     }
 
 }
