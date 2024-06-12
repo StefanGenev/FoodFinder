@@ -182,7 +182,6 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
 
     override fun setRestaurantStatusFilter(status: RestaurantStatuses) {
         restaurantStatusFilter = status
-        filterApplied = true
     }
 
     override fun onApplyFilter() {

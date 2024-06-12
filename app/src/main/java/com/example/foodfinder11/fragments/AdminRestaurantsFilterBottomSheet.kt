@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputEditText
 class AdminRestaurantsFilterBottomSheet: BottomSheetDialogFragment() {
 
     private lateinit var adminRestaurantsFilterContract: AdminRestaurantsFilterContract
+    private var allStatusesChosen: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,22 +49,25 @@ class AdminRestaurantsFilterBottomSheet: BottomSheetDialogFragment() {
 
         val chipAll = getView()?.findViewById<Chip>(R.id.chipAll)
         chipAll?.setOnClickListener {
-            adminRestaurantsFilterContract.onClearFilter()
+            allStatusesChosen = true
         }
 
         val chipRegistered = getView()?.findViewById<Chip>(R.id.chipRegistered)
         chipRegistered?.setOnClickListener {
             adminRestaurantsFilterContract.setRestaurantStatusFilter(RestaurantStatuses.REGISTERED)
+            allStatusesChosen = false
         }
 
         val chipApproved = getView()?.findViewById<Chip>(R.id.chipApproved)
         chipApproved?.setOnClickListener {
             adminRestaurantsFilterContract.setRestaurantStatusFilter(RestaurantStatuses.APPROVED)
+            allStatusesChosen = false
         }
 
         val chipHidden = getView()?.findViewById<Chip>(R.id.chipHidden)
         chipHidden?.setOnClickListener {
             adminRestaurantsFilterContract.setRestaurantStatusFilter(RestaurantStatuses.HIDDEN)
+            allStatusesChosen = false
         }
     }
 
@@ -80,13 +84,10 @@ class AdminRestaurantsFilterBottomSheet: BottomSheetDialogFragment() {
 
     private fun onConfirm() {
 
-        val textField: TextInputEditText? = getView()?.findViewById<TextInputEditText>(R.id.textFieldTextEdit)
-        val value = textField?.text.toString()
-
-        var order = SessionManager.fetchOrder()
-        order.paymentMethod = PaymentMethods.CARD
-        order.cardNumber = value
-        SessionManager.saveOrder(order)
+        if (allStatusesChosen) {
+            onClearFilter()
+            return
+        }
 
         dismiss()
         adminRestaurantsFilterContract.onApplyFilter()
