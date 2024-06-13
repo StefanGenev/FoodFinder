@@ -34,7 +34,7 @@ class RestaurantStatusesAdapter: RecyclerView.Adapter<RestaurantStatusesAdapter.
     override fun onBindViewHolder(holder: RestaurantStatusesAdapter.RestaurantStatusesViewHolder, position: Int) {
 
         val status = differ.currentList[position]
-        holder.binding.name.text = status.getName()
+        holder.binding.name.text = status.getName(holder.binding.name.context)
 
         holder.binding.container.setOnClickListener {
             if (onClickListener != null) {

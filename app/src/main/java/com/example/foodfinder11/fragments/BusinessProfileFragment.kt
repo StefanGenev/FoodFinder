@@ -211,7 +211,7 @@ class BusinessProfileFragment : Fragment() {
             .into(binding.coverPhoto)
 
         binding.chipCategory.text = restaurant.foodType.name
-        binding.chipPrice.text = restaurant.priceRange.getName()
+        binding.chipPrice.text = restaurant.priceRange.getName(binding.chipPrice.context)
 
         if (restaurant.rating > 0.0)
             binding.tvRating.text = "${restaurant.rating} rating"
@@ -221,14 +221,19 @@ class BusinessProfileFragment : Fragment() {
         if (restaurant.status == RestaurantStatuses.HIDDEN) {
 
             binding.statusInfoLayout.visibility = View.VISIBLE
-            binding.statusInfoTitle.text = "Your profile has been hidden."
-            binding.statusInfoReason.text = "Reason: ${restaurant.statusNote}\n Please contact support for more information."
+            binding.statusInfoTitle.text = getString(R.string.your_profile_has_been_hidden)
+            binding.statusInfoReason.text = getString(
+                R.string.reason_please_contact_support_for_more_information,
+                restaurant.statusNote
+            )
 
         } else if (restaurant.status == RestaurantStatuses.REGISTERED) {
 
             binding.statusInfoLayout.visibility = View.VISIBLE
-            binding.statusInfoTitle.text = "Your profile has not yet been approved, so it won't be shown to customers."
-            binding.statusInfoReason.text = "If more than 2 days have passed since registration, please contact support for more information."
+            binding.statusInfoTitle.text =
+                getString(R.string.your_profile_has_not_yet_been_approved_so_it_won_t_be_shown_to_customers)
+            binding.statusInfoReason.text =
+                getString(R.string.if_more_than_2_days_have_passed_since_registration_please_contact_support_for_more_information)
         }
     }
 
