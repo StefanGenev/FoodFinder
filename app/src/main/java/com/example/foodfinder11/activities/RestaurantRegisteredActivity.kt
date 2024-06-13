@@ -1,6 +1,6 @@
 package com.example.foodfinder11.activities
 
-import android.content.Intent
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityRestaurantRegisteredBinding
 import com.example.foodfinder11.utils.ActivityUtils
 
@@ -14,8 +14,8 @@ class RestaurantRegisteredActivity : BaseNavigatableActivity() {
     }
 
     override fun initializeViews() {
-        binding.headerTitle.text = "Restaurant registration complete!"
-        binding.subtitle.text = "You can begin to fill out your menu"
+        binding.headerTitle.text = getString(R.string.restaurant_registration_complete)
+        binding.subtitle.text = getString(R.string.you_can_begin_to_fill_out_your_menu)
     }
 
     override fun commitData(): Boolean {

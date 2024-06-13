@@ -7,7 +7,7 @@
     android:background="@color/background_gray"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.EnterEmailActivity">
+    tools:context=".activities.RestaurantStatusesActivity">
 
     <ImageView
         android:id="@+id/pattern"
@@ -59,20 +59,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="@string/food_types"
+            android:text="@string/changeLanguage"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_food_types"
+            android:id="@+id/rvLanguages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf ="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

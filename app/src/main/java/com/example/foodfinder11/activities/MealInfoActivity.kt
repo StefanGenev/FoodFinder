@@ -156,9 +156,9 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
 
     private fun onDelete() {
 
-        QuestionDialogFragment("Are you sure?",
-            "Yes",
-            "No",
+        QuestionDialogFragment(getString(R.string.are_you_sure),
+            getString(R.string.yes),
+            getString(R.string.no),
             onOkAction = { dialog, id ->
 
                 deleteMealRequest()
@@ -206,8 +206,8 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
                             else "Are you sure? This action will show the current meals to your customers"
 
         QuestionDialogFragment(dialogTitle,
-            "Yes",
-            "No",
+            getString(R.string.yes),
+            getString(R.string.no),
             onOkAction = { dialog, id ->
 
                 meal.isHidden = !meal.isHidden

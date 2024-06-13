@@ -43,11 +43,11 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
     override fun initializeViews() {
 
         if (userExists) {
-            binding.headerTitle.text = "Welcome back"
-            binding.subtitle.text = "Enter password to continue"
+            binding.headerTitle.text = getString(R.string.welcome_back)
+            binding.subtitle.text = getString(R.string.enter_password_to_continue)
         } else {
-            binding.headerTitle.text = "Enter Password"
-            binding.subtitle.text = "Make sure to use at least one capital letter, special symbol and digit"
+            binding.headerTitle.text = getString(R.string.enter_password)
+            binding.subtitle.text = getString(R.string.enter_password_subtitle)
         }
 
         binding.passwordTextEdit.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
@@ -127,7 +127,7 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<LoginResponseDto>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@EnterPasswordActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@EnterPasswordActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
     }

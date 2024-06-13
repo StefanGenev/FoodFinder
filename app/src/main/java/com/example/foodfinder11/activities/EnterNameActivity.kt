@@ -62,6 +62,17 @@ class EnterNameActivity : BaseNavigatableActivity() {
             handled
         })
 
+
+        if ( registerRequestDto.role == Roles.CUSTOMER ) {
+
+            binding.subtitle.text = getString(R.string.enter_name_subtitle)
+
+        } else {
+
+            binding.subtitle.text =
+                getString(R.string.the_name_that_clients_will_see_along_with_your_profile_picture_in_the_explore_screen)
+        }
+
         binding.nameTextEdit.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
@@ -105,7 +116,7 @@ class EnterNameActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<RegisterResponseDto>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@EnterNameActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@EnterNameActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
     }

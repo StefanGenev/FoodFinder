@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.example.foodfinder11.R
-import com.example.foodfinder11.model.User
-import com.google.gson.Gson
 
 object AppPreferences {
+
     private var sharedPreferences: SharedPreferences? = null
 
     fun setup(context: Context) {
@@ -35,12 +34,17 @@ object AppPreferences {
         get() = Key.ORDER.getString()
         set(value) = Key.ORDER.setString(value)
 
+    var language: String?
+        get() = Key.LANGUAGE.getString()
+        set(value) = Key.LANGUAGE.setString(value)
+
     private enum class Key {
         TOKEN,
         REFRESHTOKEN,
         USERNAME,
         RESTAURANT,
-        ORDER;
+        ORDER,
+        LANGUAGE;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
         fun getFloat(): Float? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getFloat(name, 0f) else null

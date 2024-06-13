@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.OrderItemCardBinding
 import com.example.foodfinder11.fragments.QuestionDialogFragment
@@ -65,7 +66,8 @@ class OrderItemsAdapter : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewH
     private fun updateOrderItemData(holder: OrderItemsViewHolder, orderItem: OrderItem) {
 
         holder.binding.price.text =
-            "${String.format("%.2f", orderItem.meal.getActualPrice(orderItem.count))} lv."
+            "${String.format("%.2f", orderItem.meal.getActualPrice(orderItem.count))} " +
+                    "${holder.binding.price.context.getString(R.string.lev)}"
         holder.binding.count.text = orderItem.count.toString()
 
         SessionManager.saveOrderItem(orderItem)

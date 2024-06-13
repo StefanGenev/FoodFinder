@@ -2,6 +2,7 @@ package com.example.foodfinder11.activities
 
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.foodfinder11.R
 import com.example.foodfinder11.adapters.OrderItemsAdapter
 import com.example.foodfinder11.adapters.OrdersAdapter
 import com.example.foodfinder11.databinding.ActivityOrdersBinding
@@ -82,7 +83,7 @@ class OrdersActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<List<Order>>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@OrdersActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@OrdersActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
     }

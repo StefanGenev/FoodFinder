@@ -126,9 +126,9 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun onRemove() {
 
-        QuestionDialogFragment("Are you sure?",
-            "Yes",
-            "No",
+        QuestionDialogFragment(getString(R.string.are_you_sure),
+            getString(R.string.yes),
+            getString(R.string.no),
             onOkAction = { dialog, id ->
 
                 promotionDialogActivityContract.setHasPromotion(false)

@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Card number"
+            android:text="@string/card_number"
             android:textAlignment="center"
             android:textSize="25dp" />
 
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:hint="Number"
+            android:hint="@string/number"
             app:boxStrokeColor="@color/forest"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/forest">
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:fontFamily="@font/bentonsansmedium"
-            android:text="Confirm"
+            android:text="@string/confirm"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:backgroundTint="@color/forest" />

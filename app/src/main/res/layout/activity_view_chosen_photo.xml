@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Chosen cover photo"
+            android:text="@string/chosen_cover_photo"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/bentonsanslight"
-            android:text="This is what customers will first see about you"
+            android:text="@string/chosen_photo_subtitle"
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
@@ -107,7 +107,7 @@
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:fontFamily="@font/bentonsansmedium"
             android:onClick="onContinue"
-            android:text="Continue"
+            android:text="@string/continue_button"
             android:textColor="@color/white"
             app:strokeWidth="0dp"
             android:textSize="18sp"
@@ -123,7 +123,7 @@
             android:layout_marginBottom="@dimen/_20sdp"
             android:fontFamily="@font/bentonsansmedium"
             android:onClick="onContinue"
-            android:text="Choose another"
+            android:text="@string/choose_another"
             android:textColor="@color/salva"
             android:textSize="18sp"
             app:backgroundTint="@color/light_salva" />

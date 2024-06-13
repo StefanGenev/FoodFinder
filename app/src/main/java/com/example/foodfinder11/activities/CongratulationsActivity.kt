@@ -1,13 +1,8 @@
 package com.example.foodfinder11.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.WindowManager
-import android.widget.TextView
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityCongratulationsBinding
-import com.example.foodfinder11.databinding.ActivityEnterEmailBinding
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.utils.ActivityUtils
 import com.example.foodfinder11.utils.SessionManager
@@ -27,13 +22,13 @@ class CongratulationsActivity : BaseNavigatableActivity() {
 
         if ( userData.role == Roles.CUSTOMER ) {
 
-            binding.headerTitle.text = "Registration successful!"
-            binding.subtitle.text = "Your profile is ready to use"
+            binding.headerTitle.text = getString(R.string.registration_successful)
+            binding.subtitle.text = getString(R.string.your_profile_is_ready_to_use)
 
         } else {
 
-            binding.headerTitle.text = "Successfully registered!"
-            binding.subtitle.text = "As a business, you need to enter some data such as cover photo, food type and location, that the customers will see. You can do so now or login later to fill in the data."
+            binding.headerTitle.text = getString(R.string.successfully_registered)
+            binding.subtitle.text = getString(R.string.business_registration_successful_subtitle)
         }
     }
 

@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Edit Profile Info"
+            android:text="@string/edit_profile_info"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -80,7 +80,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
+                    android:hint="@string/name"
                     app:boxStrokeColor="@color/forest"
                     app:endIconMode="clear_text"
                     app:hintTextColor="@color/forest">
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
-                    android:hint="Food type"
+                    android:hint="@string/food_type"
                     android:onClick="onClickFoodType"
                     app:boxStrokeColor="@color/forest"
                     app:endIconDrawable="@drawable/chevron_right"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/bentonsans"
-                android:text="Price range"
+                android:text="@string/price_range"
                 android:textAlignment="textStart"
                 android:textSize="18dp" />
 
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:fontFamily="@font/bentonsansmedium"
-                    android:text="$ Cheap"
+                    android:text="@string/cheap"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     app:chipBackgroundColor="@color/bg_chip_state_list" />
@@ -165,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bentonsansmedium"
-                    android:text="$$ Medium"
+                    android:text="@string/medium"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     app:chipBackgroundColor="@color/bg_chip_state_list" />
@@ -176,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bentonsansmedium"
-                    android:text="$$$ Expensive"
+                    android:text="@string/expensive"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     app:chipBackgroundColor="@color/bg_chip_state_list" />
@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:fontFamily="@font/bentonsans"
-                android:text="Profile picture"
+                android:text="@string/profile_picture"
                 android:textAlignment="textStart"
                 android:textSize="22dp" />
 
@@ -229,7 +229,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/bentonsans"
-                    android:text="Upload photo"
+                    android:text="@string/upload_photo"
                     android:textAlignment="center"
                     android:textSize="16dp" />
 
@@ -241,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:fontFamily="@font/bentonsans"
-                android:text="Address"
+                android:text="@string/address"
                 android:textAlignment="textStart"
                 android:textSize="22dp" />
 
@@ -272,7 +272,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:fontFamily="@font/bentonsans"
-                    android:text="Change location"
+                    android:text="@string/change_location"
                     android:textAlignment="center"
                     android:textSize="16dp" />
 
@@ -309,7 +309,7 @@
         android:layout_marginBottom="@dimen/_20sdp"
         android:fontFamily="@font/bentonsansmedium"
         android:onClick="onContinue"
-        android:text="Continue"
+        android:text="@string/continue_button"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:backgroundTint="@color/forest"

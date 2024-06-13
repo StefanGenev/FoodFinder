@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Enter E-mail"
+            android:text="@string/enter_e_mail"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/bentonsanslight"
-            android:text="We'll check if you already have an account. If not we will create one for you."
+            android:text="@string/enter_email_subtitle"
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/emailTextInputLayout"
                 android:layout_height="wrap_content"
-                android:hint="E-mail"
+                android:hint="@string/e_mail"
                 app:boxStrokeColor="@color/forest"
                 app:endIconMode="clear_text"
                 app:hintTextColor="@color/forest">
@@ -109,7 +109,7 @@
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:fontFamily="@font/bentonsansmedium"
-        android:text="Continue"
+        android:text="@string/continue_button"
         android:onClick="onContinue"
         android:textColor="@color/white"
         android:textSize="18sp"

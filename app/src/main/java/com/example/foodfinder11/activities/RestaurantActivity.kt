@@ -293,10 +293,10 @@ class RestaurantActivity : BaseNavigatableActivity() {
             .into(binding.coverPhoto)
 
         binding.chipCategory.text = restaurant.foodType.name
-        binding.chipPrice.text = restaurant.priceRange.getName()
+        binding.chipPrice.text = restaurant.priceRange.getName(binding.chipPrice.context)
 
         if (restaurant.rating > 0.0)
-            binding.tvRating.text = "${restaurant.rating} rating"
+            binding.tvRating.text = "${restaurant.rating} ${getString(R.string.rating)}"
         else
             binding.tvRating.visibility = View.GONE
 
@@ -375,7 +375,9 @@ class RestaurantActivity : BaseNavigatableActivity() {
                     if (responseBody.status == 200) {
 
                         val toastText =
-                            if (removeFromFavorites) "Removed from favorites" else "Added to favorites"
+                            if (removeFromFavorites) getString(R.string.removed_from_favorites) else getString(
+                                R.string.added_to_favorites
+                            )
                         Toast.makeText(this@RestaurantActivity, toastText, Toast.LENGTH_SHORT)
                             .show()
 
@@ -398,7 +400,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
                 ) {
                     Toast.makeText(
                         this@RestaurantActivity,
-                        "Problem with request",
+                        getString(R.string.problem_with_request),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -419,7 +421,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
                     "%.2f",
                     order.getOrderPrice()
                 )
-            } lv."
+            } ${getString(R.string.lev)}"
 
         } else {
 

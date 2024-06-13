@@ -3,6 +3,7 @@ package com.example.foodfinder11.activities
 
 import android.content.Intent
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.foodfinder11.R
 import com.example.foodfinder11.model.OrderItem
 import com.example.foodfinder11.adapters.OrderItemsAdapter
 import com.example.foodfinder11.databinding.ActivityOrderBinding
@@ -66,8 +67,8 @@ class OrderActivity : BaseNavigatableActivity() {
                 if (orderItem.count <= 1) {
 
                     QuestionDialogFragment("Are you sure you want to remove this meal out of your order?",
-                        "Yes",
-                        "No",
+                        getString(R.string.yes),
+                        getString(R.string.no),
                         onOkAction = { dialog, id ->
 
                             onMinusTap(orderItem, position)
@@ -109,12 +110,15 @@ class OrderActivity : BaseNavigatableActivity() {
         if (order.orderItems.isEmpty())
             finish()
 
-        binding.subtotalPrice.text = "${String.format("%.2f", order.getOrderPrice())} lv."
-        binding.deliveryPrice.text = "${String.format("%.2f", Constants.DEFAULT_DELIVERY_PRICE)} lv."
+        binding.subtotalPrice.text = "${String.format("%.2f", order.getOrderPrice())} ${binding.subtotalPrice.context.getString(
+            R.string.lev)}"
+        binding.deliveryPrice.text = "${String.format("%.2f", Constants.DEFAULT_DELIVERY_PRICE)} ${binding.subtotalPrice.context.getString(
+            R.string.lev)}"
         binding.discountPrice.text = "0.0 lv." //TODO: Add discount functionality
 
         val totalPrice = order.getOrderPrice() + Constants.DEFAULT_DELIVERY_PRICE
-        binding.totalPrice.text = "${String.format("%.2f", totalPrice)} lv."
+        binding.totalPrice.text = "${String.format("%.2f", totalPrice)} ${binding.subtotalPrice.context.getString(
+            R.string.lev)}"
     }
 
     private fun resetAdapters() {

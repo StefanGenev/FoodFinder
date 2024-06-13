@@ -208,7 +208,7 @@ class HomeFragment : Fragment() {
                     call: Call<ResponseWrapper<List<Restaurant>>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(activity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
 

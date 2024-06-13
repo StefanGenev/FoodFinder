@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.FragmentAdminSettingsBinding
 import com.example.foodfinder11.utils.SessionManager
@@ -35,9 +36,9 @@ class AdminSettingsFragment : Fragment() {
 
     private fun onSignOut() {
 
-        QuestionDialogFragment("Are you sure?",
-            "Yes",
-            "No",
+        QuestionDialogFragment(getString(R.string.are_you_sure),
+            getString(R.string.yes),
+            getString(R.string.no),
             onOkAction = { dialog, id ->
 
                 activity?.finish()

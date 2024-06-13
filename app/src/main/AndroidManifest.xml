@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ChangeLanguageActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.RestaurantStatusesActivity"
             android:exported="false" />
         <activity
@@ -79,8 +82,7 @@
 
         <activity
             android:name=".activities.MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
+            android:exported="false" />
         <activity
             android:name=".activities.UploadPhotoActivity"
             android:exported="false" />
@@ -100,16 +102,10 @@
             android:name=".activities.NewBusinessDataActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.HistoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.OrderActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ReviewsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".activities.WelcomeActivity"

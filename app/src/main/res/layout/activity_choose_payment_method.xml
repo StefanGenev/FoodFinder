@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Payment method"
+            android:text="@string/payment_method"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -75,7 +75,6 @@
             android:orientation="vertical"
             android:elevation="1dp"
             android:padding="@dimen/_5sdp"
-            android:onClick="onClickCustomer"
             android:background="@drawable/rounded_edge">
 
             <ImageView
@@ -92,7 +91,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="In Cash"
+                android:text="@string/in_cash"
                 android:textAlignment="center"
                 android:textSize="20dp" />
 
@@ -106,7 +105,6 @@
             android:orientation="vertical"
             android:elevation="1dp"
             android:padding="@dimen/_5sdp"
-            android:onClick="onClickBusiness"
             android:background="@drawable/rounded_edge">
 
             <ImageView
@@ -123,7 +121,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="With card"
+                android:text="@string/with_card"
                 android:textAlignment="center"
                 android:textSize="20dp" />
 

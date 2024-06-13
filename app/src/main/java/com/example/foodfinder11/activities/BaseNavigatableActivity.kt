@@ -1,25 +1,24 @@
 package com.example.foodfinder11.activities
 
 import android.R
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.foodfinder11.utils.RuntimeLocaleChanger
 
 open class BaseNavigatableActivity : AppCompatActivity() {
+
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun onCreate(savedInstanceState: Bundle?) {
+    final override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         initializeActivity()
@@ -39,6 +38,11 @@ open class BaseNavigatableActivity : AppCompatActivity() {
 
         initializeData()
         initializeViews()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+
+        super.attachBaseContext(RuntimeLocaleChanger.wrapContext(newBase!!))
     }
 
     open fun initializeViews() {

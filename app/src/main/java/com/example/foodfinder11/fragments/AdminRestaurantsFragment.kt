@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.adapters.RestaurantsAdapter
 import com.example.foodfinder11.databinding.FragmentAdminRestaurantsBinding
@@ -138,7 +139,7 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
                     call: Call<ResponseWrapper<List<Restaurant>>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(activity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
 

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.MenuItemCardBinding
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.OrderItem
@@ -51,7 +52,9 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
         holder.binding.mealName.text = menuItem.name
         holder.binding.mealDescription.text = menuItem.description
-        holder.binding.price.text = "${String.format("%.2f", menuItem.getActualPrice())} lv."
+        holder.binding.price.text = "${String.format("%.2f", menuItem.getActualPrice())} " +
+                "${holder.binding.price.context.getString(
+            R.string.lev)}"
 
         if (menuItem.hasPromotion) {
 

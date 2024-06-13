@@ -184,7 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bentonsansmedium"
-                        android:text="Promotions"
+                        android:text="@string/promotions"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
@@ -219,7 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bentonsansmedium"
-                        android:text="Menu"
+                        android:text="@string/menu"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_30sdp"
                         android:fontFamily="@font/bentonsansmedium"
-                        android:text="No meals added to the menu yet"
+                        android:text="@string/menu_empty"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="20sp"

@@ -79,11 +79,13 @@ class OrderItemActivity : BaseNavigatableActivity() {
 
         binding.mealName.text = meal.name
         binding.mealDescription.text = meal.description
-        binding.mealPrice.text = "${String.format("%.2f", meal.price)} lv."
+        binding.mealPrice.text = "${String.format("%.2f", meal.price)} ${binding.mealPrice.context.getString(
+            R.string.lev)}"
 
         if (meal.hasPromotion) {
 
-            binding.oldMealPrice.text = "${String.format("%.2f", meal.price)} lv."
+            binding.oldMealPrice.text = "${String.format("%.2f", meal.price)} ${binding.mealPrice.context.getString(
+                R.string.lev)}"
             binding.oldMealPrice.paintFlags = binding.oldMealPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             if (meal.promotionType == PromotionTypes.PERCENT) {
@@ -150,6 +152,7 @@ class OrderItemActivity : BaseNavigatableActivity() {
 
     private fun updatePriceOnButton() {
 
-        binding.continueButton.text = "Order for ${String.format("%.2f", meal.getActualPrice(count))} lv."
+        binding.continueButton.text = "Order for ${String.format("%.2f", meal.getActualPrice(count))} " +
+                "${binding.mealPrice.context.getString(R.string.lev)}"
     }
 }

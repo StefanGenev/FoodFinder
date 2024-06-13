@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Edit Restaurant status"
+            android:text="@string/edit_restaurant_status"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:focusable="true"
-            android:hint="Status"
+            android:hint="@string/status"
             android:onClick="onClickFoodType"
             app:boxStrokeColor="@color/forest"
             app:endIconDrawable="@drawable/chevron_right"
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:hint="Note"
+            android:hint="@string/note"
             app:boxStrokeColor="@color/forest"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/forest">
@@ -151,7 +151,7 @@
         android:layout_marginBottom="@dimen/_20sdp"
         android:fontFamily="@font/bentonsansmedium"
         android:onClick="onContinue"
-        android:text="Continue"
+        android:text="@string/continue_button"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:backgroundTint="@color/forest"

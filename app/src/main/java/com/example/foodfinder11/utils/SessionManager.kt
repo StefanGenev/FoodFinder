@@ -170,6 +170,11 @@ class SessionManager {
             saveOrder(order)
         }
 
+        fun fetchLanguageLocale(): String {
+            val language = AppPreferences.language
+            return language ?: "en-US"
+        }
+
         fun logoutOperations() {
             AppPreferences.reinitData()
         }

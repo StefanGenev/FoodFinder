@@ -6,17 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import com.example.foodfinder11.activities.HistoryActivity
-import com.example.foodfinder11.activities.MainActivity
+import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.OrdersActivity
-import com.example.foodfinder11.activities.RestaurantActivity
-import com.example.foodfinder11.activities.ReviewsActivity
 import com.example.foodfinder11.activities.WelcomeActivity
-import com.example.foodfinder11.databinding.FragmentSettingsBinding
 import com.example.foodfinder11.databinding.FragmentUserBinding
 import com.example.foodfinder11.utils.SessionManager
-import com.example.foodfinder11.viewModel.MainViewModel
 
 class UserFragment : Fragment() {
 
@@ -56,9 +50,9 @@ class UserFragment : Fragment() {
 
     private fun onSignOut() {
 
-        QuestionDialogFragment("Are you sure?",
-            "Yes",
-            "No",
+        QuestionDialogFragment(getString(R.string.are_you_sure),
+            getString(R.string.yes),
+            getString(R.string.no),
             onOkAction = { dialog, id ->
 
                 activity?.finish()

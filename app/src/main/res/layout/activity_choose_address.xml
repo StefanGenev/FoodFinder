@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Choose address"
+            android:text="@string/choose_address"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/bentonsanslight"
-            android:text="Your restaurant's address will be used by the customers"
+            android:text="@string/choose_address_subtitle"
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
@@ -100,7 +100,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="Select location from map"
+                android:text="@string/select_location_from_map"
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
@@ -125,7 +125,7 @@
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:fontFamily="@font/bentonsansmedium"
             android:onClick="onContinue"
-            android:text="Continue"
+            android:text="@string/continue_button"
             android:textColor="@color/white"
             app:strokeWidth="0dp"
             android:textSize="18sp"

@@ -7,6 +7,7 @@ import android.location.Geocoder
 import android.os.Build
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityChooseAddressBinding
 import com.example.foodfinder11.dto.NoData
 import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
@@ -125,7 +126,7 @@ class ChooseAddressActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<NoData>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@ChooseAddressActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ChooseAddressActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
 

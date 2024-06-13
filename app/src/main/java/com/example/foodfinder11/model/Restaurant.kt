@@ -1,52 +1,54 @@
 package com.example.foodfinder11.model
 
+import android.content.Context
 import android.os.Parcelable
+import com.example.foodfinder11.R
 import kotlinx.parcelize.Parcelize
 
 
 enum class PriceRanges {
     CHEAP {
-        override fun getName(): String {
-           return "Cheap"
+        override fun getName(context: Context): String {
+           return context.getString(R.string.cheap)
         }
     },
 
     MIDRANGE {
-        override fun getName(): String {
-            return "Midrange"
+        override fun getName(context: Context): String {
+            return context.getString(R.string.medium)
         }
     },
 
     EXPENSIVE {
-        override fun getName(): String {
-            return "Expensive"
+        override fun getName(context: Context): String {
+            return context.getString(R.string.expensive)
         }
     };
 
-    abstract fun getName(): String
+    abstract fun getName(context: Context): String
 }
 
 enum class RestaurantStatuses {
 
     REGISTERED {
-        override fun getName(): String {
-            return "Registered"
+        override fun getName(context: Context): String {
+            return context.getString(R.string.registered)
         }
     },
 
     APPROVED {
-        override fun getName(): String {
-            return "Approved"
+        override fun getName(context: Context): String {
+            return context.getString(R.string.approved)
         }
     },
 
     HIDDEN {
-        override fun getName(): String {
-            return "Hidden"
+        override fun getName(context: Context): String {
+            return context.getString(R.string.hidden)
         }
     };
 
-    abstract fun getName(): String
+    abstract fun getName(context: Context): String
 }
 
 @Parcelize

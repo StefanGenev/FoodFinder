@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Upload store photo"
+            android:text="@string/upload_store_photo"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/bentonsanslight"
-            android:text="The first thing that the users will see about you"
+            android:text="@string/upload_store_photo_subtitle"
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
@@ -98,7 +98,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="From gallery"
+                android:text="@string/from_gallery"
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
@@ -129,7 +129,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="Take photo"
+                android:text="@string/take_photo"
                 android:textAlignment="center"
                 android:textSize="16dp" />
 

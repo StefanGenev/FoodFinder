@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Profile type"
+            android:text="@string/profile_type"
             android:textAlignment="textStart"
             android:textSize="25dp" />
 
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/bentonsanslight"
-            android:text="What type of user are you?"
+            android:text="@string/profile_type_subtitle"
             android:textAlignment="textStart"
             android:textSize="16dp" />
 
@@ -102,7 +102,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="Customer"
+                android:text="@string/customer"
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
@@ -113,7 +113,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsanslight"
-                android:text="Review and order food"
+                android:text="@string/review_and_order_food"
                 android:textAlignment="center"
                 android:textSize="15dp" />
 
@@ -145,7 +145,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsans"
-                android:text="Business"
+                android:text="@string/business"
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
@@ -156,7 +156,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bentonsanslight"
-                android:text="Offer and sell meals to customers"
+                android:text="@string/offer_and_sell_meals_to_customers"
                 android:textAlignment="center"
                 android:textSize="15dp" />
 

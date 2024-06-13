@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.foodfinder11.R
 import com.example.foodfinder11.adapters.UsersAdapter
 import com.example.foodfinder11.databinding.FragmentAdminUsersBinding
 import com.example.foodfinder11.dto.IdentifierDto
@@ -108,7 +109,7 @@ class AdminUsersFragment : Fragment() {
                     call: Call<ResponseWrapper<List<User>>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(activity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -132,8 +133,8 @@ class AdminUsersFragment : Fragment() {
 
     private fun onTapUser(user: User, position: Int) {
         QuestionDialogFragment("Are you sure you want to delete this user?",
-            "Yes",
-            "No",
+            getString(R.string.yes),
+            getString(R.string.no),
             onOkAction = { dialog, id ->
 
                 deleteUserRequest(user, position)
@@ -171,7 +172,7 @@ class AdminUsersFragment : Fragment() {
                     call: Call<ResponseWrapper<NoData>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(activity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
     }

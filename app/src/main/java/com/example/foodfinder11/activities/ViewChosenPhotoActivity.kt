@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityViewChosenPhotoBinding
 import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
 import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
@@ -110,7 +111,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<RegisterRestaurantResponseDto>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@ViewChosenPhotoActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ViewChosenPhotoActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
 

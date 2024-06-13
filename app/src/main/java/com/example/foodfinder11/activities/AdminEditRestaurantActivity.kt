@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityAdminEditRestaurantBinding
 import com.example.foodfinder11.dto.ChangeRestaurantStatusRequestDto
 import com.example.foodfinder11.dto.IdentifierDto
@@ -35,7 +36,7 @@ class AdminEditRestaurantActivity : BaseNavigatableActivity() {
             val intent = result.data
             selectedStatus = intent?.getIntExtra(RestaurantStatusesActivity.STATUS, 0)?.toEnum<RestaurantStatuses>()!!
 
-            binding.statusTextEdit.setText(selectedStatus.getName())
+            binding.statusTextEdit.setText(selectedStatus.getName(binding.statusTextEdit.context))
         }
     }
 
@@ -55,7 +56,7 @@ class AdminEditRestaurantActivity : BaseNavigatableActivity() {
 
     override fun initializeViews() {
 
-        binding.statusTextEdit.setText(restaurant.status.getName())
+        binding.statusTextEdit.setText(restaurant.status.getName(binding.statusTextEdit.context))
         binding.noteTextEdit.setText(restaurant.statusNote)
 
         binding.statusTextEdit.setOnClickListener {
@@ -76,9 +77,10 @@ class AdminEditRestaurantActivity : BaseNavigatableActivity() {
 
     private fun onDelete() {
 
-        QuestionDialogFragment("Are you sure?",
-            "Yes",
-            "No",
+        QuestionDialogFragment(
+            getString(R.string.are_you_sure),
+            getString(R.string.yes),
+            getString(R.string.no),
             onOkAction = { dialog, id ->
 
                 deleteRequest()
@@ -116,7 +118,7 @@ class AdminEditRestaurantActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<NoData>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@AdminEditRestaurantActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AdminEditRestaurantActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
     }
@@ -157,7 +159,7 @@ class AdminEditRestaurantActivity : BaseNavigatableActivity() {
                 ) {
                     Toast.makeText(
                         this@AdminEditRestaurantActivity,
-                        "Problem with request",
+                        getString(R.string.problem_with_request),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

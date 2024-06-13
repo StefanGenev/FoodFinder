@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityEnterEmailBinding
 import com.example.foodfinder11.dto.CheckIfEmailExistsRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
@@ -84,7 +85,7 @@ class EnterEmailActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<CheckIfEmailExistsResponseDto>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@EnterEmailActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@EnterEmailActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
 

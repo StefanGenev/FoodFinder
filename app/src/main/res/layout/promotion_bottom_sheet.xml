@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="Promotion"
+            android:text="@string/promotion"
             android:textAlignment="center"
             android:textSize="25dp" />
 
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bentonsansmedium"
-                android:text="Percent"
+                android:text="@string/percent"
                 android:textSize="@dimen/_9ssp"
                 app:cornerRadius="@dimen/_5sdp"
                 app:icon="@drawable/percent"
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bentonsansmedium"
-                android:text="Many for one"
+                android:text="@string/two_for_one"
                 android:textSize="@dimen/_9ssp"
                 app:cornerRadius="@dimen/_5sdp"
                 app:icon="@drawable/gift"
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:hint="Percent"
+            android:hint="@string/percent"
             app:boxStrokeColor="@color/forest"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/forest">
@@ -149,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:fontFamily="@font/bentonsansmedium"
-            android:text="Confirm"
+            android:text="@string/confirm"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:backgroundTint="@color/forest" />
@@ -160,7 +160,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:fontFamily="@font/bentonsansmedium"
-            android:text="Remove promotion"
+            android:text="@string/remove_promotion"
             android:textColor="@color/salva"
             android:textSize="18sp"
             app:backgroundTint="@color/light_salva"

@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityNewBusinessDataBinding
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.FoodType
@@ -110,7 +111,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<List<FoodType>>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@NewBusinessDataActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@NewBusinessDataActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
     }

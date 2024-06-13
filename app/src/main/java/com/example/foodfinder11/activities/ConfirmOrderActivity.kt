@@ -9,6 +9,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityConfirmOrderBinding
 import com.example.foodfinder11.dto.NoData
 import com.example.foodfinder11.dto.RegisterResponseDto
@@ -65,7 +66,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
 
         updateTotal()
         updatePaymentMethod()
-        binding.address.text = "Choose address"
+        binding.address.text = getString(R.string.choose_address)
 
         binding.chooseAddressLayout.setOnClickListener {
             onClickSelectLocation()
@@ -112,7 +113,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<NoData>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@ConfirmOrderActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ConfirmOrderActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
     }
@@ -135,12 +136,16 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
         if (order.orderItems.isEmpty())
             finish()
 
-        binding.subtotalPrice.text = "${String.format("%.2f", order.getOrderPrice())} lv."
-        binding.deliveryPrice.text = "${String.format("%.2f", Constants.DEFAULT_DELIVERY_PRICE)} lv."
+        binding.subtotalPrice.text = "${String.format("%.2f", order.getOrderPrice())} " +
+                "${binding.subtotalPrice.context.getString(
+            R.string.lev)}"
+        binding.deliveryPrice.text = "${String.format("%.2f", Constants.DEFAULT_DELIVERY_PRICE)} ${binding.subtotalPrice.context.getString(
+            R.string.lev)}"
         binding.discountPrice.text = "0.0 lv." //TODO: Add discount functionality
 
         val totalPrice = order.getOrderPrice() + Constants.DEFAULT_DELIVERY_PRICE
-        binding.totalPrice.text = "${String.format("%.2f", totalPrice)} lv."
+        binding.totalPrice.text = "${String.format("%.2f", totalPrice)} ${binding.subtotalPrice.context.getString(
+            R.string.lev)}"
     }
 
     private fun geocodeLatitudeAndLongitude(latLng: LatLng) {

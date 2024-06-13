@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.HistoryItemCardBinding
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Order
@@ -46,7 +47,9 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.HistoryItemsViewHolder>
             description += "${orderItem.toString()} \n"
         }
 
-        holder.binding.price.text = "${String.format("%.2f", order.getOrderPrice())} lv."
+        holder.binding.price.text = "${String.format("%.2f", order.getOrderPrice())} " +
+                "${holder.binding.price.context.getString(
+            R.string.lev)}"
 
         holder.binding.cardView.setOnClickListener {
             onItemClick.onClickListener(order)

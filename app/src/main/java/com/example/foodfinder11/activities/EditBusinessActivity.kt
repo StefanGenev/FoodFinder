@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityEditBusinessBinding
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.SaveRestaurantRequestDto
@@ -257,7 +258,7 @@ class EditBusinessActivity : BaseNavigatableActivity() {
                     call: Call<ResponseWrapper<List<FoodType>>>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@EditBusinessActivity, "Problem with request", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@EditBusinessActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
                 }
             })
     }
