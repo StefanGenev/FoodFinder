@@ -60,7 +60,7 @@
     <string name="order_details">Детайли за поръчката</string>
     <string name="promotions">Промоции</string>
     <string name="menu">Меню</string>
-    <string name="menu_empty">Още няма добавени ястие в менюто</string>
+    <string name="menu_empty">Още няма добавени ястия в менюто</string>
     <string name="restaurant_registration_complete">Регистрацията на ресторанта е завършена!</string>
     <string name="you_can_begin_to_fill_out_your_menu">Можете да започнете да попълвате менюто си.</string>
     <string name="statuses">Статуси</string>
@@ -75,9 +75,9 @@
     <string name="choose_another">Избери друга</string>
     <string name="filter">Филтър</string>
     <string name="all">Всички</string>
-    <string name="registered">Новорегистрирани</string>
-    <string name="approved">Одобрени</string>
-    <string name="hidden">Скрити</string>
+    <string name="registered">Новорегистриран</string>
+    <string name="approved">Одобрен</string>
+    <string name="hidden">Скрит</string>
     <string name="apply_filter">Приложи филтър</string>
     <string name="clear_filter">Изчистване на филтър</string>
     <string name="card_number">Номер на карта</string>
@@ -101,10 +101,10 @@
     <string name="remove_promotion">Премахване на промоцията</string>
     <string name="welcome_back">Добре дошли отново</string>
     <string name="enter_password_to_continue">Моля, въведете парола за да продължите</string>
-    <string name="lev">Лв.</string>
+    <string name="lev">лв.</string>
     <string name="registration_successful">Успешна регистрация!</string>
     <string name="your_profile_is_ready_to_use">Профилът ви е готов за употреба</string>
-    <string name="successfully_registered">Успешна регистрация!</string>
+    <string name="successfully_registered_restaurant">Успешна регистрация на потребител!</string>
     <string name="business_registration_successful_subtitle">Като ресторант трябва да въведете някои данни като профилна снимка, тип на храна и местоположение, които клиентите ще могат да видят.</string>
     <string name="rating">rating</string>
     <string name="removed_from_favorites">Премахнато от любими</string>
@@ -119,7 +119,7 @@
     <string name="your_profile_has_been_hidden">Профилът ви е скрит от останалите потребители.</string>
     <string name="reason_please_contact_support_for_more_information">Описана причина: %1$s\n Моля свържете се с нашият екип за поддръжка, за да получите повече информация.</string>
     <string name="your_profile_has_not_yet_been_approved_so_it_won_t_be_shown_to_customers">Вашият профил все още не е одобрен, и няма да се вижда от останалите потребители.</string>
-    <string name="if_more_than_2_days_have_passed_since_registration_please_contact_support_for_more_information">Ако са изминали повече от 2 дни от регистрацията, моля, свържете се с поддръжката за повече информация.</string>
+    <string name="if_more_than_2_days_have_passed_since_registration_please_contact_support_for_more_information">Ако са изминали повече от 2 дни от регистрацията, моля свържете се с екипа за поддръжка за повече информация.</string>
     <string name="invalid_email">Невалиден имейл</string>
     <string name="capital_letters">Главна буква</string>
     <string name="small_letters">Малка буква</string>
@@ -128,4 +128,21 @@
     <string name="at_least_symbols">Поне %1$s символа</string>
     <string name="invalid_password">Невалидна парола</string>
     <string name="the_username_must_be_at_least_symbols_long">Името трябва да е дълго поне %1$s символа</string>
+    <string name="no_orders_found">Не са намерени поръчки</string>
+    <string name="you_must_choose_food_type_before_continuing">Не е избран тип на храна</string>
+    <string name="meal_name_must_be_at_least_symbols_long">Името трябва да е дълго поне %1$s символа</string>
+    <string name="meal_description_must_be_at_least_symbols_long">Описанието трябва да е дълго поне %1$s символа</string>
+    <string name="the_price_cannot_be_zero">Цената не може да е по-малка или равна на нула</string>
+    <string name="edit_promotion">Редактирай промоция</string>
+    <string name="meal_deleted">Ястието е изтрито</string>
+    <string name="are_you_sure_this_action_will_hide_the_current_meal_from_your_customers">Това действие ще скрие ястието от останалите потребители. Сигурни ли сте? </string>
+    <string name="are_you_sure_this_action_will_show_the_current_meals_to_your_customers">Това действие ще позволи на останалите потребители да виждат ястието. Сигурни ли сте?</string>
+    <string name="upload_error">Грешка при качване на снимка: %1$s</string>
+    <string name="invalid_percent">Невалиден процент</string>
+    <string name="you_must_choose_address_before_continuing">Трябва да изберете адрес преди да продължите</string>
+    <string name="no_photo_uploaded">Не е избрана снимка</string>
+    <string name="order_for_price">Поръчай %1$s за %2$s %3$s</string>
+    <string name="are_you_sure_you_want_to_remove_this_meal_out_of_your_order">Сигурни ли сте, че искате да премахнете това ястие от поръчката си?</string>
+    <string name="card">Карта: %1$s **** **** ****</string>
+    <string name="invalid_card_number">Невалиден номер на карта</string>
 </resources>

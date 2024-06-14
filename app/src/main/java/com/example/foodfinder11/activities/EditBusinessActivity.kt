@@ -22,9 +22,11 @@ import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.AddressUtils
 import com.example.foodfinder11.utils.CloudinaryManager
+import com.example.foodfinder11.utils.Constants
 import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.example.foodfinder11.utils.toInt
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -144,16 +146,45 @@ class EditBusinessActivity : BaseNavigatableActivity() {
         geocodeLatitudeAndLongitude(latLng)
     }
 
-    private fun checkSelectedPriceChip() {
-
-        binding.chipCheap.isChecked = restaurant.priceRange == PriceRanges.CHEAP
-        binding.chipMedium.isChecked = restaurant.priceRange == PriceRanges.MIDRANGE
-        binding.chipExpensive.isChecked = restaurant.priceRange == PriceRanges.EXPENSIVE
-    }
 
     override fun loadData(): Boolean {
         loadFoodTypesRequest()
         return true
+    }
+
+    override fun validateData(): Boolean {
+
+        var result = true
+
+        binding.nameTextInputLayout.error = ""
+
+        val enteredName = binding.nameTextEdit.text.toString().trim()
+
+        if (enteredName.length < Constants.USERNAME_MINIMUM_LENGTH)
+        {
+            binding.nameTextInputLayout.error = getString(
+                R.string.the_username_must_be_at_least_symbols_long,
+                Constants.USERNAME_MINIMUM_LENGTH.toString()
+            )
+            binding.nameTextInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.nameTextInputLayout.invalidate()
+
+            result = false
+        }
+
+        binding.foodTypeTextField.error = ""
+
+        if (selectedFoodType.name.isEmpty()) {
+
+            binding.foodTypeTextField.error =
+                getString(R.string.you_must_choose_food_type_before_continuing)
+            binding.foodTypeTextField.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.foodTypeTextField.invalidate()
+
+            result = false
+        }
+
+        return result
     }
 
     override fun commitData(): Boolean {
@@ -167,6 +198,13 @@ class EditBusinessActivity : BaseNavigatableActivity() {
         }
 
         return true
+    }
+
+    private fun checkSelectedPriceChip() {
+
+        binding.chipCheap.isChecked = restaurant.priceRange == PriceRanges.CHEAP
+        binding.chipMedium.isChecked = restaurant.priceRange == PriceRanges.MIDRANGE
+        binding.chipExpensive.isChecked = restaurant.priceRange == PriceRanges.EXPENSIVE
     }
 
     private fun choosePhoto() {

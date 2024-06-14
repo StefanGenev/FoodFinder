@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:clipChildren="false"
+    android:clipToPadding="false"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".fragments.UserFragment">
@@ -32,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_15sdp"
+        android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +50,6 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_25sdp"
             android:textStyle="bold" />
-
 
         <TextView
             android:id="@+id/tvProfileName"
@@ -72,6 +73,7 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:background="@drawable/rounded_edge"
                 android:drawableRight="@drawable/chevron_right"
                 android:elevation="@dimen/_2sdp"
                 android:fontFamily="@font/bentonsansmedium"
@@ -80,7 +82,6 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:backgroundTint="@color/white"
-                app:cornerRadius="1dp"
                 app:strokeWidth="0dp" />
 
             <Button
@@ -88,6 +89,8 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/rounded_edge"
                 android:drawableRight="@drawable/chevron_right"
                 android:elevation="@dimen/_2sdp"
                 android:fontFamily="@font/bentonsansmedium"
@@ -104,6 +107,8 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/rounded_edge"
                 android:drawableRight="@drawable/chevron_right"
                 android:elevation="@dimen/_2sdp"
                 android:fontFamily="@font/bentonsansmedium"
@@ -120,6 +125,8 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/rounded_edge"
                 android:drawableRight="@drawable/chevron_right"
                 android:elevation="@dimen/_2sdp"
                 android:fontFamily="@font/bentonsansmedium"
@@ -136,6 +143,8 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/rounded_edge"
                 android:drawableRight="@drawable/chevron_right"
                 android:elevation="@dimen/_2sdp"
                 android:fontFamily="@font/bentonsansmedium"
@@ -153,6 +162,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:elevation="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/rounded_edge"
                 android:fontFamily="@font/bentonsansmedium"
                 android:text="@string/log_out"
                 android:textAlignment="textStart"

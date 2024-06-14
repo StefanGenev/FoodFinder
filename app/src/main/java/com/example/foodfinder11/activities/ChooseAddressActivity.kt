@@ -5,6 +5,7 @@ import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.foodfinder11.R
@@ -31,6 +32,8 @@ class ChooseAddressActivity : BaseNavigatableActivity() {
     private lateinit var binding: ActivityChooseAddressBinding
 
     private lateinit var address: Address
+    private var addressChanged: Boolean = false
+
     private lateinit var latLng: LatLng
 
     private val mapsActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -39,6 +42,7 @@ class ChooseAddressActivity : BaseNavigatableActivity() {
 
             val intent = result.data
             latLng = intent?.getParcelableExtraProvider<LatLng>(MapsActivity.PICKED_POINT)!!
+            addressChanged = true
 
             geocodeLatitudeAndLongitude(latLng)
         }
@@ -54,6 +58,19 @@ class ChooseAddressActivity : BaseNavigatableActivity() {
         binding.selectLocationLayout.setOnClickListener {
             onClickSelectLocation()
         }
+    }
+
+    override fun validateData(): Boolean {
+
+        binding.error.visibility = View.GONE
+
+        if (!addressChanged) {
+
+            binding.error.visibility = View.VISIBLE
+            return false
+        }
+
+        return true
     }
 
     override fun commitData(): Boolean {

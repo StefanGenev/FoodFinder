@@ -66,7 +66,8 @@ class OrderActivity : BaseNavigatableActivity() {
 
                 if (orderItem.count <= 1) {
 
-                    QuestionDialogFragment("Are you sure you want to remove this meal out of your order?",
+                    QuestionDialogFragment(
+                        getString(R.string.are_you_sure_you_want_to_remove_this_meal_out_of_your_order),
                         getString(R.string.yes),
                         getString(R.string.no),
                         onOkAction = { dialog, id ->

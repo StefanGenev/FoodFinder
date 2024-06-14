@@ -129,17 +129,31 @@
                     android:fontFamily="@font/bentonsansmedium"
                     android:text="Apple Street 57, New York Apple Street 57, New York"
                     android:textSize="18dp"
+                    android:ellipsize="end"
                     android:layout_weight="1"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/locationError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/bentonsansmedium"
+            android:text="@string/you_must_choose_address_before_continuing"
+            android:textAlignment="center"
+            android:textColor="@color/salva"
+            android:textSize="16dp"
+            android:visibility="gone" />
+
         <LinearLayout
             android:id="@+id/paymentMethodLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/rounded_edge"
             android:elevation="2dp"
             android:orientation="vertical"

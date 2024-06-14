@@ -1,5 +1,6 @@
 package com.example.foodfinder11.activities
 
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.R
@@ -27,18 +28,6 @@ class OrdersActivity : BaseNavigatableActivity() {
     override fun initializeActivity() {
         binding = ActivityOrdersBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // set toolbar as support action bar
-        setSupportActionBar(binding.toolbar)
-
-        supportActionBar?.apply {
-            title = "Orders"
-
-            // show back button on toolbar
-            // on back button press, it will navigate to parent activity
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
 
     }
 
@@ -89,6 +78,8 @@ class OrdersActivity : BaseNavigatableActivity() {
     }
 
     private fun initOrders() {
+
+        binding.emptyStateLayout.visibility = if (orders.isEmpty()) View.VISIBLE else View.GONE
 
         ordersAdapter = OrdersAdapter()
 

@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.example.foodfinder11.R
 
 class QuestionDialogFragment(
 
@@ -20,7 +21,7 @@ class QuestionDialogFragment(
 
         return activity?.let {
 
-            val builder = AlertDialog.Builder(it)
+            val builder = AlertDialog.Builder(it, R.style.AlertDialogCustom)
 
             builder.setMessage(dialogTitle)
                 .setPositiveButton(onOkTitle, onOkAction)

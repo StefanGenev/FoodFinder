@@ -79,14 +79,21 @@ class OrderItemActivity : BaseNavigatableActivity() {
 
         binding.mealName.text = meal.name
         binding.mealDescription.text = meal.description
-        binding.mealPrice.text = "${String.format("%.2f", meal.price)} ${binding.mealPrice.context.getString(
-            R.string.lev)}"
+        binding.mealPrice.text = "${String.format("%.2f", meal.price)} ${
+            binding.mealPrice.context.getString(
+                R.string.lev
+            )
+        }"
 
         if (meal.hasPromotion) {
 
-            binding.oldMealPrice.text = "${String.format("%.2f", meal.price)} ${binding.mealPrice.context.getString(
-                R.string.lev)}"
-            binding.oldMealPrice.paintFlags = binding.oldMealPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            binding.oldMealPrice.text = "${String.format("%.2f", meal.price)} ${
+                binding.mealPrice.context.getString(
+                    R.string.lev
+                )
+            }"
+            binding.oldMealPrice.paintFlags =
+                binding.oldMealPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             if (meal.promotionType == PromotionTypes.PERCENT) {
 
@@ -124,15 +131,17 @@ class OrderItemActivity : BaseNavigatableActivity() {
         count += 1
         binding.count.text = count.toString()
 
-        if ( count > MINIMUM_COUNT ) {
+        if (count > MINIMUM_COUNT) {
 
-            binding.removeButton.foregroundTintList = ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.forest))
+            binding.removeButton.foregroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.forest))
             binding.removeButton.isEnabled = true
 
         } else {
 
             binding.removeButton.isEnabled = false
-            binding.removeButton.foregroundTintList = ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.grey))
+            binding.removeButton.foregroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.grey))
         }
 
         updatePriceOnButton()
@@ -140,7 +149,7 @@ class OrderItemActivity : BaseNavigatableActivity() {
 
     private fun onRemoveTap() {
 
-        if ( count <= MINIMUM_COUNT ) {
+        if (count <= MINIMUM_COUNT) {
             return
         }
 
@@ -152,7 +161,11 @@ class OrderItemActivity : BaseNavigatableActivity() {
 
     private fun updatePriceOnButton() {
 
-        binding.continueButton.text = "Order for ${String.format("%.2f", meal.getActualPrice(count))} " +
-                "${binding.mealPrice.context.getString(R.string.lev)}"
+        binding.continueButton.text = getString(
+            R.string.order_for_price, count.toString(), String.format(
+                "%.2f",
+                meal.getActualPrice(count)
+            ), getString(R.string.lev)
+        )
     }
 }

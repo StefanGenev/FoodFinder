@@ -83,12 +83,16 @@ class SessionManager {
         fun fetchRestaurant(): Restaurant {
 
             val gson = Gson()
-            val json: String = AppPreferences.restaurant!!
+            var json: String = AppPreferences.restaurant ?: ""
 
-            val restaurant = gson.fromJson(
-                json,
-                Restaurant::class.java
-            )
+            var restaurant = Restaurant()
+            if (json.isNotEmpty()) {
+
+                restaurant = gson.fromJson(
+                    json,
+                    Restaurant::class.java
+                )
+            }
 
             return restaurant
         }

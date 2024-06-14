@@ -2,7 +2,6 @@ package com.example.foodfinder11.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.util.Log
 import android.view.View
@@ -24,8 +23,9 @@ import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.PromotionTypes
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.CloudinaryManager
-import com.example.foodfinder11.utils.SessionManager
+import com.example.foodfinder11.utils.Constants
 import com.example.foodfinder11.utils.getParcelableExtraProvider
+import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -111,6 +111,61 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
         updateHideButton()
     }
 
+    override fun validateData(): Boolean {
+
+        var result = true
+
+        binding.nameTextInputLayout.error = ""
+
+        val enteredName = binding.nameTextEdit.text.toString().trim()
+
+        if (enteredName.length < Constants.MEAL_NAME_MINIMUM_LENGTH)
+        {
+            binding.nameTextInputLayout.error =
+                getString(R.string.meal_name_must_be_at_least_symbols_long, Constants.MEAL_NAME_MINIMUM_LENGTH.toString())
+            binding.nameTextInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.nameTextInputLayout.invalidate()
+
+            result = false
+        }
+
+        binding.descriptionInputLayout.error = ""
+
+        val description = binding.descriptionTextEdit.text.toString().trim()
+
+        if (description.length < Constants.MEAL_DESCRIPTION_MINIMUM_LENGTH)
+        {
+            binding.descriptionInputLayout.error =
+                getString(R.string.meal_description_must_be_at_least_symbols_long, Constants.MEAL_DESCRIPTION_MINIMUM_LENGTH.toString())
+            binding.descriptionInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.descriptionInputLayout.invalidate()
+
+            result = false
+        }
+
+        binding.priceInputLayout.error = ""
+
+        val priceString = binding.priceEditText.text.toString()
+
+        if (priceString.isEmpty() || priceString.toDouble() <= 0.0)
+        {
+            binding.priceInputLayout.error = getString(R.string.the_price_cannot_be_zero)
+            binding.priceInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.priceInputLayout.invalidate()
+
+            result = false
+        }
+
+        binding.photoError.visibility = View.GONE
+        if (meal.id <= 0 && !imageChanged) {
+
+            binding.photoError.visibility = View.VISIBLE
+            result = false
+        }
+
+        return result
+    }
+
     override fun commitData(): Boolean {
 
         if( imageChanged ) {
@@ -141,14 +196,14 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
 
         if (meal.hasPromotion) {
 
-            binding.promotionButton.text = "Edit promotion"
+            binding.promotionButton.text = getString(R.string.edit_promotion)
             binding.promotionButton.setBackgroundColor( ContextCompat.getColor(applicationContext, R.color.light_salva) )
             binding.promotionButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.salva))
 
 
         } else {
 
-            binding.promotionButton.text = "Add promotion"
+            binding.promotionButton.text = getString(R.string.add_promotion)
             binding.promotionButton.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.light_forest))
             binding.promotionButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.forest))
         }
@@ -186,7 +241,8 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
                     val responseBody = response.body().takeIf { it != null } ?: return
 
                     if (responseBody.status == 200) {
-                        Toast.makeText(this@MealInfoActivity, "Meal deleted", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MealInfoActivity,
+                            getString(R.string.meal_deleted), Toast.LENGTH_SHORT).show()
                         returnOkIntent()
                     }
                 }
@@ -202,8 +258,8 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
 
     private fun onHide() {
 
-        val dialogTitle = if (!meal.isHidden) "Are you sure? This action will hide the current meal from your customers"
-                            else "Are you sure? This action will show the current meals to your customers"
+        val dialogTitle = if (!meal.isHidden) getString(R.string.are_you_sure_this_action_will_hide_the_current_meal_from_your_customers)
+                            else getString(R.string.are_you_sure_this_action_will_show_the_current_meals_to_your_customers)
 
         QuestionDialogFragment(dialogTitle,
             getString(R.string.yes),
@@ -263,7 +319,7 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
 
             override fun onUploadError(error: String) {
                 // Handle upload error
-                showToast("Upload error: $error")
+                showToast(getString(R.string.upload_error, error))
             }
         })
     }

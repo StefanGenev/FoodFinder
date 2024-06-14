@@ -1,6 +1,8 @@
 package com.example.foodfinder11.model
 
+import android.content.Context
 import android.os.Parcelable
+import com.example.foodfinder11.R
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
@@ -50,17 +52,17 @@ data class Order(
         return count
     }
 
-    fun getPaymentMethodName(): String {
+    fun getPaymentMethodName(context: Context): String {
 
         var name = ""
 
         if (paymentMethod == PaymentMethods.CASH) {
 
-            name = "In Cash"
+            name = context.getString(R.string.in_cash)
 
         } else if (paymentMethod == PaymentMethods.CARD) {
 
-            name = "Card: ${cardNumber.substring(0, 3)} **** **** ****"
+            name = context.getString(R.string.card, cardNumber.substring(0, 3))
         }
 
         return name

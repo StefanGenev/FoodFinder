@@ -52,16 +52,14 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/background_gray"
-        android:fillViewport="true"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:clipChildren="false"
         android:clipToPadding="false"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:layout_constraintBottom_toTopOf="@id/continueButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerLayout">
@@ -78,6 +76,7 @@
                 android:layout_marginTop="@dimen/_20sdp">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nameTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name"
@@ -236,6 +235,19 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/photoError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="@string/no_photo_uploaded"
+                android:textAlignment="center"
+                android:textColor="@color/salva"
+                android:textSize="16dp"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/addressTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -290,6 +302,19 @@
                     android:textSize="15dp" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/locationError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="@string/you_must_choose_address_before_continuing"
+                android:textAlignment="center"
+                android:textColor="@color/salva"
+                android:textSize="16dp"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"

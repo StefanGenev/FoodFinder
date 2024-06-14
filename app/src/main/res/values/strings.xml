@@ -104,10 +104,10 @@
     <string name="remove_promotion">Remove promotion</string>
     <string name="welcome_back">Welcome back</string>
     <string name="enter_password_to_continue">Enter password to continue</string>
-    <string name="lev">Lv.</string>
+    <string name="lev">lv.</string>
     <string name="registration_successful">Registration successful!</string>
     <string name="your_profile_is_ready_to_use">Your profile is ready to use</string>
-    <string name="successfully_registered">Successfully registered!</string>
+    <string name="successfully_registered_restaurant">Successfully registered user!</string>
     <string name="business_registration_successful_subtitle">As a business, you need to enter some data such as cover photo, food type and location, that the customers will see.</string>
     <string name="rating">rating</string>
     <string name="removed_from_favorites">Removed from favorites</string>
@@ -131,4 +131,21 @@
     <string name="at_least_symbols">At least %1$s symbols</string>
     <string name="invalid_password">Invalid password</string>
     <string name="the_username_must_be_at_least_symbols_long">The username must be at least %1$s symbols long</string>
+    <string name="no_orders_found">No orders found</string>
+    <string name="you_must_choose_food_type_before_continuing">You must choose food type before continuing</string>
+    <string name="meal_name_must_be_at_least_symbols_long">Name must be at least %1$s symbols long</string>
+    <string name="meal_description_must_be_at_least_symbols_long">Meal description must be at least %1$s symbols long</string>
+    <string name="the_price_cannot_be_zero">The price cannot be zero</string>
+    <string name="edit_promotion">Edit promotion</string>
+    <string name="meal_deleted">Meal deleted</string>
+    <string name="are_you_sure_this_action_will_hide_the_current_meal_from_your_customers">Are you sure? This action will hide the current meal from your customers</string>
+    <string name="are_you_sure_this_action_will_show_the_current_meals_to_your_customers">Are you sure? This action will show the current meals to your customers</string>
+    <string name="upload_error">Upload error: %1$s</string>
+    <string name="invalid_percent">Invalid percent</string>
+    <string name="you_must_choose_address_before_continuing">You must choose address before continuing</string>
+    <string name="no_photo_uploaded">No photo uploaded</string>
+    <string name="order_for_price">Order %1$s for %2$s %3$s</string>
+    <string name="are_you_sure_you_want_to_remove_this_meal_out_of_your_order">Are you sure you want to remove this meal out of your order?</string>
+    <string name="card">Card: %1$s **** **** ****</string>
+    <string name="invalid_card_number">Invalid card number</string>
 </resources>

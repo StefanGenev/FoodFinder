@@ -27,7 +27,7 @@ class CongratulationsActivity : BaseNavigatableActivity() {
 
         } else {
 
-            binding.headerTitle.text = getString(R.string.successfully_registered)
+            binding.headerTitle.text = getString(R.string.successfully_registered_restaurant)
             binding.subtitle.text = getString(R.string.business_registration_successful_subtitle)
         }
     }

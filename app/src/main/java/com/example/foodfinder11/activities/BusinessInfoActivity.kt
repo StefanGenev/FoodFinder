@@ -60,13 +60,6 @@ class BusinessInfoActivity : BaseNavigatableActivity(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(initialMarker).title(addressText))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(initialMarker))
         mMap.animateCamera(cameraUpdate)
-
-        mMap.setOnMapClickListener { latLng ->
-            val returnIntent = Intent()
-            returnIntent.putExtra("picked_point", latLng)
-            setResult(RESULT_OK, returnIntent)
-            finish()
-        }
     }
 
     private fun geocodeLatitudeAndLongitude(latLng: LatLng) {

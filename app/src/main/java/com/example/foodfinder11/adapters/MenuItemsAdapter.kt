@@ -58,7 +58,8 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
 
         if (menuItem.hasPromotion) {
 
-            holder.binding.oldPrice.text = "${String.format("%.2f", menuItem.price)} lv."
+            holder.binding.oldPrice.text = "${String.format("%.2f", menuItem.price)} ${holder.binding.price.context.getString(
+                R.string.lev)}"
             holder.binding.oldPrice.paintFlags =
                 holder.binding.oldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
@@ -69,7 +70,8 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
             } else if (menuItem.promotionType == PromotionTypes.TWO_FOR_ONE) {
 
                 holder.binding.oldPrice.visibility = View.GONE;
-                holder.binding.chipPromotion.text = "2 for 1"
+                holder.binding.chipPromotion.text = holder.binding.price.context.getString(
+                    R.string.two_for_one)
             }
 
         } else {
@@ -112,7 +114,8 @@ class MenuItemsAdapter : RecyclerView.Adapter<MenuItemsAdapter.MenuItemsViewHold
     private fun fillOrderData(holder: MenuItemsViewHolder, orderItem: OrderItem) {
         holder.binding.orderInfoLayout.visibility = if (orderItem.count > 0) View.VISIBLE else View.GONE
         holder.binding.itemCount.text = "${orderItem.count}x"
-        holder.binding.orderPrice.text ="${String.format("%.2f", orderItem.meal.getActualPrice(orderItem.count))} lv."
+        holder.binding.orderPrice.text ="${String.format("%.2f", orderItem.meal.getActualPrice(orderItem.count))} ${holder.binding.price.context.getString(
+            R.string.lev)}"
     }
 
     private fun updateOrderCount(holder: MenuItemsViewHolder, menuItem: Meal, addToCount: Int, position: Int) {

@@ -79,20 +79,6 @@
             app:iconTint="@null"
             android:fontFamily="@font/bentonsansmedium"/>
 
-        <Button
-            android:id="@+id/googleButton"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:text="@string/google_button"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:backgroundTint="@color/white"
-            app:icon="@drawable/googlelogo"
-            app:iconSize="@dimen/_18sdp"
-            app:iconTint="@null"
-            android:fontFamily="@font/bentonsansmedium"/>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

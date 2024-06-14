@@ -416,12 +416,13 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
             binding.continueButton.visibility =
                 if (order.getTotalItemsCount() > 0) View.VISIBLE else View.GONE
-            binding.continueButton.text = "Order ${order.getTotalItemsCount()} for ${
-                String.format(
+
+            binding.continueButton.text = getString(
+                R.string.order_for_price, order.getTotalItemsCount().toString(), String.format(
                     "%.2f",
                     order.getOrderPrice()
-                )
-            } ${getString(R.string.lev)}"
+                ), getString(R.string.lev)
+            )
 
         } else {
 

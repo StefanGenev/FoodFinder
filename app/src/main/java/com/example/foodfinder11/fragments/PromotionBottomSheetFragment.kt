@@ -116,12 +116,34 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
         val textField: TextInputEditText? = getView()?.findViewById<TextInputEditText>(R.id.textFieldTextEdit)
 
         if ( selectedPromotionType == PromotionTypes.PERCENT ) {
-            val value = textField?.text.toString().toInt()
-            promotionDialogActivityContract.setPercent(value)
+
+            val value = textField?.text.toString()
+            if (!validatePercent(value))
+                return
+
+            promotionDialogActivityContract.setPercent(value.toInt())
         }
 
         promotionDialogActivityContract.onConfirmPromotion()
         dismiss()
+    }
+
+    private fun validatePercent(percent: String) : Boolean {
+
+        val textInputLayout: TextInputLayout? = getView()?.findViewById<TextInputLayout>(R.id.textFieldTextLayout)
+
+        textInputLayout?.error = ""
+
+        if (percent.isEmpty() || percent.toInt() <= 0.0)
+        {
+            textInputLayout?.error = getString(R.string.invalid_percent)
+            textInputLayout?.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            textInputLayout?.invalidate()
+
+            return false
+        }
+
+        return true
     }
 
     private fun onRemove() {

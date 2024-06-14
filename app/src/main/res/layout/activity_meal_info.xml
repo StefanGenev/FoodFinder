@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:gravity="center"
     android:orientation="vertical"
-    android:clipChildren="false"
     tools:context=".activities.MealInfoActivity">
 
     <ImageView
@@ -33,37 +34,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:onClick="onGoBack"
-        android:scaleType="center"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
+        android:onClick="onGoBack"
+        android:orientation="horizontal"
+        android:scaleType="center"
         app:backgroundTint="@color/light_salva"
         app:fabCustomSize="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="18dp"
         app:srcCompat="@drawable/back"
-        app:tint="@color/salva"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:tint="@color/salva" />
 
     <LinearLayout
         android:id="@+id/rightButtonsLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:layout_marginTop="@dimen/_20sdp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/hideButton"
-            android:clipToPadding="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
+            android:clipToPadding="false"
             app:backgroundTint="@color/light_forest"
             app:fabCustomSize="48dp"
             app:maxImageSize="20dp"
@@ -86,179 +87,208 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:orientation="vertical"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:clipChildren="true"
+        android:layout_marginBottom="@dimen/_40sdp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backButton">
-
-        <TextView
-            android:id="@+id/header_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:fontFamily="@font/bentonsans"
-            android:text="@string/meal_info"
-            android:textAlignment="textStart"
-            android:textSize="25dp" />
-
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:fontFamily="@font/bentonsanslight"
-            android:text="@string/meal_info_subtitle"
-            android:textAlignment="textStart"
-            android:textSize="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/backButton"
+        app:layout_constraintBottom_toTopOf="@id/bottomButtonsLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/name"
-                app:boxStrokeColor="@color/forest"
-                app:endIconMode="clear_text"
-                app:hintTextColor="@color/forest">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nameTextEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bentonsansmedium"
-                    android:imeOptions="actionDone"
-                    android:singleLine="true" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/description"
-                app:boxStrokeColor="@color/forest"
-                app:endIconMode="clear_text"
-                app:hintTextColor="@color/forest">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/descriptionTextEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bentonsansmedium"
-                    android:imeOptions="actionDone" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/price"
-                app:boxStrokeColor="@color/forest"
-                app:endIconMode="clear_text"
-                app:hintTextColor="@color/forest">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/priceEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bentonsansmedium"
-                    android:imeOptions="actionDone"
-                    android:inputType="numberDecimal"
-                    android:singleLine="true" />
-
-                <Button
-                    android:id="@+id/promotionButton"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:backgroundTint="@color/light_salva"
-                    android:text="@string/add_promotion"
-                    android:textColor="@color/salva"
-                    android:textSize="@dimen/_10sdp"
-                    app:icon="@drawable/ic_add"
-                    app:iconTint="@color/salva" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/photoTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:fontFamily="@font/bentonsans"
-            android:text="@string/photo"
-            android:textAlignment="textStart"
-            android:textSize="22dp" />
-
-        <LinearLayout
-            android:id="@+id/choosePhotoLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/rounded_edge"
-            android:elevation="1dp"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_10sdp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/mealImageCard"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/forest"
-                app:cardCornerRadius="12dp">
-
-                <ImageView
-                    android:id="@+id/menu_image"
-                    android:layout_width="250px"
-                    android:layout_height="250px"
-                    android:layout_alignParentTop="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/mealtest" />
-
-            </androidx.cardview.widget.CardView>
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvUploadPhoto"
+                android:id="@+id/header_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:fontFamily="@font/bentonsans"
+                android:text="@string/meal_info"
+                android:textAlignment="textStart"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/bentonsanslight"
+                android:text="@string/meal_info_subtitle"
+                android:textAlignment="textStart"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <com.example.foodfinder11.views.BaseInputLayout
+                    android:id="@+id/nameTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name"
+                    app:counterMaxLength="64"
+                    app:endIconMode="clear_text">
+
+                    <com.example.foodfinder11.views.BaseEditText
+                        android:id="@+id/nameTextEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="0" />
+
+                </com.example.foodfinder11.views.BaseInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <com.example.foodfinder11.views.BaseInputLayout
+                    android:id="@+id/descriptionInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description"
+                    app:counterMaxLength="256"
+                    app:endIconMode="clear_text"
+                    app:hintTextColor="@color/forest">
+
+                    <com.example.foodfinder11.views.BaseEditText
+                        android:id="@+id/descriptionTextEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.example.foodfinder11.views.BaseInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/priceInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/price"
+                    app:boxStrokeColor="@color/forest"
+                    app:endIconMode="clear_text"
+                    app:hintTextColor="@color/forest">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/priceEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/promotionButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:backgroundTint="@color/light_salva"
+                android:text="@string/add_promotion"
+                android:textColor="@color/salva"
+                android:textSize="@dimen/_10sdp"
+                app:icon="@drawable/ic_add"
+                app:iconTint="@color/salva" />
+
+            <TextView
+                android:id="@+id/photoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:fontFamily="@font/bentonsans"
+                android:text="@string/photo"
+                android:textAlignment="textStart"
+                android:textSize="22dp" />
+
+            <LinearLayout
+                android:id="@+id/choosePhotoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/rounded_edge"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:elevation="1dp"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/mealImageCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/forest"
+                    app:cardCornerRadius="12dp">
+
+                    <ImageView
+                        android:id="@+id/menu_image"
+                        android:layout_width="250px"
+                        android:layout_height="250px"
+                        android:layout_alignParentTop="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/mealtest" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvUploadPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/bentonsans"
+                    android:text="@string/upload_photo"
+                    android:textAlignment="center"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/photoError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:fontFamily="@font/bentonsans"
-                android:text="@string/upload_photo"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="@string/no_photo_uploaded"
                 android:textAlignment="center"
-                android:textSize="16dp" />
+                android:textColor="@color/salva"
+                android:textSize="16dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
+        android:id="@+id/bottomButtonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"

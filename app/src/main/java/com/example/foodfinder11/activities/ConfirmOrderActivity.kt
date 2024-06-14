@@ -6,6 +6,7 @@ import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,6 +36,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
     private lateinit var binding: ActivityConfirmOrderBinding
 
     private lateinit var address: Address
+    private var addressChanged: Boolean = false
     private var latLng: LatLng = LatLng(0.0, 0.0)
 
     private val mapsActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -43,6 +45,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
 
             val intent = result.data
             latLng = intent?.getParcelableExtraProvider<LatLng>(MapsActivity.PICKED_POINT)!!
+            addressChanged = true
 
             geocodeLatitudeAndLongitude(latLng)
         }
@@ -75,6 +78,19 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
         binding.paymentMethodLayout.setOnClickListener {
             onClickChoosePaymentMethod()
         }
+    }
+
+    override fun validateData(): Boolean {
+
+        binding.locationError.visibility = View.GONE
+
+        if (!addressChanged) {
+
+            binding.locationError.visibility = View.VISIBLE
+            return false
+        }
+
+        return true
     }
 
     override fun commitData(): Boolean {
@@ -126,7 +142,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
     private fun updatePaymentMethod() {
 
         val order = SessionManager.fetchOrder()
-        binding.paymentMethod.text = order.getPaymentMethodName()
+        binding.paymentMethod.text = order.getPaymentMethodName(this)
     }
 
     private fun updateTotal() {

@@ -12,8 +12,10 @@ import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.PriceRanges
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.Constants
 import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.example.foodfinder11.utils.toInt
+import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +43,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
                 ?: FoodType()
 
             binding.foodTypeTextEdit.setText(selectedFoodType.name)
+            binding.foodTypeTextField.error = ""
         }
     }
 
@@ -54,6 +57,23 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
     override fun loadData(): Boolean {
 
         loadFoodTypesRequest()
+
+        return true
+    }
+
+    override fun validateData(): Boolean {
+
+        binding.foodTypeTextField.error = ""
+
+        if (selectedFoodType.name.isEmpty()) {
+
+            binding.foodTypeTextField.error =
+                getString(R.string.you_must_choose_food_type_before_continuing)
+            binding.foodTypeTextField.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.foodTypeTextField.invalidate()
+
+            return false
+        }
 
         return true
     }
