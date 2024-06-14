@@ -2,11 +2,14 @@ package com.example.foodfinder11.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.LanguageCardItemBinding
 import com.example.foodfinder11.utils.Languages
+import com.example.foodfinder11.utils.SessionManager
 
 class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.LanguagesViewHolder>(){
 
@@ -42,6 +45,8 @@ class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.LanguagesViewHolde
             }
         }
 
+        if (SessionManager.fetchLanguageLocale() == language.getLocale())
+            holder.binding.container.setBackgroundColor(ContextCompat.getColor(holder.binding.container.context, R.color.light_forest))
     }
 
     override fun getItemCount(): Int {

@@ -1,24 +1,24 @@
 package com.example.foodfinder11.activities
 
 import android.content.Intent
-import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityEnterPasswordBinding
 import com.example.foodfinder11.dto.LoginRequestDto
 import com.example.foodfinder11.dto.LoginResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
-import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.ActivityUtils
+import com.example.foodfinder11.utils.Constants
 import com.example.foodfinder11.utils.HashingUtils
 import com.example.foodfinder11.utils.SessionManager
-import com.example.foodfinder11.viewModel.BusinessMainViewModel
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,29 +42,23 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
 
     override fun initializeViews() {
 
+        binding.requirementFive.text = getString(R.string.at_least_symbols, Constants.PASSWORD_MINIMUM_LENGTH.toString())
+
+        initPasswordField()
+
         if (userExists) {
+
             binding.headerTitle.text = getString(R.string.welcome_back)
-            binding.subtitle.text = getString(R.string.enter_password_to_continue)
+            binding.requirementsLayout.visibility = View.GONE
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         } else {
+
             binding.headerTitle.text = getString(R.string.enter_password)
-            binding.subtitle.text = getString(R.string.enter_password_subtitle)
+            binding.subtitle.visibility = View.GONE
         }
 
-        binding.passwordTextEdit.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            var handled = false
-
-            // Some phones disregard the IME setting option in the xml, instead
-            // they send IME_ACTION_UNSPECIFIED so we need to catch that
-            if (EditorInfo.IME_ACTION_DONE == actionId || EditorInfo.IME_ACTION_UNSPECIFIED == actionId) {
-
-                validateData()
-                commitData()
-            }
-            handled
-        })
-
         binding.passwordTextEdit.requestFocus()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     override fun initializeData() {
@@ -73,6 +67,27 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
         enteredEmail = intent.getStringExtra(EnterEmailActivity.ENTERED_EMAIL)!!
         userExists = intent.getBooleanExtra(EnterEmailActivity.USER_EXISTS, false)
 
+    }
+
+    override fun validateData(): Boolean {
+
+        binding.passwordInputLayout.error = ""
+
+        val enteredPassword = binding.passwordTextEdit.text.toString().trim()
+
+        if (!validatePassword(enteredPassword))
+        {
+            setPasswordError(getString(R.string.invalid_password))
+
+            return false
+        }
+
+        return true
+    }
+
+    private fun setPasswordError(errorMessage: String) {
+        binding.passwordInputLayout.error = errorMessage
+        binding.passwordInputLayout.invalidate()
     }
 
     override fun commitData(): Boolean {
@@ -119,7 +134,7 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
                         startNextActivityOnSucessfullLogin()
 
                     } else {
-                        Toast.makeText(this@EnterPasswordActivity, responseBody.message, Toast.LENGTH_SHORT).show()
+                        setPasswordError(responseBody.message)
                     }
                 }
 
@@ -134,5 +149,101 @@ class EnterPasswordActivity : BaseNavigatableActivity() {
 
     fun startNextActivityOnSucessfullLogin() {
         ActivityUtils.openMainActivityByRole(this@EnterPasswordActivity)
+    }
+
+    private fun initPasswordField() {
+
+        binding.passwordTextEdit.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            var handled = false
+
+            // Some phones disregard the IME setting option in the xml, instead
+            // they send IME_ACTION_UNSPECIFIED so we need to catch that
+            if (EditorInfo.IME_ACTION_DONE == actionId || EditorInfo.IME_ACTION_UNSPECIFIED == actionId) {
+
+                super.onContinue(binding.passwordTextEdit)
+            }
+            handled
+        })
+
+        binding.passwordTextEdit.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                validatePassword(s.toString())
+            }
+        })
+    }
+
+    private fun validatePassword(password: String): Boolean {
+
+        var result = true
+
+        resetRequirementIcons()
+
+        val hasUppercase = Regex("(.*[A-Z].*)").matches(password)
+        if (!hasUppercase) {
+
+            result = false
+
+        } else {
+            binding.requirementOne.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square_check, 0, 0, 0);
+        }
+
+        val hasLowercase = Regex("(.*[a-z].*)").matches(password)
+        if (!hasLowercase)
+        {
+            result = false
+
+        } else {
+            binding.requirementTwo.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square_check, 0, 0, 0);
+        }
+
+        val hasDigit = Regex("(.*[0-9].*)").matches(password)
+        if (!hasDigit)
+        {
+            result = false
+
+        } else {
+
+            binding.requirementThree.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square_check, 0, 0, 0);
+        }
+
+        val hasSpecialSymbol = Regex("(.*[!@#\$%^&*-].*)").matches(password)
+        if (!hasSpecialSymbol)
+        {
+            result = false
+
+        } else {
+            binding.requirementFour.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square_check, 0, 0, 0);
+        }
+
+        val isValidLength = password.length >= Constants.PASSWORD_MINIMUM_LENGTH
+        if (!isValidLength) {
+
+            result = false
+
+        } else {
+            binding.requirementFive.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square_check, 0, 0, 0);
+        }
+
+        return result
+    }
+
+    private fun resetRequirementIcons() {
+        binding.requirementOne.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square, 0, 0, 0);
+        binding.requirementTwo.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square, 0, 0, 0);
+        binding.requirementThree.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square, 0, 0, 0);
+        binding.requirementFour.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square, 0, 0, 0);
+        binding.requirementFive.setCompoundDrawablesWithIntrinsicBounds(R.drawable.square, 0, 0, 0);
     }
 }

@@ -46,15 +46,14 @@ class EnterEmailActivity : BaseNavigatableActivity() {
             handled
         })
 
-        binding.emailTextEdit.requestFocus()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+       binding.emailTextEdit.requestFocus()
     }
 
     override fun validateData(): Boolean {
 
         binding.emailTextInputLayout.error = ""
 
-        val enteredEmail = binding.emailTextEdit.text.toString()
+        val enteredEmail = binding.emailTextEdit.text.toString().trim()
 
         if (!isValidEmail(enteredEmail))
         {

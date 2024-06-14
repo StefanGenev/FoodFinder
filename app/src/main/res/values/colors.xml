@@ -3,10 +3,10 @@
     <color name="primary">@color/forest</color>
     <color name="salva">#973B38</color>
     <color name="light_salva">#fce4d4</color>
+    <color name="forest">#396D21</color>
     <color name="light_forest">#c7d5bd</color>
     <color name="lemon">#fcb22b</color>
     <color name="light_lemon">#fff7e8</color>
-    <color name="forest">#396D21</color>
     <color name="mint">#BBDDBB</color>
     <color name="background_gray">#FAFDFF</color>
     <color name="black">#FF000000</color>

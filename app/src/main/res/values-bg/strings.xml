@@ -45,11 +45,11 @@
     <string name="enter_name">Въведете потребителско име</string>
     <string name="enter_name_subtitle">Това име ще се показва на вашите поръчки и ревюта</string>
     <string name="enter_password">Въведете парола</string>
-    <string name="enter_password_subtitle">Уверете се, че използвате поне една главна буква, специален символ и цифра</string>
+    <string name="password_requirements">Паролата трябва да съдържа:</string>
     <string name="password">Парола</string>
     <string name="food_types">Типове храна</string>
     <string name="search_here">Търси</string>
-    <string name="meal_info">Информация за ястие</string>
+    <string name="meal_info">Информация за ястия</string>
     <string name="meal_info_subtitle">Определете характеристиките на вашето ново ястие</string>
     <string name="description">Описание</string>
     <string name="price">Цена</string>
@@ -90,7 +90,7 @@
     <string name="users">Потребители</string>
     <string name="add_new">Добави ново</string>
     <string name="favorites">Любими</string>
-    <string name="explore">Разгледайте нещо ново</string>
+    <string name="explore">Нещо ново</string>
     <string name="about_us">За нас</string>
     <string name="help_and_support">Помощ и поддръжка</string>
     <string name="orders">Поръчки</string>
@@ -120,5 +120,12 @@
     <string name="reason_please_contact_support_for_more_information">Описана причина: %1$s\n Моля свържете се с нашият екип за поддръжка, за да получите повече информация.</string>
     <string name="your_profile_has_not_yet_been_approved_so_it_won_t_be_shown_to_customers">Вашият профил все още не е одобрен, и няма да се вижда от останалите потребители.</string>
     <string name="if_more_than_2_days_have_passed_since_registration_please_contact_support_for_more_information">Ако са изминали повече от 2 дни от регистрацията, моля, свържете се с поддръжката за повече информация.</string>
-    <string name="invalid_email">Invalid email</string>
+    <string name="invalid_email">Невалиден имейл</string>
+    <string name="capital_letters">Главна буква</string>
+    <string name="small_letters">Малка буква</string>
+    <string name="special_symbols">Специален символ</string>
+    <string name="digits">Цифра</string>
+    <string name="at_least_symbols">Поне %1$s символа</string>
+    <string name="invalid_password">Невалидна парола</string>
+    <string name="the_username_must_be_at_least_symbols_long">Името трябва да е дълго поне %1$s символа</string>
 </resources>

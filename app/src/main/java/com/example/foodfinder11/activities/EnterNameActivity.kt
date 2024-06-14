@@ -1,24 +1,20 @@
 package com.example.foodfinder11.activities
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityEnterNameBinding
-import com.example.foodfinder11.databinding.ActivityEnterPasswordBinding
-import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
 import com.example.foodfinder11.dto.RegisterRequestDto
 import com.example.foodfinder11.dto.RegisterResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
-import com.example.foodfinder11.utils.HashingUtils
+import com.example.foodfinder11.utils.Constants.USERNAME_MINIMUM_LENGTH
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.toEnum
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,7 +69,27 @@ class EnterNameActivity : BaseNavigatableActivity() {
         }
 
         binding.nameTextEdit.requestFocus()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    }
+
+    override fun validateData(): Boolean {
+
+        binding.nameTextInputLayout.error = ""
+
+        val enteredName = binding.nameTextEdit.text.toString().trim()
+
+        if (enteredName.length < USERNAME_MINIMUM_LENGTH)
+        {
+            binding.nameTextInputLayout.error = getString(
+                R.string.the_username_must_be_at_least_symbols_long,
+                USERNAME_MINIMUM_LENGTH.toString()
+            )
+            binding.nameTextInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.nameTextInputLayout.invalidate()
+
+            return false
+        }
+
+        return true
     }
 
     override fun commitData(): Boolean {

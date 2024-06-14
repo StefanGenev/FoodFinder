@@ -78,24 +78,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.example.foodfinder11.views.BaseInputLayout
+                android:id="@+id/nameTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
-                app:hintTextColor="@color/forest"
-                app:boxStrokeColor="@color/forest"
+                app:counterMaxLength="32"
                 app:endIconMode="clear_text">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.example.foodfinder11.views.BaseEditText
                     android:id="@+id/nameTextEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="32"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
-                    android:fontFamily="@font/bentonsansmedium" />
+                    android:inputType="textPersonName" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.example.foodfinder11.views.BaseInputLayout>
 
         </LinearLayout>
 

@@ -192,7 +192,7 @@ class HomeFragment : Fragment() {
 
                     if (responseBody.status == 200) {
 
-                        val toastText = if (removeFromFavorites) "Removed from favorites" else "Added to favorites"
+                        val toastText = if (removeFromFavorites) getString(R.string.removed_from_favorites) else getString(R.string.added_to_favorites)
                         Toast.makeText(activity, toastText, Toast.LENGTH_SHORT).show()
 
                         SessionManager.saveFavoriteRestaurants(responseData)

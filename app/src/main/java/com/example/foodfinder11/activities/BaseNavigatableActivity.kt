@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.foodfinder11.utils.FullScreenBugWorkaround
 import com.example.foodfinder11.utils.RuntimeLocaleChanger
 
 open class BaseNavigatableActivity : AppCompatActivity() {
@@ -22,15 +23,11 @@ open class BaseNavigatableActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         initializeActivity()
+        FullScreenBugWorkaround.assistActivity(this)
 
         hideSystemUI()
 
-        with(window) {
-            setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
+        setLayoutLimitFlags()
 
         if ( !loadData() ) {
             return
@@ -45,10 +42,13 @@ open class BaseNavigatableActivity : AppCompatActivity() {
         super.attachBaseContext(RuntimeLocaleChanger.wrapContext(newBase!!))
     }
 
-    open fun initializeViews() {
+    open fun setLayoutLimitFlags() {
     }
 
     open fun initializeActivity() {
+    }
+
+    open fun initializeViews() {
     }
 
     open fun initializeData() {

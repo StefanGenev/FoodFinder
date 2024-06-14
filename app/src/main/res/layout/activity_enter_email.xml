@@ -83,14 +83,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/e_mail"
-                app:counterMaxLength="32">
+                app:counterMaxLength="32"
+                app:endIconMode="clear_text">
 
                 <com.example.foodfinder11.views.BaseEditText
                     android:id="@+id/emailTextEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="32"
-                    android:imeOptions="actionDone"/>
+                    android:inputType="textEmailAddress"
+                    android:maxLength="32"/>
 
             </com.example.foodfinder11.views.BaseInputLayout>
 

@@ -16,7 +16,6 @@ open class BaseInputLayout(context: Context, attrs: AttributeSet?) : TextInputLa
         hintTextColor = ColorStateList.valueOf(context.getColor(R.color.forest))
         boxStrokeColor = context.getColor(R.color.forest)
         cursorColor = ColorStateList.valueOf(context.getColor(R.color.light_forest))
-        endIconMode = END_ICON_CLEAR_TEXT
         errorIconDrawable = null
         isCounterEnabled = true
         setCounterTextAppearance(R.style.CounterTextAppearance)

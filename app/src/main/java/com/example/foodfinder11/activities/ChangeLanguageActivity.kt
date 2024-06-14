@@ -7,6 +7,7 @@ import com.example.foodfinder11.databinding.ActivityChangeLanguageBinding
 import com.example.foodfinder11.utils.AppPreferences
 import com.example.foodfinder11.utils.Languages
 import com.example.foodfinder11.utils.RuntimeLocaleChanger
+import com.example.foodfinder11.utils.SessionManager
 
 class ChangeLanguageActivity : BaseNavigatableActivity() {
 
@@ -28,8 +29,11 @@ class ChangeLanguageActivity : BaseNavigatableActivity() {
 
             override fun onClick(language: Languages) {
 
-                AppPreferences.language = language.getLocale()
-                returnOkIntent()
+                if (SessionManager.fetchLanguageLocale() != language.getLocale()) {
+                    AppPreferences.language = language.getLocale()
+                    returnOkIntent()
+                }
+
                 finish()
             }
 
