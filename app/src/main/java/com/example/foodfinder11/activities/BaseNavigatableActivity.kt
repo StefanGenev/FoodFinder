@@ -60,9 +60,11 @@ open class BaseNavigatableActivity : AppCompatActivity() {
     fun onContinue(view: View) {
 
         if ( !validateData() ) {
+            return
         }
 
         if ( !commitData() ) {
+            return
         }
     }
 

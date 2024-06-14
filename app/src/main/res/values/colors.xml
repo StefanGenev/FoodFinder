@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#F2EAC1</color>
+    <color name="primary">@color/forest</color>
     <color name="salva">#973B38</color>
     <color name="light_salva">#fce4d4</color>
     <color name="light_forest">#c7d5bd</color>
@@ -9,8 +9,6 @@
     <color name="forest">#396D21</color>
     <color name="mint">#BBDDBB</color>
     <color name="background_gray">#FAFDFF</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#808080</color>

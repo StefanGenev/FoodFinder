@@ -10,15 +10,22 @@
     <style name="Theme.FoodFinder11" parent="Base.Theme.FoodFinder11">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary</item>
-        <item name="colorOnPrimary">@color/forest</item>
+        <item name="colorPrimaryVariant">@color/light_forest</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>z
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/lemon</item>
+        <item name="colorSecondaryVariant">@color/light_lemon</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor">
             @android:color/transparent
         </item>
+
+        <item name="android:colorBackground">@color/background_gray</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+
+        <item name="android:textColorHighlight">@color/light_forest</item>
+
         <item name="android:windowTranslucentStatus">true</item>
 
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
@@ -69,6 +76,20 @@
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="MediumTextAppearance" parent="">
+        <!-- Set title font -->
+        <item name="android:fontFamily">@font/bentonsansmedium</item>
+    </style>
+
+    <style name="CounterTextAppearance" parent="">
+        <!-- Set proper title size -->
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <!-- Set title color -->
+        <item name="android:textColor">@color/forest</item>
+        <!-- Set title font -->
+        <item name="android:fontFamily">@font/bentonsansmedium</item>
     </style>
 
 </resources>

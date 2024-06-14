@@ -78,24 +78,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+            <com.example.foodfinder11.views.BaseInputLayout
                 android:id="@+id/emailTextInputLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/e_mail"
-                app:boxStrokeColor="@color/forest"
-                app:endIconMode="clear_text"
-                app:hintTextColor="@color/forest">
+                app:counterMaxLength="32">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.example.foodfinder11.views.BaseEditText
                     android:id="@+id/emailTextEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
-                    android:fontFamily="@font/bentonsansmedium" />
+                    android:maxLength="32"
+                    android:imeOptions="actionDone"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.example.foodfinder11.views.BaseInputLayout>
 
         </LinearLayout>
 

@@ -97,7 +97,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.EnterEmailActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            />
         <activity
             android:name=".activities.NewBusinessDataActivity"
             android:exported="false" />

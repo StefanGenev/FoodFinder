@@ -56,8 +56,7 @@ class EnterNameActivity : BaseNavigatableActivity() {
             // they send IME_ACTION_UNSPECIFIED so we need to catch that
             if (EditorInfo.IME_ACTION_DONE == actionId || EditorInfo.IME_ACTION_UNSPECIFIED == actionId) {
 
-                validateData()
-                commitData()
+                super.onContinue(binding.nameTextEdit)
             }
             handled
         })

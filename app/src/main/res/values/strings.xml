@@ -4,8 +4,8 @@
     <string name="facebook_button">Continue with Facebook</string>
     <string name="google_button">Continue with Google</string>
     <string name="changeLanguage">Change language</string>
-    <string name="english_name">English</string>
-    <string name="bulgarian_name">Продължи с Google</string>
+    <string name="english_name" translatable="false">English</string>
+    <string name="bulgarian_name" translatable="false">Български</string>
     <string name="edit_restaurant_status">Edit Restaurant status</string>
     <string name="status">Status</string>
     <string name="note">Note</string>
@@ -123,4 +123,5 @@
     <string name="reason_please_contact_support_for_more_information">Reason: %1$s\n Please contact support for more information.</string>
     <string name="your_profile_has_not_yet_been_approved_so_it_won_t_be_shown_to_customers">Your profile has not yet been approved, so it won\'t be shown to customers.</string>
     <string name="if_more_than_2_days_have_passed_since_registration_please_contact_support_for_more_information">If more than 2 days have passed since registration, please contact support for more information.</string>
+    <string name="invalid_email">Invalid email</string>
 </resources>
