@@ -1,10 +1,13 @@
 package com.example.foodfinder11.viewModel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.foodfinder11.R
 import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import retrofit2.Call
@@ -17,6 +20,9 @@ class MainViewModel: ViewModel() {
     private val allRestaurantsLiveData = MutableLiveData<List<Restaurant>>()
     private var currentRestaurantIndex = MutableLiveData<Int>(0)
     private var restaurantsLoaded = MutableLiveData<Boolean>(false)
+
+    private val foodTypesLiveData = MutableLiveData<List<FoodType>>()
+    private var foodTypesLoaded = MutableLiveData<Boolean>(false)
 
     fun loadAllRestaurants() {
 
@@ -48,13 +54,44 @@ class MainViewModel: ViewModel() {
         })
     }
 
+    fun loadFoodTypes() {
+
+        RetrofitInstance.getApiService().getAllFoodTypes()
+            .enqueue(object : Callback<ResponseWrapper<List<FoodType>>> {
+
+                override fun onResponse(
+                    call: Call<ResponseWrapper<List<FoodType>>>,
+                    response: Response<ResponseWrapper<List<FoodType>>>
+                ) {
+
+                    val responseBody = response.body().takeIf { it != null } ?: return
+
+                    if (responseBody.status == 200) {
+
+                        val responseData = responseBody.data.takeIf { it != null } ?: return
+                        foodTypesLiveData.value = responseData
+                        foodTypesLoaded.value = true
+
+                    } else {
+                        //TODO: Log
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseWrapper<List<FoodType>>>,
+                    t: Throwable
+                ) {
+                    //TODO: Log
+                }
+            })
+    }
+
     fun getAllRestaurantsLiveData() : LiveData<List<Restaurant>>{
         return allRestaurantsLiveData
     }
 
-    fun getRestaurantsCount(): Int {
-
-        return allRestaurantsLiveData.value?.count() ?: 0
+    fun getFoodTypesLiveData() : LiveData<List<FoodType>>{
+        return foodTypesLiveData
     }
 
     fun getCurrentRestaurantIndex(): Int {
@@ -63,6 +100,10 @@ class MainViewModel: ViewModel() {
 
     fun getRestaurantsLoaded(): Boolean {
         return restaurantsLoaded.value ?: false
+    }
+
+    fun getFoodTypesLoaded(): Boolean {
+        return foodTypesLoaded.value ?: false
     }
 
     fun moveToNextRestaurant(){

@@ -107,7 +107,7 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
             transferMealDataToControls()
         }
 
-        binding.tvUploadPhoto.setText("Upload new photo")
+        binding.tvUploadPhoto.setText(getString(R.string.upload_new_photo))
         updateHideButton()
     }
 
@@ -269,7 +269,6 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
                 meal.isHidden = !meal.isHidden
 
                 updateHideButton()
-
 
             }
             , onCancelAction = { dialog, id ->

@@ -1,6 +1,5 @@
 package com.example.foodfinder11.activities
 
-import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
@@ -45,6 +44,8 @@ class BusinessInfoActivity : BaseNavigatableActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
 
         mapFragment.getMapAsync(this)
+
+        binding.tvPhoneNumber.text = restaurant.phoneNumber
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

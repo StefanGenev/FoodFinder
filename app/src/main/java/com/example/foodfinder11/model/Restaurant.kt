@@ -62,9 +62,9 @@ data class Restaurant(
 
     var address: String = "",
 
-    var imageUrl: String = "",
+    var phoneNumber: String = "",
 
-    var rating: Double = 0.0,
+    var imageUrl: String = "",
 
     var foodType: FoodType = FoodType(),
 

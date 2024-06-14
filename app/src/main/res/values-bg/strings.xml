@@ -145,4 +145,10 @@
     <string name="are_you_sure_you_want_to_remove_this_meal_out_of_your_order">Сигурни ли сте, че искате да премахнете това ястие от поръчката си?</string>
     <string name="card">Карта: %1$s **** **** ****</string>
     <string name="invalid_card_number">Невалиден номер на карта</string>
+    <string name="upload_new_photo">Качи нова снимка</string>
+    <string name="phone_number">Телефон за връзка</string>
+    <string name="no_phone_number_entered">Не е въведен телефонен номер</string>
+    <string name="explore_title">Разгледай</string>
+    <string name="find_your_favorite_food">Намерете любимата си храна</string>
+    <string name="profile">Профил</string>
 </resources>

@@ -28,6 +28,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
     private lateinit var imageUri: Uri
     private var foodType: FoodType = FoodType()
     private var priceRange: PriceRanges = PriceRanges.CHEAP
+    private var phoneNumber: String = ""
 
     override fun initializeActivity() {
         binding = ActivityViewChosenPhotoBinding.inflate(layoutInflater)
@@ -38,6 +39,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
         imageUri = Uri.parse(intent.getStringExtra(UploadPhotoActivity.IMAGE_URI))
         foodType = intent.getParcelableExtraProvider<FoodType>(UploadPhotoActivity.FOOD_TYPE) ?: FoodType()
         priceRange = intent.getIntExtra(UploadPhotoActivity.PRICE_RANGE, 0).toEnum<PriceRanges>() ?: PriceRanges.CHEAP
+        phoneNumber = intent.getStringExtra(UploadPhotoActivity.PHONE_NUMBER)!!
     }
     override fun initializeViews() {
 
@@ -67,7 +69,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
 
             override fun onUploadError(error: String) {
                 // Handle upload error
-                showToast("Upload error: $error")
+                showToast(getString(R.string.upload_error, error))
             }
         })
     }
@@ -81,7 +83,7 @@ class ViewChosenPhotoActivity : BaseNavigatableActivity() {
             , priceRange = priceRange
             , address = ""
             , imageUrl = imageUrl
-            , rating = 0.0
+            , phoneNumber = phoneNumber
             , foodTypeCode = foodType.id
             , ownerId = userData.id)
 

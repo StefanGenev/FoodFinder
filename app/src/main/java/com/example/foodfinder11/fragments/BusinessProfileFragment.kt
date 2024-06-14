@@ -2,7 +2,6 @@ package com.example.foodfinder11.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -213,10 +212,14 @@ class BusinessProfileFragment : Fragment() {
         binding.chipCategory.text = restaurant.foodType.name
         binding.chipPrice.text = restaurant.priceRange.getName(binding.chipPrice.context)
 
+        //TODO: Rating logic
+        /*
         if (restaurant.rating > 0.0)
             binding.tvRating.text = "${restaurant.rating} rating"
         else
             binding.tvRating.visibility = View.GONE
+
+         */
 
         if (restaurant.status == RestaurantStatuses.HIDDEN) {
 

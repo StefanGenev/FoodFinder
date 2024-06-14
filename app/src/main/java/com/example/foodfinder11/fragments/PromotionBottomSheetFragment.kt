@@ -96,7 +96,7 @@ class PromotionBottomSheetFragment : BottomSheetDialogFragment() {
 
             if ( promotionDialogActivityContract.getPromotionType() == PromotionTypes.PERCENT ) {
 
-                textFieldLayout?.hint = "Percent"
+                textFieldLayout?.hint = getString(R.string.percent)
                 textFieldLayout?.visibility = View.VISIBLE
 
                 textFieldEditText?.setText(promotionDialogActivityContract.getPercent().toString())

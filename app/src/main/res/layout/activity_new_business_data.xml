@@ -159,6 +159,24 @@
 
         </com.google.android.material.chip.ChipGroup>
 
+        <com.example.foodfinder11.views.BaseInputLayout
+            android:id="@+id/phoneNumberTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:hint="@string/phone_number"
+            app:counterMaxLength="16"
+            app:endIconMode="clear_text">
+
+            <com.example.foodfinder11.views.BaseEditText
+                android:id="@+id/phoneNumberTextEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:maxLength="16"/>
+
+        </com.example.foodfinder11.views.BaseInputLayout>
+
     </LinearLayout>
 
     <Button

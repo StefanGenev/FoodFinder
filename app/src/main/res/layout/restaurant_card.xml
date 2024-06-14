@@ -73,11 +73,31 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:layout_marginTop="@dimen/_5sdp"
+                        android:drawableLeft="@drawable/food_type"
+                        android:drawableTint="@color/light_forest"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="@dimen/_5sdp"
                         android:fontFamily="@font/bentonsansmedium"
                         android:maxLines="2"
                         android:text="Deserts restaurant"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textColor="@color/light_forest"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/priceRange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:drawableLeft="@drawable/cash_bag"
+                        android:drawableTint="@color/lemon"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:fontFamily="@font/bentonsansmedium"
+                        android:maxLines="2"
+                        android:text="Expensive"
+                        android:textColor="@color/lemon"
+                        android:textSize="@dimen/_12sdp" />
 
 
                 </LinearLayout>

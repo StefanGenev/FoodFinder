@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.foodfinder11.databinding.RestaurantCardBinding
 import com.example.foodfinder11.model.Restaurant
 
@@ -37,7 +38,9 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
         val restaurant = differ.currentList[position]
 
         holder.binding.name.text = restaurant.name
-        //holder.binding.email.text = user.email
+        holder.binding.description.text = restaurant.foodType.name
+        holder.binding.priceRange.text = restaurant.priceRange.getName(holder.binding.priceRange.context)
+        Glide.with(holder.itemView).load(restaurant.imageUrl).into(holder.binding.image)
 
         holder.binding.cardView.setOnClickListener {
             onItemClick.onClickListener(restaurant)

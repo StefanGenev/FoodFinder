@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragments.SearchRestaurantsFilterBottomSheet">
 
     <ImageView
         android:id="@+id/pattern2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
         android:rotationX="180"
+        android:scaleType="fitEnd"
         android:src="@drawable/food_pattern_diagonal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/pattern1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
         android:rotationX="180"
+        android:scaleType="fitEnd"
         android:src="@drawable/food_pattern_diagonal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_50sdp"
-        android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
@@ -67,69 +67,83 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/bentonsans"
-            android:text="@string/promotion"
+            android:text="@string/filter"
             android:textAlignment="center"
             android:textSize="25dp" />
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/toggleButtonGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:elevation="@dimen/_10sdp"
-            app:checkedButton="@+id/btnPercent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:singleSelection="true">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPercent"
-                style="@style/ToggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="@string/percent"
-                android:textSize="@dimen/_9ssp"
-                app:cornerRadius="@dimen/_5sdp"
-                app:icon="@drawable/percent"
-                app:iconTint="@drawable/toggle_button_foreground_color_selector" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnManyForOne"
-                style="@style/ToggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="@string/two_for_one"
-                android:textSize="@dimen/_9ssp"
-                app:cornerRadius="@dimen/_5sdp"
-                app:icon="@drawable/gift"
-                app:iconTint="@drawable/toggle_button_foreground_color_selector" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textFieldTextLayout"
+            android:id="@+id/menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:hint="@string/percent"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:hint="@string/food_type"
             app:boxStrokeColor="@color/forest"
-            app:endIconMode="clear_text"
+            app:endIconMode="dropdown_menu"
             app:hintTextColor="@color/forest">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textFieldTextEdit"
+            <AutoCompleteTextView
+                android:id="@+id/foodTypeTextEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bentonsansmedium"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:singleLine="true" />
+                android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/statusTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/bentonsans"
+            android:text="@string/price_range"
+            android:textSize="23dp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCheap"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="@string/cheap"
+                android:textColor="@color/bg_chip_state_text_style"
+                android:textSize="@dimen/_12sdp"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMedium"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="@string/medium"
+                android:textColor="@color/bg_chip_state_text_style"
+                android:textSize="@dimen/_12sdp"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipExpensive"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bentonsansmedium"
+                android:text="@string/expensive"
+                android:textColor="@color/bg_chip_state_text_style"
+                android:textSize="@dimen/_12sdp"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+        </com.google.android.material.chip.ChipGroup>
+
 
     </LinearLayout>
 
@@ -145,23 +159,24 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/continueButton"
+            android:id="@+id/applyButton"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:fontFamily="@font/bentonsansmedium"
-            android:text="@string/confirm"
+            android:text="@string/apply_filter"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:backgroundTint="@color/forest" />
 
         <Button
-            android:id="@+id/removeButton"
+            android:id="@+id/clearFilterButton"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            android:drawableTint="@color/salva"
             android:fontFamily="@font/bentonsansmedium"
-            android:text="@string/remove_promotion"
+            android:text="@string/clear_filter"
             android:textColor="@color/salva"
             android:textSize="18sp"
             app:backgroundTint="@color/light_salva"

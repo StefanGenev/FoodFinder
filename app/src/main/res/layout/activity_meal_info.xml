@@ -91,11 +91,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:clipToPadding="false"
+        android:clipToPadding="true"
         android:clipChildren="true"
         android:layout_marginBottom="@dimen/_40sdp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backButton"
         app:layout_constraintBottom_toTopOf="@id/bottomButtonsLayout">
@@ -104,7 +104,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:clipChildren="false"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:orientation="vertical">
 

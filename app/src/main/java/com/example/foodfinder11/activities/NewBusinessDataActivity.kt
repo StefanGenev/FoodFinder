@@ -26,6 +26,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
         const val FOOD_TYPES = "food_types"
         const val FOOD_TYPE = "food_type"
         const val PRICE_RANGE = "price_range"
+        const val PHONE_NUMBER = "phone_number"
     }
 
     private lateinit var binding: ActivityNewBusinessDataBinding
@@ -54,6 +55,22 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
 
     }
 
+    override fun initializeViews() {
+
+        binding.chipCheap.setOnClickListener {
+            selectedPriceRange = PriceRanges.CHEAP
+        }
+
+        binding.chipMedium.setOnClickListener {
+            selectedPriceRange = PriceRanges.MIDRANGE
+        }
+
+        binding.chipExpensive.setOnClickListener {
+            selectedPriceRange = PriceRanges.EXPENSIVE
+        }
+
+    }
+
     override fun loadData(): Boolean {
 
         loadFoodTypesRequest()
@@ -75,23 +92,20 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
             return false
         }
 
+        binding.phoneNumberTextInputLayout.error = ""
+
+        val phoneNumber = binding.phoneNumberTextEdit.text ?: ""
+
+        if (phoneNumber.isEmpty()) {
+
+            binding.phoneNumberTextInputLayout.error = getString(R.string.no_phone_number_entered)
+            binding.phoneNumberTextInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.phoneNumberTextInputLayout.invalidate()
+
+            return false
+        }
+
         return true
-    }
-
-    override fun initializeViews() {
-
-        binding.chipCheap.setOnClickListener {
-            selectedPriceRange = PriceRanges.CHEAP
-        }
-
-        binding.chipMedium.setOnClickListener {
-            selectedPriceRange = PriceRanges.MIDRANGE
-        }
-
-        binding.chipExpensive.setOnClickListener {
-            selectedPriceRange = PriceRanges.EXPENSIVE
-        }
-
     }
 
     override fun commitData(): Boolean {
@@ -99,6 +113,9 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
         val intent = Intent(this@NewBusinessDataActivity, UploadPhotoActivity::class.java)
         intent.putExtra(FOOD_TYPE, selectedFoodType)
         intent.putExtra(PRICE_RANGE, selectedPriceRange.toInt())
+
+        val phoneNumber = binding.phoneNumberTextEdit.text ?: ""
+        intent.putExtra(PHONE_NUMBER, phoneNumber)
 
         startActivity(intent)
         

@@ -295,10 +295,14 @@ class RestaurantActivity : BaseNavigatableActivity() {
         binding.chipCategory.text = restaurant.foodType.name
         binding.chipPrice.text = restaurant.priceRange.getName(binding.chipPrice.context)
 
+        //TODO: Rating logic
+        /*
         if (restaurant.rating > 0.0)
             binding.tvRating.text = "${restaurant.rating} ${getString(R.string.rating)}"
         else
             binding.tvRating.visibility = View.GONE
+
+         */
 
         binding.buttonOne.setOnClickListener {
             openInfoActivity()

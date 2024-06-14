@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<item android:title="Home"
-    android:icon="@drawable/ic_home"
+<item android:title="@string/explore_title"
+    android:icon="@drawable/compass"
     android:background="@null"
     android:id="@+id/homeFragment"
     />
 
-<item android:title="Favorites"
-    android:icon="@drawable/ic_favorite"
-    android:id="@+id/favoritesFragment"/>
+<item android:title="@string/search_here"
+    android:icon="@drawable/search_icon"
+    android:id="@+id/searchFragment"/>
 
-<item android:title="Profile"
+    <item android:title="@string/favorites"
+        android:icon="@drawable/ic_favorite"
+        android:id="@+id/favoritesFragment"/>
+
+<item android:title="@string/profile"
     android:icon="@drawable/ic_user"
     android:id="@+id/userFragment"/>
 </menu>

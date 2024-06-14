@@ -148,4 +148,12 @@
     <string name="are_you_sure_you_want_to_remove_this_meal_out_of_your_order">Are you sure you want to remove this meal out of your order?</string>
     <string name="card">Card: %1$s **** **** ****</string>
     <string name="invalid_card_number">Invalid card number</string>
+    <string name="upload_new_photo">Upload new photo</string>
+    <string name="phone_number">Phone number</string>
+    <string name="no_phone_number_entered">No phone number entered</string>
+    <string name="explore_title">Explore</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="find_your_favorite_food">Find your favorite food</string>
+    <string name="profile">Profile</string>
 </resources>
