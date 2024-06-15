@@ -103,6 +103,31 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/emptyStateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_40sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/no_food" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/no_restaurants_matching_filter"
+                android:textAppearance="@style/MediumTextAppearance"
+                android:textSize="@dimen/_18sdp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 

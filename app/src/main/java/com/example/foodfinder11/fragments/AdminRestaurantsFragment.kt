@@ -7,15 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.adapters.RestaurantsAdapter
+import com.example.foodfinder11.dataObjects.AdminRestaurantsFilter
+import com.example.foodfinder11.dataObjects.RestaurantsFilter
 import com.example.foodfinder11.databinding.FragmentAdminRestaurantsBinding
 import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.model.RestaurantStatuses
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.viewModel.AdminViewModel
+import com.example.foodfinder11.viewModel.MainViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,19 +32,18 @@ interface AdminRestaurantsFilterContract {
 
     fun onClearFilter()
 
-    fun setRestaurantStatusFilter(status: RestaurantStatuses)
+    fun getFilter(): AdminRestaurantsFilter
 
-    fun onApplyFilter()
+    fun onApplyFilter(filter: AdminRestaurantsFilter)
 }
 
 class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
 
     private lateinit var binding: FragmentAdminRestaurantsBinding
+    private val mainViewModel: AdminViewModel by activityViewModels()
 
-    private var restaurants: ArrayList<Restaurant> = ArrayList()
-
-    private var restaurantStatusFilter: RestaurantStatuses = RestaurantStatuses.REGISTERED
-    private var filterApplied: Boolean = false
+    private var restaurants: List<Restaurant> = listOf()
+    private var foodTypes: List<FoodType> = listOf()
 
     private lateinit var filterBottomSheetDialog: AdminRestaurantsFilterBottomSheet
 
@@ -59,7 +65,12 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadRestaurantsRequest()
+        resetAdapters()
+
+        loadRestaurants()
+        showRestaurants()
+        loadFoodTypes()
+        observeFoodTypes()
 
         // below line is to call set on query text listener method.
         binding.idSearchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -78,87 +89,140 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
         binding.filterButton.setOnClickListener {
             openFilterBottomSheet()
         }
+
+        val filter = mainViewModel.getRestaurantsFilterLiveData().value ?: AdminRestaurantsFilter()
+        binding.idSearchView.setQuery(filter.stringFilter, true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadRestaurants()
+        loadFoodTypes()
+    }
+
+    private fun showRestaurants() {
+
+        mainViewModel.getAllRestaurantsLiveData()
+            .observe(viewLifecycleOwner, Observer { restaurants ->
+
+                if (restaurants.isEmpty()) {
+
+                    showEmptyState()
+
+                } else {
+
+                    this.restaurants = restaurants
+                    initRestaurants()
+                }
+
+            })
+    }
+
+    private fun showEmptyState() {
+        binding.emptyStateLayout.visibility = View.VISIBLE
     }
 
     private fun filter(text: String) {
+
+        binding.emptyStateLayout.visibility = View.GONE
+
+        val filteredlist = getFilteredList(text)
+
+        if (filteredlist.isEmpty()) {
+            showEmptyState()
+        }
+
+        var filter = mainViewModel.getRestaurantsFilterLiveData().value ?: AdminRestaurantsFilter()
+        filter.stringFilter = text
+        mainViewModel.setRestaurantsFilter(filter)
+
+        resetAdapters()
+        restaurantsAdapter.differ.submitList(filteredlist)
+    }
+
+    private fun getFilteredList(filter: String): ArrayList<Restaurant> {
 
         val filteredlist = ArrayList<Restaurant>()
 
         for (restaurant in restaurants) {
 
-            val nameMatches = restaurant.name.lowercase(Locale.getDefault()).contains(text.lowercase(
-                Locale.getDefault())) || text.isEmpty()
-
-            val foodTypeMatches = restaurant.foodType.name.lowercase(Locale.getDefault()).contains(text.lowercase(
-                Locale.getDefault())) || text.isEmpty()
-
-            val stringMatches = nameMatches || foodTypeMatches
-
-            val filterMatches = if (filterApplied) restaurant.status == restaurantStatusFilter else true
+            val stringMatches = checkIfStringFilterMatches(filter, restaurant)
+            val filterMatches = checkIfFilterMatches(restaurant)
 
             if (stringMatches && filterMatches) {
-
                 filteredlist.add(restaurant)
             }
         }
 
-        if (filteredlist.isEmpty()) {
-            //TODO: Empty state
-        } else {
-
-            resetAdapters()
-            restaurantsAdapter.differ.submitList( filteredlist )
-        }
+        return filteredlist
     }
 
-    private fun loadRestaurantsRequest() {
+    private fun checkIfStringFilterMatches(textFilter: String, restaurant: Restaurant): Boolean {
 
-        RetrofitInstance.getApiService().getAllRestaurants()
-            .enqueue(object : Callback<ResponseWrapper<List<Restaurant>>> {
+        val nameMatches = restaurant.name.lowercase(Locale.getDefault()).contains(
+            textFilter.lowercase(
+                Locale.getDefault()
+            )
+        ) || textFilter.isEmpty()
 
-                override fun onResponse(
-                    call: Call<ResponseWrapper<List<Restaurant>>>,
-                    response: Response<ResponseWrapper<List<Restaurant>>>
-                ) {
+        val foodTypeMatches = restaurant.foodType.name.lowercase(Locale.getDefault()).contains(
+            textFilter.lowercase(
+                Locale.getDefault()
+            )
+        ) || textFilter.isEmpty()
 
-                    val responseBody = response.body().takeIf { it != null } ?: return
 
-                    if (responseBody.status == 200) {
+        return nameMatches || foodTypeMatches
+    }
 
-                        val responseData = responseBody.data.takeIf { it != null } ?: return
-                        restaurants.addAll(responseData)
+    private fun checkIfFilterMatches(restaurant: Restaurant): Boolean {
 
-                        initRestaurants()
+        var filterMatches = true
 
-                    } else {
-                        Toast.makeText(activity, responseBody.message, Toast.LENGTH_SHORT).show()
-                    }
+        if (mainViewModel.isRestaurantsFilterApplied()) {
+
+            val filter = mainViewModel.getRestaurantsFilterLiveData().value ?: AdminRestaurantsFilter()
+
+            val statusMatches =
+                if (filter.hasSelectedStatus) restaurant.status == filter.status else true
+
+            filterMatches = statusMatches
+        }
+
+        return filterMatches
+    }
+
+    private fun loadRestaurants() {
+
+        if (!mainViewModel.getRestaurantsLoaded())
+            mainViewModel.loadAllRestaurants()
+    }
+
+    private fun loadFoodTypes() {
+
+        if (!mainViewModel.getFoodTypesLoaded())
+            mainViewModel.loadFoodTypes()
+    }
+
+    private fun observeFoodTypes() {
+        mainViewModel.getFoodTypesLiveData()
+            .observe(viewLifecycleOwner, Observer { foodTypes ->
+
+                if (foodTypes.isEmpty()) {
+
+                } else {
+
+                    this.foodTypes = foodTypes
                 }
 
-                override fun onFailure(
-                    call: Call<ResponseWrapper<List<Restaurant>>>,
-                    t: Throwable
-                ) {
-                    Toast.makeText(activity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
-                }
             })
-
     }
 
     private fun initRestaurants() {
 
-        restaurantsAdapter = RestaurantsAdapter()
-
-        restaurantsAdapter.onItemClicked(object : RestaurantsAdapter.OnItemClicked {
-
-            override fun onClickListener(restaurant: Restaurant) {
-                onRestaurantTap(restaurant)
-            }
-
-        })
-
-        resetAdapters()
-        restaurantsAdapter.differ.submitList( restaurants )
+        var filter = mainViewModel.getRestaurantsFilterLiveData().value ?: AdminRestaurantsFilter()
+        filter(filter.stringFilter)
     }
 
     private fun onRestaurantTap(restaurant: Restaurant) {
@@ -170,6 +234,16 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
 
     private fun resetAdapters() {
 
+        restaurantsAdapter = RestaurantsAdapter()
+
+        restaurantsAdapter.onItemClicked(object : RestaurantsAdapter.OnItemClicked {
+
+            override fun onClickListener(restaurant: Restaurant) {
+                onRestaurantTap(restaurant)
+            }
+
+        })
+
         binding.rvRestaurants.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
             adapter = restaurantsAdapter
@@ -177,16 +251,18 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
     }
 
     override fun onClearFilter() {
-        filterApplied = false
+        mainViewModel.clearRestaurantsFilter()
         filter(binding.idSearchView.query.toString())
     }
 
-    override fun setRestaurantStatusFilter(status: RestaurantStatuses) {
-        restaurantStatusFilter = status
+
+    override fun getFilter(): AdminRestaurantsFilter {
+        return mainViewModel.getRestaurantsFilterLiveData().value ?: AdminRestaurantsFilter()
     }
 
-    override fun onApplyFilter() {
-        filterApplied = true
+    override fun onApplyFilter(filter: AdminRestaurantsFilter) {
+
+        mainViewModel.setRestaurantsFilter(filter)
         filter(binding.idSearchView.query.toString())
     }
 

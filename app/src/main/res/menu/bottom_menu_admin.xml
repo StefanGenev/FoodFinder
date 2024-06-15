@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Restaurants"
+    <item android:title="@string/restaurants"
         android:icon="@drawable/food_stand"
         android:id="@+id/restaurantsFragment"/>
 
-    <item android:title="Users"
+    <item android:title="@string/users"
         android:icon="@drawable/group"
         android:background="@null"
         android:id="@+id/usersFragment"
         />
 
-    <item android:title="Settings"
+    <item android:title="@string/settings"
         android:icon="@drawable/settings"
         android:id="@+id/adminSettingsFragment"/>
 </menu>

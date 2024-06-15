@@ -161,4 +161,7 @@
     <string name="average">Рейтинг: %1$s</string>
     <string name="orders_small">поръчки</string>
     <string name="restaurant_deleted">Ресторантът е изтрит</string>
+    <string name="user_deleted">Потребителят е премахнат</string>
+    <string name="no_users_matching_filter">Няма потребители, съответстващи на филтъра</string>
+    <string name="are_you_sure_you_want_to_delete_this_user">Сигурни ли сте, че искате да изтриете този потребител?</string>
 </resources>
