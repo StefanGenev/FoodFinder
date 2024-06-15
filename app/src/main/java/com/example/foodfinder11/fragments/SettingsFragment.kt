@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.ChangeLanguageActivity
+import com.example.foodfinder11.activities.ReviewsActivity
 import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.FragmentSettingsBinding
 import com.example.foodfinder11.utils.SessionManager
@@ -39,8 +40,14 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val restaurant = SessionManager.fetchRestaurant()
+        val restaurantDetails = SessionManager.fetchRestaurantDetails()
+        val restaurant = restaurantDetails.restaurant
+
         binding.tvProfileName.text = restaurant.name
+
+        binding.reviewsButton.setOnClickListener {
+            onReviews()
+        }
 
         binding.languageButton.setOnClickListener {
             onChangeLanguage()
@@ -49,6 +56,11 @@ class SettingsFragment : Fragment() {
         binding.signOutButton.setOnClickListener {
             onSignOut()
         }
+    }
+
+    private fun onReviews() {
+        val intent = Intent(activity, ReviewsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onChangeLanguage() {

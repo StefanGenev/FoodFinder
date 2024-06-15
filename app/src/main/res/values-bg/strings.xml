@@ -152,4 +152,13 @@
     <string name="find_your_favorite_food">Намерете любимата си храна</string>
     <string name="profile">Профил</string>
     <string name="no_restaurants_matching_filter">Няма ресторанти, съответстващи на филтъра</string>
+    <string name="leave_a_review">Остави ревю</string>
+    <string name="feedback">Мнение</string>
+    <string name="no_reviews_found">Не са намерени ревюта</string>
+    <string name="active_orders">Активни поръчки</string>
+    <string name="no_feedback_given">Без записана забележка</string>
+    <string name="total_spent_lv">Общо: %1$s лв.</string>
+    <string name="average">Рейтинг: %1$s</string>
+    <string name="orders_small">поръчки</string>
+    <string name="restaurant_deleted">Ресторантът е изтрит</string>
 </resources>

@@ -21,6 +21,7 @@ import com.example.foodfinder11.adapters.MenuItemsAdapter
 import com.example.foodfinder11.databinding.FragmentBusinessProfileBinding
 import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.dto.RestaurantDetailsResponseDto
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.model.RestaurantStatuses
@@ -41,7 +42,7 @@ class BusinessProfileFragment : Fragment() {
     private lateinit var promotionsAdapter: MenuItemsAdapter
     private lateinit var menuAdapter: MenuItemsAdapter
 
-    private var restaurant: Restaurant = Restaurant()
+    private var restaurantDetails: RestaurantDetailsResponseDto = RestaurantDetailsResponseDto()
 
     private val restaurantInfoActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -139,11 +140,11 @@ class BusinessProfileFragment : Fragment() {
         val dto = IdentifierDto(id = ownerId)
 
         RetrofitInstance.getApiService().getByOwnerId(dto)
-            .enqueue(object : Callback<ResponseWrapper<Restaurant?>> {
+            .enqueue(object : Callback<ResponseWrapper<RestaurantDetailsResponseDto>> {
 
                 override fun onResponse(
-                    call: Call<ResponseWrapper<Restaurant?>>,
-                    response: Response<ResponseWrapper<Restaurant?>>
+                    call: Call<ResponseWrapper<RestaurantDetailsResponseDto>>,
+                    response: Response<ResponseWrapper<RestaurantDetailsResponseDto>>
                 ) {
 
                     val responseBody = response.body().takeIf { it != null } ?: return
@@ -151,7 +152,7 @@ class BusinessProfileFragment : Fragment() {
                     if (responseBody.status == 200) {
 
                         val responseData = responseBody.data.takeIf { it != null } ?: return
-                        restaurant = responseData
+                        restaurantDetails = responseData
 
                         fillRestaurantData()
                         loadMeals()
@@ -159,7 +160,7 @@ class BusinessProfileFragment : Fragment() {
                 }
 
                 override fun onFailure(
-                    call: Call<ResponseWrapper<Restaurant?>>,
+                    call: Call<ResponseWrapper<RestaurantDetailsResponseDto>>,
                     t: Throwable
                 ) {
                 }
@@ -168,7 +169,7 @@ class BusinessProfileFragment : Fragment() {
 
     private fun loadMeals() {
 
-        val restaurantId = SessionManager.fetchRestaurant().id
+        val restaurantId = SessionManager.fetchRestaurantDetails().restaurant.id
         val dto = IdentifierDto(id = restaurantId)
 
         RetrofitInstance.getApiService().getMeals(dto)
@@ -199,7 +200,9 @@ class BusinessProfileFragment : Fragment() {
 
     private fun fillRestaurantData() {
 
-        SessionManager.saveRestaurant(restaurant)
+        SessionManager.saveRestaurantDetails(restaurantDetails)
+
+        val restaurant = restaurantDetails.restaurant
 
         binding.tvTitle.text = restaurant.name
         binding.collapsingToolbar.title = restaurant.name
@@ -242,13 +245,13 @@ class BusinessProfileFragment : Fragment() {
 
     private fun openEditBusinessActivity() {
         val intent = Intent(activity, EditBusinessActivity::class.java)
-        intent.putExtra(RESTAURANT, restaurant)
+        intent.putExtra(RESTAURANT, restaurantDetails.restaurant)
         restaurantInfoActivityResultLauncher.launch(intent)
     }
 
     private fun openInfoActivity() {
         val intent = Intent(activity, BusinessInfoActivity::class.java)
-        intent.putExtra(RESTAURANT, restaurant)
+        intent.putExtra(RESTAURANT, restaurantDetails.restaurant)
         startActivity(intent)
     }
 

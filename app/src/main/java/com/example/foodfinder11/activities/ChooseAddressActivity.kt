@@ -11,8 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityChooseAddressBinding
 import com.example.foodfinder11.dto.NoData
-import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
-import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
 import com.example.foodfinder11.retrofit.RetrofitInstance
@@ -20,7 +18,6 @@ import com.example.foodfinder11.utils.AddressUtils
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.google.android.gms.maps.model.LatLng
-import com.intuit.sdp.BuildConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -115,7 +112,7 @@ class ChooseAddressActivity : BaseNavigatableActivity() {
 
     private fun saveRestaurantLocationRequest() {
 
-        val restaurantId = SessionManager.fetchRestaurant().id
+        val restaurantId = SessionManager.fetchRestaurantDetails().restaurant.id
 
         val dto = SaveRestaurantLocationRequestDto(restaurantId, AddressUtils.getStringFromLatLng(latLng))
 

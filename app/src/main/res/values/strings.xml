@@ -152,9 +152,16 @@
     <string name="phone_number">Phone number</string>
     <string name="no_phone_number_entered">No phone number entered</string>
     <string name="explore_title">Explore</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="find_your_favorite_food">Find your favorite food</string>
     <string name="profile">Profile</string>
     <string name="no_restaurants_matching_filter">No restaurants matching filter</string>
+    <string name="leave_a_review">Leave a review</string>
+    <string name="feedback">Feedback</string>
+    <string name="no_reviews_found">No reviews found</string>
+    <string name="active_orders">Active orders</string>
+    <string name="no_feedback_given">No feedback given</string>
+    <string name="total_spent_lv">Total spent: %1$s lv.</string>
+    <string name="average">Average: %1$s</string>
+    <string name="orders_small">orders</string>
+    <string name="restaurant_deleted">Restaurant deleted</string>
 </resources>

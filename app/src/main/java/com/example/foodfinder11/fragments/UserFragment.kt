@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.ChangeLanguageActivity
 import com.example.foodfinder11.activities.OrdersActivity
+import com.example.foodfinder11.activities.ReviewsActivity
 import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.FragmentUserBinding
 import com.example.foodfinder11.utils.SessionManager
@@ -48,6 +49,10 @@ class UserFragment : Fragment() {
             onOrders()
         }
 
+        binding.reviewsButton.setOnClickListener {
+            onReviews()
+        }
+
         binding.languageButton.setOnClickListener {
             onChangeLanguage()
         }
@@ -61,6 +66,11 @@ class UserFragment : Fragment() {
     private fun onOrders() {
 
         val intent = Intent(activity, OrdersActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun onReviews() {
+        val intent = Intent(activity, ReviewsActivity::class.java)
         startActivity(intent)
     }
 

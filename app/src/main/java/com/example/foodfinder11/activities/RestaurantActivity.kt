@@ -16,6 +16,7 @@ import com.example.foodfinder11.databinding.ActivityRestaurantBinding
 import com.example.foodfinder11.dto.AddRemoveFavoriteRestaurantRequestDto
 import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.dto.RestaurantDetailsResponseDto
 import com.example.foodfinder11.fragments.BusinessProfileFragment
 import com.example.foodfinder11.fragments.HomeFragment
 import com.example.foodfinder11.model.Meal
@@ -35,7 +36,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
     private lateinit var promotionsAdapter: MenuItemsAdapter
     private lateinit var menuAdapter: MenuItemsAdapter
 
-    private var restaurant: Restaurant = Restaurant()
+    private var restaurantDetails: RestaurantDetailsResponseDto = RestaurantDetailsResponseDto()
 
     companion object {
         const val MEAL = "Meal"
@@ -87,7 +88,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
     override fun initializeData() {
 
         val intent = intent
-        restaurant = intent.getParcelableExtraProvider<Restaurant>(HomeFragment.RESTAURANT)!!
+        restaurantDetails.restaurant = intent.getParcelableExtraProvider<Restaurant>(HomeFragment.RESTAURANT)!!
     }
 
     override fun initializeViews() {
@@ -214,14 +215,14 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
     private fun loadRestaurantData() {
 
-        val dto = IdentifierDto(id = restaurant.id)
+        val dto = IdentifierDto(id = restaurantDetails.restaurant.id)
 
         RetrofitInstance.getApiService().getRestaurantById(dto)
-            .enqueue(object : Callback<ResponseWrapper<Restaurant?>> {
+            .enqueue(object : Callback<ResponseWrapper<RestaurantDetailsResponseDto>> {
 
                 override fun onResponse(
-                    call: Call<ResponseWrapper<Restaurant?>>,
-                    response: Response<ResponseWrapper<Restaurant?>>
+                    call: Call<ResponseWrapper<RestaurantDetailsResponseDto>>,
+                    response: Response<ResponseWrapper<RestaurantDetailsResponseDto>>
                 ) {
 
                     val responseBody = response.body().takeIf { it != null } ?: return
@@ -229,7 +230,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
                     if (responseBody.status == 200) {
 
                         val responseData = responseBody.data.takeIf { it != null } ?: return
-                        restaurant = responseData
+                        restaurantDetails = responseData
 
                         fillRestaurantData()
                         loadMeals()
@@ -237,7 +238,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
                 }
 
                 override fun onFailure(
-                    call: Call<ResponseWrapper<Restaurant?>>,
+                    call: Call<ResponseWrapper<RestaurantDetailsResponseDto>>,
                     t: Throwable
                 ) {
                 }
@@ -246,7 +247,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
     private fun loadMeals() {
 
-        val restaurantId = SessionManager.fetchRestaurant().id
+        val restaurantId = SessionManager.fetchRestaurantDetails().restaurant.id
         val dto = IdentifierDto(id = restaurantId)
 
         RetrofitInstance.getApiService().getVisibleMeals(dto)
@@ -277,7 +278,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
     private fun fillRestaurantData() {
 
-        SessionManager.saveRestaurant(restaurant)
+        val restaurant = restaurantDetails.restaurant
 
         binding.tvTitle.text = restaurant.name
         binding.collapsingToolbar.title = restaurant.name
@@ -295,14 +296,15 @@ class RestaurantActivity : BaseNavigatableActivity() {
         binding.chipCategory.text = restaurant.foodType.name
         binding.chipPrice.text = restaurant.priceRange.getName(binding.chipPrice.context)
 
-        //TODO: Rating logic
-        /*
-        if (restaurant.rating > 0.0)
-            binding.tvRating.text = "${restaurant.rating} ${getString(R.string.rating)}"
+        if (restaurantDetails.averageRating > 0.0)
+            binding.tvRating.text = "${restaurantDetails.averageRating} ${getString(R.string.rating)}"
         else
             binding.tvRating.visibility = View.GONE
 
-         */
+        if (restaurantDetails.totalOrders > 0)
+            binding.tvOrders.text = "${restaurantDetails.totalOrders}+ ${getString(R.string.orders_small)}"
+        else
+            binding.tvOrders.visibility = View.GONE
 
         binding.buttonOne.setOnClickListener {
             openInfoActivity()
@@ -312,7 +314,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
     private fun openInfoActivity() {
 
         val intent = Intent(this@RestaurantActivity, BusinessInfoActivity::class.java)
-        intent.putExtra(BusinessProfileFragment.RESTAURANT, restaurant)
+        intent.putExtra(BusinessProfileFragment.RESTAURANT, restaurantDetails.restaurant)
         startActivity(intent)
     }
 
@@ -341,7 +343,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         val userData = SessionManager.fetchUserData()
         val restaurantIsInFavorites =
-            userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
+            userData.favoriteRestaurants.any { item -> item.id == restaurantDetails.restaurant.id }
 
         val drawable = if (restaurantIsInFavorites) R.drawable.like else R.drawable.like_empty
 
@@ -357,11 +359,11 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         val userData = SessionManager.fetchUserData()
         val removeFromFavorites =
-            userData.favoriteRestaurants.any { item -> item.id == restaurant.id }
+            userData.favoriteRestaurants.any { item -> item.id == restaurantDetails.restaurant.id }
 
         val dto = AddRemoveFavoriteRestaurantRequestDto(
             userId = userData.id,
-            restaurantId = restaurant.id,
+            restaurantId = restaurantDetails.restaurant.id,
             removeFromFavorites = removeFromFavorites
         )
 
@@ -416,7 +418,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
         val order = SessionManager.fetchOrder()
 
-        if (order.restaurant.id == restaurant.id && order.orderItems.isNotEmpty()) {
+        if (order.restaurant.id == restaurantDetails.restaurant.id && order.orderItems.isNotEmpty()) {
 
             binding.continueButton.visibility =
                 if (order.getTotalItemsCount() > 0) View.VISIBLE else View.GONE
@@ -442,7 +444,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
         }
 
         val intent = Intent(this@RestaurantActivity, AdminEditRestaurantActivity::class.java)
-        intent.putExtra(AdminEditRestaurantActivity.RESTAURANT, restaurant)
+        intent.putExtra(AdminEditRestaurantActivity.RESTAURANT, restaurantDetails.restaurant)
         startEditActivityForResult.launch(intent)
     }
 }

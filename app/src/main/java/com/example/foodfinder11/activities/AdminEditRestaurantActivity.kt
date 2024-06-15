@@ -109,7 +109,8 @@ class AdminEditRestaurantActivity : BaseNavigatableActivity() {
 
                     if (responseBody.status == 200) {
 
-                        Toast.makeText(this@AdminEditRestaurantActivity, "Restaurant deleted", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AdminEditRestaurantActivity,
+                            getString(R.string.restaurant_deleted), Toast.LENGTH_SHORT).show()
                         returnOkIntent()
                     }
                 }

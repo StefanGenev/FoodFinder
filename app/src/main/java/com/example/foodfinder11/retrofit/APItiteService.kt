@@ -1,6 +1,7 @@
 package com.example.foodfinder11.retrofit
 
 import com.example.foodfinder11.dto.AddRemoveFavoriteRestaurantRequestDto
+import com.example.foodfinder11.dto.AddReviewRequestDto
 import com.example.foodfinder11.dto.ChangeRestaurantStatusRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
@@ -13,6 +14,7 @@ import com.example.foodfinder11.dto.RegisterResponseDto
 import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
 import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
+import com.example.foodfinder11.dto.RestaurantDetailsResponseDto
 import com.example.foodfinder11.dto.SaveMealRequestDto
 import com.example.foodfinder11.dto.SaveMealResponseDto
 import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
@@ -21,6 +23,7 @@ import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Order
 import com.example.foodfinder11.model.Restaurant
+import com.example.foodfinder11.model.Review
 import com.example.foodfinder11.model.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -53,10 +56,10 @@ interface APItiteService {
     fun getAllVisibleRestaurants() : Call<ResponseWrapper<List<Restaurant>>>
 
     @POST("/api/restaurants/get_by_owner_id")
-    fun getByOwnerId(@Body dto: IdentifierDto) : Call<ResponseWrapper<Restaurant?>>
+    fun getByOwnerId(@Body dto: IdentifierDto) : Call<ResponseWrapper<RestaurantDetailsResponseDto>>
 
     @POST("/api/restaurants/get_by_id")
-    fun getRestaurantById(@Body dto: IdentifierDto) : Call<ResponseWrapper<Restaurant?>>
+    fun getRestaurantById(@Body dto: IdentifierDto) : Call<ResponseWrapper<RestaurantDetailsResponseDto>>
 
     @POST("/api/restaurants/register")
     fun registerRestaurant(@Body requestData: RegisterRestaurantRequestDto): Call<ResponseWrapper<RegisterRestaurantResponseDto>>
@@ -114,4 +117,15 @@ interface APItiteService {
 
     @HTTP(method = "DELETE", path = "/api/users/delete", hasBody = true)
     fun deleteUser( @Body dto: IdentifierDto): Call<ResponseWrapper<NoData>>
+
+    // REVIEWS
+    // -------------------------------
+    @POST("/api/reviews/get_by_restaurant")
+    fun getReviewsByRestaurantId(@Body dto: IdentifierDto) : Call<ResponseWrapper<List<Review>>>
+
+    @POST("/api/reviews/get_by_user")
+    fun getReviewsByUserId(@Body dto: IdentifierDto) : Call<ResponseWrapper<List<Review>>>
+
+    @POST("/api/reviews/add")
+    fun addReview(@Body dto: AddReviewRequestDto) : Call<ResponseWrapper<NoData>>
 }

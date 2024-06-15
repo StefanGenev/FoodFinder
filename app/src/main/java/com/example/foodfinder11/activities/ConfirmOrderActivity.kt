@@ -117,7 +117,6 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
 
                     if (responseBody.status == 200) {
 
-                        SessionManager.resetOrder()
                         startNextActivity()
 
                     } else {
@@ -135,8 +134,12 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
     }
 
     private fun startNextActivity() {
+
         val intent = Intent(this@ConfirmOrderActivity, SuccessfulOrderActivity::class.java)
+        intent.putExtra(SuccessfulOrderActivity.RESTAURANT, SessionManager.fetchOrder().restaurant)
         startActivity(intent)
+
+        SessionManager.resetOrder()
     }
 
     private fun updatePaymentMethod() {
@@ -190,7 +193,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
 
     private fun showSelectedLocation(address: Address) {
         binding.address.text = AddressUtils.getAddressVisualisationText(address)
-        binding.address.invalidate()
+        binding.addressLayout.invalidate()
     }
 
     private fun onClickSelectLocation() {

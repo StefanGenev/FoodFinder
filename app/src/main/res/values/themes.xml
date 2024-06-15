@@ -102,4 +102,30 @@
         <item name="android:colorAccent">@color/light_forest</item>
     </style>
 
+    <style name="RatingButtonStyle" parent="Widget.Material3.Button.Icon">
+        <item name="backgroundTint">@color/none</item>
+        <item name="iconTint">@color/rating_selector</item>
+        <item name="rippleColor">@color/none</item>
+        <item name="iconGravity">textTop</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconSize">32dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetRight">0dp</item>
+    </style>
+
+    <style name="RatingButtonStyleSmall" parent="Widget.Material3.Button.Icon">
+        <item name="backgroundTint">@color/none</item>
+        <item name="iconTint">@color/rating_selector</item>
+        <item name="rippleColor">@color/none</item>
+        <item name="iconGravity">textTop</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconSize">16dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetRight">0dp</item>
+    </style>
+
 </resources>

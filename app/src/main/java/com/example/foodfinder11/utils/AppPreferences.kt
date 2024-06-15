@@ -26,7 +26,7 @@ object AppPreferences {
         get() = Key.USERNAME.getString()
         set(value) = Key.USERNAME.setString(value)
 
-    var restaurant: String?
+    var restaurantDetails: String?
         get() = Key.RESTAURANT.getString()
         set(value) = Key.RESTAURANT.setString(value)
 
@@ -66,7 +66,7 @@ object AppPreferences {
         token = ""
         refreshToken = ""
         user = ""
-        restaurant = ""
+        restaurantDetails = ""
         order = ""
     }
 }

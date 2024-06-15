@@ -1,5 +1,6 @@
 package com.example.foodfinder11.utils
 
+import com.example.foodfinder11.dto.RestaurantDetailsResponseDto
 import com.example.foodfinder11.model.OrderItem
 import com.example.foodfinder11.model.Order
 import com.example.foodfinder11.model.Restaurant
@@ -67,30 +68,38 @@ class SessionManager {
             return user
         }
 
-        fun saveRestaurant(restaurant: Restaurant) {
+        fun saveRestaurantDetails(restaurant: RestaurantDetailsResponseDto) {
+
             val gson = Gson()
             val json = gson.toJson(restaurant)
-            AppPreferences.restaurant = json
+            AppPreferences.restaurantDetails = json
+        }
+
+        fun saveRestaurantDetails(restaurant: Restaurant) {
+
+            var restaurantDetails = fetchRestaurantDetails()
+            restaurantDetails.restaurant = restaurant
+            saveRestaurantDetails(restaurantDetails)
         }
 
         fun saveRestaurantId(id: Long) {
 
-            var restaurant = fetchRestaurant()
-            restaurant.id = id
-            saveRestaurant(restaurant)
+            var restaurantDetails = fetchRestaurantDetails()
+            restaurantDetails.restaurant.id = id
+            saveRestaurantDetails(restaurantDetails)
         }
 
-        fun fetchRestaurant(): Restaurant {
+        fun fetchRestaurantDetails(): RestaurantDetailsResponseDto {
 
             val gson = Gson()
-            var json: String = AppPreferences.restaurant ?: ""
+            var json: String = AppPreferences.restaurantDetails ?: ""
 
-            var restaurant = Restaurant()
+            var restaurant = RestaurantDetailsResponseDto()
             if (json.isNotEmpty()) {
 
                 restaurant = gson.fromJson(
                     json,
-                    Restaurant::class.java
+                    RestaurantDetailsResponseDto::class.java
                 )
             }
 

@@ -80,6 +80,10 @@ class OrdersActivity : BaseNavigatableActivity() {
     private fun initOrders() {
 
         binding.emptyStateLayout.visibility = if (orders.isEmpty()) View.VISIBLE else View.GONE
+        binding.tvTotal.visibility = if (orders.isNotEmpty()) View.VISIBLE else View.GONE
+
+        binding.tvTotal.text =
+            getString(R.string.total_spent_lv, orders.sumOf { it.getOrderPrice() }.toString())
 
         ordersAdapter = OrdersAdapter()
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Profile"
+    <item android:title="@string/profile"
         android:icon="@drawable/food_stand"
         android:background="@null"
         android:id="@+id/profileFragment" />
 
-    <item android:title="Menu"
-        android:icon="@drawable/menu"
-        android:id="@+id/businessMenuFragment" />
+    <item android:title="@string/active_orders"
+        android:icon="@drawable/clipboard"
+        android:id="@+id/activeOrdersFragment" />
 
-    <item android:title="Settings"
+    <item android:title="@string/settings"
         android:icon="@drawable/settings"
         android:id="@+id/settingsFragment"/>
 </menu>
