@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.adapters.RestaurantsAdapter
+import com.example.foodfinder11.dataObjects.RestaurantsFilter
 import com.example.foodfinder11.databinding.FragmentSearchBinding
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.FoodType
@@ -32,7 +33,9 @@ interface SearchRestaurantsFilterContract {
 
     fun getFoodTypes(): List<FoodType>
 
-    fun onApplyFilter(filter: SearchRestaurantsFragment.Filter)
+    fun getFilter(): RestaurantsFilter
+
+    fun onApplyFilter(filter: RestaurantsFilter)
 }
 
 class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
@@ -43,16 +46,7 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
     private var restaurants: List<Restaurant> = listOf()
     private var foodTypes: List<FoodType> = listOf()
 
-    private var filter: Filter = Filter()
-    private var filterApplied: Boolean = false
-
     private lateinit var filterBottomSheetDialog: SearchRestaurantsFilterBottomSheet
-
-    class Filter(
-        var foodType: String = "",
-        var priceRange: PriceRanges = PriceRanges.CHEAP,
-        var hasSelectedPriceRange: Boolean = false,
-    )
 
     private lateinit var restaurantsAdapter: RestaurantsAdapter
 
@@ -72,9 +66,12 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        resetAdapters()
+
         loadRestaurants()
         showRestaurants()
         loadFoodTypes()
+        observeFoodTypes()
 
         // below line is to call set on query text listener method.
         binding.idSearchView.setOnQueryTextListener(object :
@@ -94,6 +91,16 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
         binding.filterButton.setOnClickListener {
             openFilterBottomSheet()
         }
+
+        val filter = mainViewModel.getRestaurantsFilterLiveData().value ?: RestaurantsFilter()
+        binding.idSearchView.setQuery(filter.stringFilter, true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadRestaurants()
+        loadFoodTypes()
     }
 
     private fun showRestaurants() {
@@ -115,68 +122,94 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
     }
 
     private fun showEmptyState() {
-        TODO("Not yet implemented")
+        binding.emptyStateLayout.visibility = View.VISIBLE
     }
 
     private fun filter(text: String) {
+
+        binding.emptyStateLayout.visibility = View.GONE
+
+        val filteredlist = getFilteredList(text)
+
+        if (filteredlist.isEmpty()) {
+            binding.emptyStateLayout.visibility = View.VISIBLE
+        }
+
+        var filter = mainViewModel.getRestaurantsFilterLiveData().value ?: RestaurantsFilter()
+        filter.stringFilter = text
+        mainViewModel.setRestaurantsFilter(filter)
+
+        resetAdapters()
+        restaurantsAdapter.differ.submitList(filteredlist)
+    }
+
+    private fun checkIfStringFilterMatches(textFilter: String, restaurant: Restaurant): Boolean {
+
+        val nameMatches = restaurant.name.lowercase(Locale.getDefault()).contains(
+            textFilter.lowercase(
+                Locale.getDefault()
+            )
+        ) || textFilter.isEmpty()
+
+        val foodTypeMatches = restaurant.foodType.name.lowercase(Locale.getDefault()).contains(
+            textFilter.lowercase(
+                Locale.getDefault()
+            )
+        ) || textFilter.isEmpty()
+
+
+        return nameMatches || foodTypeMatches
+    }
+
+    private fun checkIfFilterMatches(restaurant: Restaurant): Boolean {
+
+        var filterMatches = true
+
+        if (mainViewModel.isRestaurantsFilterApplied()) {
+
+            val filter = mainViewModel.getRestaurantsFilterLiveData().value ?: RestaurantsFilter()
+
+            val priceRangeMatches =
+                if (filter.hasSelectedPriceRange) restaurant.priceRange == filter.priceRange else true
+            val foodTypeMatches =
+                if (filter.foodType.isNotEmpty()) restaurant.foodType.name == filter.foodType else true
+
+            filterMatches = priceRangeMatches && foodTypeMatches
+        }
+
+        return filterMatches
+    }
+
+    private fun getFilteredList(filter: String): ArrayList<Restaurant> {
 
         val filteredlist = ArrayList<Restaurant>()
 
         for (restaurant in restaurants) {
 
-            val nameMatches = restaurant.name.lowercase(Locale.getDefault()).contains(
-                text.lowercase(
-                    Locale.getDefault()
-                )
-            ) || text.isEmpty()
-
-            val foodTypeMatches = restaurant.foodType.name.lowercase(Locale.getDefault()).contains(
-                text.lowercase(
-                    Locale.getDefault()
-                )
-            ) || text.isEmpty()
-
-            val stringMatches = nameMatches || foodTypeMatches
-
-            var filterMatches = true
-
-            if (filterApplied) {
-
-                val priceRangeMatches =
-                    if (filter.hasSelectedPriceRange) restaurant.priceRange == filter.priceRange else true
-                val foodTypeMatches =
-                    if (filter.foodType.isNotEmpty()) restaurant.foodType.name == filter.foodType else true
-
-                filterMatches = priceRangeMatches && foodTypeMatches
-            }
+            val stringMatches = checkIfStringFilterMatches(filter, restaurant)
+            val filterMatches = checkIfFilterMatches(restaurant)
 
             if (stringMatches && filterMatches) {
-
                 filteredlist.add(restaurant)
             }
         }
 
-        if (filteredlist.isEmpty()) {
-            //TODO: Empty state
-        } else {
-
-            resetAdapters()
-            restaurantsAdapter.differ.submitList(filteredlist)
-        }
+        return filteredlist
     }
 
     private fun loadRestaurants() {
 
         if (!mainViewModel.getRestaurantsLoaded())
             mainViewModel.loadAllRestaurants()
-
     }
 
     private fun loadFoodTypes() {
 
         if (!mainViewModel.getFoodTypesLoaded())
             mainViewModel.loadFoodTypes()
+    }
 
+    private fun observeFoodTypes() {
         mainViewModel.getFoodTypesLiveData()
             .observe(viewLifecycleOwner, Observer { foodTypes ->
 
@@ -192,18 +225,8 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
 
     private fun initRestaurants() {
 
-        restaurantsAdapter = RestaurantsAdapter()
-
-        restaurantsAdapter.onItemClicked(object : RestaurantsAdapter.OnItemClicked {
-
-            override fun onClickListener(restaurant: Restaurant) {
-                onRestaurantTap(restaurant)
-            }
-
-        })
-
-        resetAdapters()
-        restaurantsAdapter.differ.submitList(restaurants)
+        var filter = mainViewModel.getRestaurantsFilterLiveData().value ?: RestaurantsFilter()
+        filter(filter.stringFilter)
     }
 
     private fun onRestaurantTap(restaurant: Restaurant) {
@@ -214,6 +237,16 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
     }
 
     private fun resetAdapters() {
+
+        restaurantsAdapter = RestaurantsAdapter()
+
+        restaurantsAdapter.onItemClicked(object : RestaurantsAdapter.OnItemClicked {
+
+            override fun onClickListener(restaurant: Restaurant) {
+                onRestaurantTap(restaurant)
+            }
+
+        })
 
         binding.rvRestaurants.apply {
             layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
@@ -228,7 +261,8 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
     }
 
     override fun onClearFilter() {
-        filterApplied = false
+
+        mainViewModel.clearRestaurantsFilter()
         filter(binding.idSearchView.query.toString())
     }
 
@@ -236,10 +270,13 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
         return foodTypes
     }
 
-    override fun onApplyFilter(filter: Filter) {
+    override fun getFilter(): RestaurantsFilter {
+        return mainViewModel.getRestaurantsFilterLiveData().value ?: RestaurantsFilter()
+    }
 
-        filterApplied = true
-        this.filter = filter
+    override fun onApplyFilter(filter: RestaurantsFilter) {
+
+        mainViewModel.setRestaurantsFilter(filter)
         filter(binding.idSearchView.query.toString())
     }
 

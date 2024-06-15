@@ -5,8 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.adapters.LanguagesAdapter
 import com.example.foodfinder11.databinding.ActivityChangeLanguageBinding
 import com.example.foodfinder11.utils.AppPreferences
-import com.example.foodfinder11.utils.Languages
-import com.example.foodfinder11.utils.RuntimeLocaleChanger
+import com.example.foodfinder11.dataObjects.Languages
 import com.example.foodfinder11.utils.SessionManager
 
 class ChangeLanguageActivity : BaseNavigatableActivity() {

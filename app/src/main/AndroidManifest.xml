@@ -124,7 +124,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing"
+            />
 
         <provider
             android:name="androidx.core.content.FileProvider"

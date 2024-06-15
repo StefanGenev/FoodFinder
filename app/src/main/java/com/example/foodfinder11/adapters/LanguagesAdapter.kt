@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.LanguageCardItemBinding
-import com.example.foodfinder11.utils.Languages
+import com.example.foodfinder11.dataObjects.Languages
 import com.example.foodfinder11.utils.SessionManager
 
 class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.LanguagesViewHolder>(){

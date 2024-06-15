@@ -151,4 +151,5 @@
     <string name="explore_title">Разгледай</string>
     <string name="find_your_favorite_food">Намерете любимата си храна</string>
     <string name="profile">Профил</string>
+    <string name="no_restaurants_matching_filter">Няма ресторанти, съответстващи на филтъра</string>
 </resources>

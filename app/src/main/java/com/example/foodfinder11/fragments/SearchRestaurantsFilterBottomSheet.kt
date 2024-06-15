@@ -12,6 +12,7 @@ import android.widget.Button
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.foodfinder11.R
+import com.example.foodfinder11.dataObjects.RestaurantsFilter
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.PriceRanges
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,11 +23,7 @@ class SearchRestaurantsFilterBottomSheet: BottomSheetDialogFragment() {
 
     private lateinit var searchRestaurantsFilterContract: SearchRestaurantsFilterContract
 
-    private var selectedPriceRange: PriceRanges = PriceRanges.CHEAP
-    private var hasSelectedPriceRange: Boolean = false
-
-    private var selectedFoodType: FoodType = FoodType()
-
+    private var filter: RestaurantsFilter = RestaurantsFilter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +46,38 @@ class SearchRestaurantsFilterBottomSheet: BottomSheetDialogFragment() {
         initFilterFields()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialog);
+    }
+
+    override fun getTheme(): Int {
+        return R.style.CustomBottomSheetDialog
+    }
+
+    private fun onConfirm() {
+
+        dismiss()
+
+        val foodTypesEditText = getView()?.findViewById<AutoCompleteTextView>(R.id.foodTypeTextEdit)
+        filter.foodType = foodTypesEditText?.text.toString() ?: ""
+
+        searchRestaurantsFilterContract.onApplyFilter(filter)
+    }
+
+    private fun onClearFilter() {
+        dismiss()
+        searchRestaurantsFilterContract.onClearFilter()
+    }
+
+    private fun setMenuEndIcon(text: String) {
+        val menuLayout = getView()?.findViewById<TextInputLayout>(R.id.menu)
+        menuLayout?.endIconMode = if (text.isEmpty()) TextInputLayout.END_ICON_DROPDOWN_MENU else TextInputLayout.END_ICON_CLEAR_TEXT
+    }
+
     private fun initButtons() {
+
         val applyButton = getView()?.findViewById<Button>(R.id.applyButton)
         applyButton?.setOnClickListener {
             onConfirm()
@@ -63,45 +91,23 @@ class SearchRestaurantsFilterBottomSheet: BottomSheetDialogFragment() {
 
     private fun initFilterFields() {
 
-        val chipCheap = getView()?.findViewById<Chip>(R.id.chipCheap)
-        chipCheap?.setOnClickListener {
+        filter = searchRestaurantsFilterContract.getFilter()
 
-            if (hasSelectedPriceRange && selectedPriceRange == PriceRanges.CHEAP) {
-                hasSelectedPriceRange = false
+        initChips()
+        initFoodTypesMenu()
+    }
 
-            } else {
-                selectedPriceRange = PriceRanges.CHEAP
-            }
-        }
-
-        val chipMedium = getView()?.findViewById<Chip>(R.id.chipMedium)
-        chipMedium?.setOnClickListener {
-
-            if (hasSelectedPriceRange && selectedPriceRange == PriceRanges.MIDRANGE) {
-                hasSelectedPriceRange = false
-
-            } else {
-                selectedPriceRange = PriceRanges.MIDRANGE
-            }
-        }
-
-        val chipExpensive = getView()?.findViewById<Chip>(R.id.chipExpensive)
-        chipExpensive?.setOnClickListener {
-
-            if (hasSelectedPriceRange && selectedPriceRange == PriceRanges.EXPENSIVE) {
-                hasSelectedPriceRange = false
-
-            } else {
-                selectedPriceRange = PriceRanges.EXPENSIVE
-            }
-
-        }
+    private fun initFoodTypesMenu() {
 
         var items = searchRestaurantsFilterContract.getFoodTypes().map { it -> it.name }.toMutableList()
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
 
         val foodTypesEditText = getView()?.findViewById<AutoCompleteTextView>(R.id.foodTypeTextEdit)
         foodTypesEditText?.setAdapter(adapter)
+
+        foodTypesEditText?.setText(filter.foodType)
+        setMenuEndIcon(filter.foodType)
+
         foodTypesEditText?.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {}
@@ -116,40 +122,52 @@ class SearchRestaurantsFilterBottomSheet: BottomSheetDialogFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                val menuLayout = getView()?.findViewById<TextInputLayout>(R.id.menu)
-                menuLayout?.endIconMode = if (s.isEmpty()) TextInputLayout.END_ICON_DROPDOWN_MENU else TextInputLayout.END_ICON_CLEAR_TEXT
+                setMenuEndIcon(s.toString())
             }
         })
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private fun initChips() {
 
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialog);
+        val chipCheap = getView()?.findViewById<Chip>(R.id.chipCheap)
+        chipCheap?.isChecked = filter.hasSelectedPriceRange && filter.priceRange == PriceRanges.CHEAP
+        chipCheap?.setOnClickListener {
 
-    }
+            if (filter.hasSelectedPriceRange && filter.priceRange == PriceRanges.CHEAP) {
+                filter.hasSelectedPriceRange = false
 
-    override fun getTheme(): Int {
-        return R.style.CustomBottomSheetDialog
-    }
+            } else {
+                filter.hasSelectedPriceRange = true
+                filter.priceRange = PriceRanges.CHEAP
+            }
+        }
 
-    private fun onConfirm() {
+        val chipMedium = getView()?.findViewById<Chip>(R.id.chipMedium)
+        chipMedium?.isChecked = filter.hasSelectedPriceRange && filter.priceRange == PriceRanges.MIDRANGE
+        chipMedium?.setOnClickListener {
 
-        dismiss()
+            if (filter.hasSelectedPriceRange && filter.priceRange == PriceRanges.MIDRANGE) {
+                filter.hasSelectedPriceRange = false
 
-        var filter = SearchRestaurantsFragment.Filter()
+            } else {
+                filter.hasSelectedPriceRange = true
+                filter.priceRange = PriceRanges.MIDRANGE
+            }
+        }
 
-        val foodTypesEditText = getView()?.findViewById<AutoCompleteTextView>(R.id.foodTypeTextEdit)
-        filter.foodType = foodTypesEditText?.text.toString() ?: ""
-        filter.hasSelectedPriceRange = hasSelectedPriceRange
-        filter.priceRange = selectedPriceRange
+        val chipExpensive = getView()?.findViewById<Chip>(R.id.chipExpensive)
+        chipExpensive?.isChecked = filter.hasSelectedPriceRange && filter.priceRange == PriceRanges.EXPENSIVE
+        chipExpensive?.setOnClickListener {
 
-        searchRestaurantsFilterContract.onApplyFilter(filter)
-    }
+            if (filter.hasSelectedPriceRange && filter.priceRange == PriceRanges.EXPENSIVE) {
+                filter.hasSelectedPriceRange = false
 
-    private fun onClearFilter() {
-        dismiss()
-        searchRestaurantsFilterContract.onClearFilter()
+            } else {
+                filter.hasSelectedPriceRange = true
+                filter.priceRange = PriceRanges.EXPENSIVE
+            }
+
+        }
     }
 
 }

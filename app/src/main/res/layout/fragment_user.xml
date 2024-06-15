@@ -139,24 +139,6 @@
                 app:strokeWidth="0dp" />
 
             <Button
-                android:id="@+id/helpButton"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/rounded_edge"
-                android:drawableRight="@drawable/chevron_right"
-                android:elevation="@dimen/_2sdp"
-                android:fontFamily="@font/bentonsansmedium"
-                android:text="@string/help_and_support"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:backgroundTint="@color/white"
-                app:cornerRadius="1dp"
-                app:strokeWidth="0dp" />
-
-            <Button
                 android:id="@+id/signOutButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"

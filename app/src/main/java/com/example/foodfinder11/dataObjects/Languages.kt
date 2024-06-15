@@ -1,4 +1,4 @@
-package com.example.foodfinder11.utils
+package com.example.foodfinder11.dataObjects
 
 import android.content.Context
 import com.example.foodfinder11.R

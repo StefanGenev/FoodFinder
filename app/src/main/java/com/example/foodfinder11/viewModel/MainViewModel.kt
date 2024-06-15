@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodfinder11.R
+import com.example.foodfinder11.dataObjects.RestaurantsFilter
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.Restaurant
@@ -23,6 +24,9 @@ class MainViewModel: ViewModel() {
 
     private val foodTypesLiveData = MutableLiveData<List<FoodType>>()
     private var foodTypesLoaded = MutableLiveData<Boolean>(false)
+
+    private val restaurantsFilterLiveData = MutableLiveData<RestaurantsFilter>()
+    private val isRestaurantsFilterApplied = MutableLiveData<Boolean>(false)
 
     fun loadAllRestaurants() {
 
@@ -86,12 +90,29 @@ class MainViewModel: ViewModel() {
             })
     }
 
+    fun setRestaurantsFilter(filter: RestaurantsFilter) {
+        restaurantsFilterLiveData.value = filter
+        isRestaurantsFilterApplied.value = true
+    }
+
+    fun clearRestaurantsFilter() {
+        isRestaurantsFilterApplied.value = false
+    }
+
     fun getAllRestaurantsLiveData() : LiveData<List<Restaurant>>{
         return allRestaurantsLiveData
     }
 
     fun getFoodTypesLiveData() : LiveData<List<FoodType>>{
         return foodTypesLiveData
+    }
+
+    fun getRestaurantsFilterLiveData() : LiveData<RestaurantsFilter>{
+        return restaurantsFilterLiveData
+    }
+
+    fun isRestaurantsFilterApplied() : Boolean {
+        return isRestaurantsFilterApplied.value ?: false
     }
 
     fun getCurrentRestaurantIndex(): Int {
