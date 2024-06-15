@@ -80,6 +80,8 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
 
     override fun validateData(): Boolean {
 
+        var result = true
+
         binding.foodTypeTextField.error = ""
 
         if (selectedFoodType.name.isEmpty()) {
@@ -89,7 +91,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
             binding.foodTypeTextField.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
             binding.foodTypeTextField.invalidate()
 
-            return false
+            result = false
         }
 
         binding.phoneNumberTextInputLayout.error = ""
@@ -102,10 +104,10 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
             binding.phoneNumberTextInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
             binding.phoneNumberTextInputLayout.invalidate()
 
-            return false
+            result = false
         }
 
-        return true
+        return result
     }
 
     override fun commitData(): Boolean {
@@ -114,7 +116,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
         intent.putExtra(FOOD_TYPE, selectedFoodType)
         intent.putExtra(PRICE_RANGE, selectedPriceRange.toInt())
 
-        val phoneNumber = binding.phoneNumberTextEdit.text ?: ""
+        val phoneNumber = binding.phoneNumberTextEdit.text.toString() ?: ""
         intent.putExtra(PHONE_NUMBER, phoneNumber)
 
         startActivity(intent)

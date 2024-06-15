@@ -74,11 +74,9 @@ class UploadPhotoActivity : BaseNavigatableActivity() {
 
     override fun initializeData() {
 
-        val intent = intent
         foodType = intent.getParcelableExtraProvider<FoodType>(NewBusinessDataActivity.FOOD_TYPE) ?: FoodType()
         priceRange = intent.getIntExtra(NewBusinessDataActivity.PRICE_RANGE, 0).toEnum<PriceRanges>() ?: PriceRanges.CHEAP
-        phoneNumber = intent.getStringExtra(NewBusinessDataActivity.PHONE_NUMBER)!!
-
+        phoneNumber = intent.getStringExtra(NewBusinessDataActivity.PHONE_NUMBER)!!.toString()
     }
 
     private fun onClickChoosePhoto() {

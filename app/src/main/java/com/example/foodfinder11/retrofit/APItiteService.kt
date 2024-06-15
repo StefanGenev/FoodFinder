@@ -107,7 +107,10 @@ interface APItiteService {
     fun confirmOrder( @Body requestData: Order): Call<ResponseWrapper<NoData>>
 
     @POST("/api/orders/get_by_user")
-    fun getOrders( @Body dto: IdentifierDto): Call<ResponseWrapper<List<Order>>>
+    fun getOrdersByUserId(@Body dto: IdentifierDto): Call<ResponseWrapper<List<Order>>>
+
+    @POST("/api/orders/get_by_restaurant")
+    fun getOrdersByRestaurantId( @Body dto: IdentifierDto): Call<ResponseWrapper<List<Order>>>
 
     // USERS
     // -------------------------------

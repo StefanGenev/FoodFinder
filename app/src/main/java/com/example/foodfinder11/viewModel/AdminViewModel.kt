@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AdminViewModel: ViewModel() {
+class AdminViewModel : ViewModel() {
 
     private val allRestaurantsLiveData = MutableLiveData<List<Restaurant>>()
     private var restaurantsLoaded = MutableLiveData<Boolean>(false)

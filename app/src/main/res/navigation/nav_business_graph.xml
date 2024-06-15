@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_business_profile" />
 
     <fragment
-        android:id="@+id/profileFragment1"
-        android:name="com.example.foodfinder11.fragments.BusinessProfileFragment"
+        android:id="@+id/activeOrdersFragment"
+        android:name="com.example.foodfinder11.fragments.BusinessOrdersFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_business_profile" />
+        tools:layout="@layout/fragment_business_orders" />
 
     <fragment
         android:id="@+id/settingsFragment"

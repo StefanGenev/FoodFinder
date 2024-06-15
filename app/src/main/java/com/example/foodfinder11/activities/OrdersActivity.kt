@@ -4,13 +4,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodfinder11.R
-import com.example.foodfinder11.adapters.OrderItemsAdapter
 import com.example.foodfinder11.adapters.OrdersAdapter
 import com.example.foodfinder11.databinding.ActivityOrdersBinding
 import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Order
-import com.example.foodfinder11.model.OrderItem
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.SessionManager
 import retrofit2.Call
@@ -46,7 +44,7 @@ class OrdersActivity : BaseNavigatableActivity() {
 
         val dto = IdentifierDto(id = SessionManager.fetchUserData().id)
 
-        RetrofitInstance.getApiService().getOrders(dto)
+        RetrofitInstance.getApiService().getOrdersByUserId(dto)
             .enqueue(object : Callback<ResponseWrapper<List<Order>>> {
 
                 override fun onResponse(

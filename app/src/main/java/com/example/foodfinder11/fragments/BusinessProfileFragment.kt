@@ -215,14 +215,15 @@ class BusinessProfileFragment : Fragment() {
         binding.chipCategory.text = restaurant.foodType.name
         binding.chipPrice.text = restaurant.priceRange.getName(binding.chipPrice.context)
 
-        //TODO: Rating logic
-        /*
-        if (restaurant.rating > 0.0)
-            binding.tvRating.text = "${restaurant.rating} rating"
+        if (restaurantDetails.averageRating > 0.0)
+            binding.tvRating.text = "${restaurantDetails.averageRating} ${getString(R.string.rating)}"
         else
             binding.tvRating.visibility = View.GONE
 
-         */
+        if (restaurantDetails.totalOrders > 0)
+            binding.tvOrders.text = "${restaurantDetails.totalOrders} ${getString(R.string.orders_small)}"
+        else
+            binding.tvOrders.visibility = View.GONE
 
         if (restaurant.status == RestaurantStatuses.HIDDEN) {
 

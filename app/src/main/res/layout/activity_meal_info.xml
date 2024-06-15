@@ -156,12 +156,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp">
 
-                <com.example.foodfinder11.views.BaseInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/descriptionInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/description"
-                    app:counterMaxLength="256"
+                    android:hint="@string/price"
+                    app:counterMaxLength="255"
+                    app:counterEnabled="true"
+                    app:boxStrokeColor="@color/forest"
                     app:endIconMode="clear_text"
                     app:hintTextColor="@color/forest">
 
@@ -169,9 +171,10 @@
                         android:id="@+id/descriptionTextEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLength="256"
                         android:inputType="text" />
 
-                </com.example.foodfinder11.views.BaseInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 

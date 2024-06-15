@@ -247,7 +247,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
     private fun loadMeals() {
 
-        val restaurantId = SessionManager.fetchRestaurantDetails().restaurant.id
+        val restaurantId = restaurantDetails.restaurant.id
         val dto = IdentifierDto(id = restaurantId)
 
         RetrofitInstance.getApiService().getVisibleMeals(dto)
@@ -302,7 +302,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
             binding.tvRating.visibility = View.GONE
 
         if (restaurantDetails.totalOrders > 0)
-            binding.tvOrders.text = "${restaurantDetails.totalOrders}+ ${getString(R.string.orders_small)}"
+            binding.tvOrders.text = "${restaurantDetails.totalOrders} ${getString(R.string.orders_small)}"
         else
             binding.tvOrders.visibility = View.GONE
 
