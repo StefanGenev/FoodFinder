@@ -99,6 +99,7 @@
                 app:layout_dodgeInsetEdges="bottom">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:theme="@style/FAB"
                     android:id="@+id/discard_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,6 +111,7 @@
                     app:tint="@color/salva" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:theme="@style/FAB"
                     android:id="@+id/details_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -122,6 +124,7 @@
             </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:theme="@style/FAB"
                 android:id="@+id/favorite_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
