@@ -66,7 +66,8 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
 
         updateTotal()
         updatePaymentMethod()
-        binding.address.text = getString(R.string.choose_address)
+        binding.address.text =
+            getString(R.string.choose_a_location_where_the_food_will_be_delivered)
 
         binding.chooseAddressLayout.setOnClickListener {
             onClickSelectLocation()
@@ -201,7 +202,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
 
     private fun showSelectedLocation(address: Address) {
         binding.address.text = AddressUtils.getAddressVisualisationText(address)
-        binding.addressLayout.invalidate()
+        binding.chooseAddressLayout.invalidate()
     }
 
     private fun onClickSelectLocation() {

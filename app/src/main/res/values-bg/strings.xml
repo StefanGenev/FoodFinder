@@ -12,7 +12,7 @@
     <string name="contacts">Контакти</string>
     <string name="choose_address">Избери адрес</string>
     <string name="choose_address_subtitle">Локация на вашето заведение</string>
-    <string name="select_location_from_map">Избор на локация от карта</string>
+    <string name="select_location_from_map">Избор на локация от карта \n</string>
     <string name="payment_method">Метод на плащане</string>
     <string name="in_cash">Наложен платеж</string>
     <string name="with_card">С карта</string>
@@ -167,4 +167,5 @@
     <string name="no_active_orders_found">Не са намерени активни поръчки</string>
     <string name="contacts_double">Контакти:</string>
     <string name="developed_by_stefan_genev">Разработено от Стефан Генев</string>
+    <string name="choose_a_location_where_the_food_will_be_delivered">Изберете локация от картата \n</string>
 </resources>

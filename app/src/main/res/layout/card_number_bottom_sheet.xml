@@ -33,8 +33,9 @@
                 android:id="@+id/menu_image"
                 android:layout_width="40dp"
                 android:layout_height="3dp"
+                android:elevation="@dimen/_5sdp"
                 android:layout_alignParentTop="true"
-                android:background="@color/light_gray"
+                android:background="@color/light_lemon"
                 android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>
@@ -66,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bentonsansmedium"
                 android:imeOptions="actionDone"
+                android:maxLength="20"
                 android:inputType="number"
                 android:singleLine="true" />
 

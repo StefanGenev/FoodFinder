@@ -118,6 +118,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:drawableLeft="@drawable/phone"
                 android:drawableTint="@color/forest"
+                android:drawablePadding="@dimen/_5sdp"
                 android:fontFamily="@font/bentonsanslight"
                 android:text="+359 888 654"
                 android:gravity="center_vertical"

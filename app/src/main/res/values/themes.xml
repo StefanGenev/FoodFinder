@@ -11,7 +11,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/forest</item>
         <item name="colorPrimaryVariant">@color/light_forest</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/background_gray</item>
@@ -134,6 +134,7 @@
     <style name="FAB" parent="Base.Theme.FoodFinder11">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
+        <item name="colorSecondary">@color/light_forest</item>
     </style>
 
 </resources>

@@ -123,10 +123,17 @@ class ReviewsActivity : BaseNavigatableActivity() {
 
     private fun initReviews() {
 
-        binding.emptyStateLayout.visibility = if (reviews.isEmpty()) View.VISIBLE else View.GONE
+        if (reviews.isNotEmpty()) {
 
-        val averageRating = reviews.sumOf { it.rating }.toDouble()/reviews.size
-        binding.tvAverage.text = getString(R.string.average, averageRating.toString())
+            binding.emptyStateLayout.visibility = View.GONE
+
+            val averageRating = reviews.sumOf { it.rating }.toDouble()/reviews.size
+            binding.tvAverage.text = getString(R.string.average, averageRating.toString())
+
+        } else {
+            binding.tvAverage.visibility = View.GONE
+            binding.emptyStateLayout.visibility = View.VISIBLE
+        }
 
         reviewsAdapter = ReviewsAdapter()
 

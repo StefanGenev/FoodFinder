@@ -15,7 +15,7 @@
     <string name="contacts">Contacts</string>
     <string name="choose_address">Choose address</string>
     <string name="choose_address_subtitle">The location of your establishment</string>
-    <string name="select_location_from_map">Select location from map</string>
+    <string name="select_location_from_map">Select location from map \n</string>
     <string name="payment_method">Payment method</string>
     <string name="in_cash">In Cash</string>
     <string name="with_card">With card</string>
@@ -170,4 +170,5 @@
     <string name="no_active_orders_found">No active orders found</string>
     <string name="contacts_double">Contacts:</string>
     <string name="developed_by_stefan_genev">Developed by Stefan Genev</string>
+    <string name="choose_a_location_where_the_food_will_be_delivered">Choose a location from the map \n</string>
 </resources>

@@ -123,19 +123,6 @@ class RestaurantActivity : BaseNavigatableActivity() {
                 )
             )
 
-            binding.buttonTwo.setBackgroundColor(
-                ContextCompat.getColor(
-                    applicationContext,
-                    R.color.light_forest
-                )
-            )
-            binding.buttonTwo.setColorFilter(
-                ContextCompat.getColor(
-                    applicationContext,
-                    R.color.forest
-                )
-            )
-
             binding.buttonTwo.setOnClickListener {
                 onEditRestaurant()
             }
@@ -174,10 +161,13 @@ class RestaurantActivity : BaseNavigatableActivity() {
 
             override fun onClickListener(menuItem: Meal) {
 
-                val intent = Intent(this@RestaurantActivity, OrderItemActivity::class.java)
-                intent.putExtra(RestaurantActivity.MEAL, menuItem)
+                if (SessionManager.fetchUserData().role == Roles.CUSTOMER) {
 
-                startOrderItemActivityForResult.launch(intent)
+                    val intent = Intent(this@RestaurantActivity, OrderItemActivity::class.java)
+                    intent.putExtra(RestaurantActivity.MEAL, menuItem)
+
+                    startOrderItemActivityForResult.launch(intent)
+                }
             }
 
         })
