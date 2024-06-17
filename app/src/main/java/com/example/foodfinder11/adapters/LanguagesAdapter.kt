@@ -11,11 +11,12 @@ import com.example.foodfinder11.databinding.LanguageCardItemBinding
 import com.example.foodfinder11.dataObjects.Languages
 import com.example.foodfinder11.utils.SessionManager
 
-class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.LanguagesViewHolder>(){
+class LanguagesAdapter : RecyclerView.Adapter<LanguagesAdapter.LanguagesViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
 
-    inner class LanguagesViewHolder(val binding: LanguageCardItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class LanguagesViewHolder(val binding: LanguageCardItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     private val diffUtil = object : DiffUtil.ItemCallback<Languages>() {
 
@@ -29,9 +30,13 @@ class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.LanguagesViewHolde
     }
 
     val differ = AsyncListDiffer(this, diffUtil)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LanguagesAdapter.LanguagesViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): LanguagesAdapter.LanguagesViewHolder {
         return LanguagesViewHolder(
-            LanguageCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false) )
+            LanguageCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: LanguagesAdapter.LanguagesViewHolder, position: Int) {
@@ -45,8 +50,20 @@ class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.LanguagesViewHolde
             }
         }
 
-        if (SessionManager.fetchLanguageLocale() == language.getLocale())
-            holder.binding.container.setBackgroundColor(ContextCompat.getColor(holder.binding.container.context, R.color.light_forest))
+        if (SessionManager.fetchLanguageLocale() == language.getLocale()) {
+            holder.binding.container.setBackgroundColor(
+                ContextCompat.getColor(
+                    holder.binding.container.context,
+                    R.color.forest
+                )
+            )
+            holder.binding.tvName.setTextColor(
+                ContextCompat.getColor(
+                    holder.binding.container.context,
+                    R.color.white
+                )
+            )
+        }
     }
 
     override fun getItemCount(): Int {

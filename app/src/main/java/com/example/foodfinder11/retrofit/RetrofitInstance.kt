@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
     //private const val API_BASE_URL = "http://10.0.2.2:8080/"
-    private const val API_BASE_URL = "http://192.168.0.71:8080/"
+    private const val API_BASE_URL = "http://192.168.0.101:8080/"
 
     private lateinit var apiService: APItiteService
 

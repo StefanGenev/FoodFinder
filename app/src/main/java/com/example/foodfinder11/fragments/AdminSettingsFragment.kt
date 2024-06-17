@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.foodfinder11.R
+import com.example.foodfinder11.activities.AboutUsActivity
 import com.example.foodfinder11.activities.ChangeLanguageActivity
 import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.FragmentAdminSettingsBinding
@@ -45,6 +46,10 @@ class AdminSettingsFragment : Fragment() {
             onChangeLanguage()
         }
 
+        binding.aboutUsButton.setOnClickListener {
+            onAboutUs()
+        }
+
         binding.signOutButton.setOnClickListener {
             onSignOut()
         }
@@ -53,6 +58,11 @@ class AdminSettingsFragment : Fragment() {
     private fun onChangeLanguage() {
         val intent = Intent(activity, ChangeLanguageActivity::class.java)
         startLanguagesActivityForResult.launch(intent)
+    }
+
+    private fun onAboutUs() {
+        val intent = Intent(activity, AboutUsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onSignOut() {

@@ -1,6 +1,7 @@
 package com.example.foodfinder11.activities
 
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.example.foodfinder11.R
@@ -19,6 +20,8 @@ abstract class BaseMainActivity : BaseNavigatableActivity() {
         val navController = Navigation.findNavController(this, R.id.host_fragment)
 
         NavigationUI.setupWithNavController(bottomNavigation, navController)
+
+        bottomNavigation.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.white))
     }
 
     override fun setLayoutLimitFlags() {

@@ -81,6 +81,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
             // show back button on toolbar
             // on back button press, it will navigate to parent activity
             setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.previous);
             setDisplayShowHomeEnabled(true)
         }
     }

@@ -11,21 +11,21 @@
         android:id="@+id/pattern2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
         android:rotationX="180"
+        android:scaleType="fitEnd"
         android:src="@drawable/food_pattern_diagonal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/pattern1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
         android:rotationX="180"
+        android:scaleType="fitEnd"
         android:src="@drawable/food_pattern_diagonal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,12 +33,12 @@
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_50sdp"
         android:clipToPadding="false"
+        android:clipChildren="false"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/mealImageCard"
@@ -55,7 +55,7 @@
                 android:layout_width="40dp"
                 android:layout_height="3dp"
                 android:layout_alignParentTop="true"
-                android:background="@color/light_gray"
+                android:background="@color/light_lemon"
                 android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>
@@ -135,7 +135,6 @@
         </com.google.android.material.chip.ChipGroup>
 
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -165,8 +164,8 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:fontFamily="@font/bentonsansmedium"
             android:drawableTint="@color/salva"
+            android:fontFamily="@font/bentonsansmedium"
             android:text="@string/clear_filter"
             android:textColor="@color/salva"
             android:textSize="18sp"

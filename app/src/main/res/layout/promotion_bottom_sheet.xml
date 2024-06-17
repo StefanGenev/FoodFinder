@@ -56,7 +56,7 @@
                 android:layout_width="40dp"
                 android:layout_height="3dp"
                 android:layout_alignParentTop="true"
-                android:background="@color/light_gray"
+                android:background="@color/light_lemon"
                 android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>

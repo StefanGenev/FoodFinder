@@ -47,6 +47,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.HistoryItemsViewHolder>
             description += "${orderItem.toString()} \n"
         }
 
+        holder.binding.description.text = description
+
         holder.binding.price.text = "${String.format("%.2f", order.getOrderPrice())} " +
                 "${holder.binding.price.context.getString(
             R.string.lev)}"

@@ -165,4 +165,6 @@
     <string name="no_users_matching_filter">Няма потребители, съответстващи на филтъра</string>
     <string name="are_you_sure_you_want_to_delete_this_user">Сигурни ли сте, че искате да изтриете този потребител?</string>
     <string name="no_active_orders_found">Не са намерени активни поръчки</string>
+    <string name="contacts_double">Контакти:</string>
+    <string name="developed_by_stefan_genev">Разработено от Стефан Генев</string>
 </resources>
