@@ -60,6 +60,9 @@ class ReviewActivity : BaseNavigatableActivity() {
                       binding.ratingButton3,
                       binding.ratingButton4,
                       binding.ratingButton5)
+
+        binding.ratingButton5.callOnClick()
+        binding.ratingButton5.callOnClick()
     }
 
     override fun commitData(): Boolean {
@@ -120,6 +123,7 @@ class ReviewActivity : BaseNavigatableActivity() {
             mButton4.isChecked = false
             mButton3.isChecked = false
             mButton2.isChecked = false
+            mButton1.isChecked = true
 
             rating = 1
         }

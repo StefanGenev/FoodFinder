@@ -28,6 +28,7 @@ data class Order(
     var paymentMethod: PaymentMethods = PaymentMethods.CASH,
     var cardNumber: String = "",
     var address: String = "",
+    var deliveryPrice: Double = 0.0,
     var orderItems: MutableList<OrderItem> = mutableListOf(),
     var orderedOn: Date = Date(),
     var deliveredOn: Date = Date(),

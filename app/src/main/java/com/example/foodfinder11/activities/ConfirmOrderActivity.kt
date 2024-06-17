@@ -12,19 +12,14 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.ActivityConfirmOrderBinding
-import com.example.foodfinder11.dto.NoData
-import com.example.foodfinder11.dto.RegisterResponseDto
+import com.example.foodfinder11.dto.ConfirmOrderRequestDto
+import com.example.foodfinder11.dto.ConfirmOrderResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
-import com.example.foodfinder11.model.FoodType
-import com.example.foodfinder11.model.PaymentMethods
-import com.example.foodfinder11.model.PriceRanges
-import com.example.foodfinder11.model.Roles
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.AddressUtils
 import com.example.foodfinder11.utils.Constants
 import com.example.foodfinder11.utils.SessionManager
 import com.example.foodfinder11.utils.getParcelableExtraProvider
-import com.example.foodfinder11.utils.toEnum
 import com.google.android.gms.maps.model.LatLng
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,6 +37,8 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
     private val mapsActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
         if (result.resultCode == Activity.RESULT_OK) {
+
+            binding.locationError.visibility = View.GONE
 
             val intent = result.data
             latLng = intent?.getParcelableExtraProvider<LatLng>(MapsActivity.PICKED_POINT)!!
@@ -103,21 +100,31 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
     private fun confirmOrderRequest() {
 
         var order = SessionManager.fetchOrder()
-        order.address = AddressUtils.getStringFromLatLng(latLng)
 
-        RetrofitInstance.getApiService().confirmOrder(order)
-            .enqueue(object : Callback<ResponseWrapper<NoData>> {
+        var dto = ConfirmOrderRequestDto(restaurantId = order.restaurant.id,
+            userId = order.user.id,
+            paymentMethod = order.paymentMethod,
+            address = AddressUtils.getStringFromLatLng(latLng),
+            cardNumber = order.cardNumber,
+            orderItems = order.orderItems,
+            deliveryPrice = Constants.DEFAULT_DELIVERY_PRICE
+            )
+
+        RetrofitInstance.getApiService().confirmOrder(dto)
+            .enqueue(object : Callback<ResponseWrapper<ConfirmOrderResponseDto>> {
 
                 override fun onResponse(
-                    call: Call<ResponseWrapper<NoData>>,
-                    response: Response<ResponseWrapper<NoData>>
+                    call: Call<ResponseWrapper<ConfirmOrderResponseDto>>,
+                    response: Response<ResponseWrapper<ConfirmOrderResponseDto>>
                 ) {
 
                     val responseBody = response.body().takeIf { it != null } ?: return
 
                     if (responseBody.status == 200) {
 
-                        startNextActivity()
+                        val responseData = responseBody.data.takeIf { it != null } ?: return
+
+                        startNextActivity(responseData)
 
                     } else {
                         Toast.makeText(this@ConfirmOrderActivity, responseBody.message, Toast.LENGTH_SHORT).show()
@@ -125,7 +132,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
                 }
 
                 override fun onFailure(
-                    call: Call<ResponseWrapper<NoData>>,
+                    call: Call<ResponseWrapper<ConfirmOrderResponseDto>>,
                     t: Throwable
                 ) {
                     Toast.makeText(this@ConfirmOrderActivity, getString(R.string.problem_with_request), Toast.LENGTH_SHORT).show()
@@ -133,10 +140,11 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
             })
     }
 
-    private fun startNextActivity() {
+    private fun startNextActivity(response: ConfirmOrderResponseDto) {
 
         val intent = Intent(this@ConfirmOrderActivity, SuccessfulOrderActivity::class.java)
         intent.putExtra(SuccessfulOrderActivity.RESTAURANT, SessionManager.fetchOrder().restaurant)
+        intent.putExtra(SuccessfulOrderActivity.REVIEW_PERMISSION, response.canWriteReview)
         startActivity(intent)
 
         SessionManager.resetOrder()

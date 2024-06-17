@@ -83,7 +83,7 @@
                         android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/bentonsans"
                         android:gravity="right"
                         android:maxLines="1"

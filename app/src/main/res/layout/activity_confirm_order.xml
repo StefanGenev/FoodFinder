@@ -69,7 +69,7 @@
             android:id="@+id/chooseAddressLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/rounded_edge"
             android:elevation="2dp"
             android:orientation="vertical"

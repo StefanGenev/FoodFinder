@@ -61,10 +61,10 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:clickable="true"
         android:src="@drawable/ic_favorite"
-        app:backgroundTint="@color/pink"
+        app:backgroundTint="@color/light_lemon"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end"
-        app:tint="@color/red" />
+        app:tint="@color/lemon" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
@@ -143,7 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_20sdp"
-                        android:drawableLeft="@drawable/star"
+                        android:drawableLeft="@drawable/ic_star"
                         android:drawablePadding="@dimen/_5sdp"
                         android:gravity="center_vertical"
                         android:drawableTint="@color/forest"

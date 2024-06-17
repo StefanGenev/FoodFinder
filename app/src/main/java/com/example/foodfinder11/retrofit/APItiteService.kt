@@ -5,6 +5,8 @@ import com.example.foodfinder11.dto.AddReviewRequestDto
 import com.example.foodfinder11.dto.ChangeRestaurantStatusRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsRequestDto
 import com.example.foodfinder11.dto.CheckIfEmailExistsResponseDto
+import com.example.foodfinder11.dto.ConfirmOrderRequestDto
+import com.example.foodfinder11.dto.ConfirmOrderResponseDto
 import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.LoginRequestDto
 import com.example.foodfinder11.dto.LoginResponseDto
@@ -104,7 +106,7 @@ interface APItiteService {
     // -------------------------------
 
     @POST("/api/orders/confirm")
-    fun confirmOrder( @Body requestData: Order): Call<ResponseWrapper<NoData>>
+    fun confirmOrder( @Body requestData: ConfirmOrderRequestDto): Call<ResponseWrapper<ConfirmOrderResponseDto>>
 
     @POST("/api/orders/get_by_user")
     fun getOrdersByUserId(@Body dto: IdentifierDto): Call<ResponseWrapper<List<Order>>>

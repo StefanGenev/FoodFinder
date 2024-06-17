@@ -79,7 +79,7 @@ class OrderItemActivity : BaseNavigatableActivity() {
 
         binding.mealName.text = meal.name
         binding.mealDescription.text = meal.description
-        binding.mealPrice.text = "${String.format("%.2f", meal.price)} ${
+        binding.mealPrice.text = "${String.format("%.2f", meal.getActualPrice())} ${
             binding.mealPrice.context.getString(
                 R.string.lev
             )

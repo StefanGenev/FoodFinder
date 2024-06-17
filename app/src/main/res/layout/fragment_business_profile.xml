@@ -174,7 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_20sdp"
-                        android:drawableLeft="@drawable/star"
+                        android:drawableLeft="@drawable/ic_star"
                         android:drawablePadding="@dimen/_5sdp"
                         android:drawableTint="@color/forest"
                         android:fontFamily="@font/bentonsansmedium"

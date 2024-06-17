@@ -130,7 +130,7 @@
                 app:backgroundTint="@color/white"
                 app:borderWidth="0dp"
                 app:elevation="5dp"
-                app:tint="@color/red" />
+                app:tint="@color/lemon" />
 
         </LinearLayout>
 

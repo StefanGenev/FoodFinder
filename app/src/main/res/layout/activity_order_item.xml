@@ -17,17 +17,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:onClick="onGoBack"
         android:scaleType="center"
-        app:backgroundTint="@color/background_gray"
+        app:backgroundTint="@color/light_salva"
         app:fabCustomSize="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="18dp"
-        app:srcCompat="@drawable/close_small"
-        app:tint="@color/black" />
+        app:srcCompat="@drawable/back"
+        app:tint="@color/salva" />
 
     <ImageView
         android:id="@+id/mealPhoto"
@@ -59,7 +59,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
