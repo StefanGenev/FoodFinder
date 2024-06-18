@@ -40,6 +40,19 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    packaging {
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+        )
+        )
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {
@@ -48,6 +61,11 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.compose.ui:ui-text-android:1.6.8")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation(kotlin("test"))
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+    testImplementation("org.junit.vintage:junit-vintage-engine:5.8.0")
+
     val nav_version = "2.3.5"
     val lifecycle_version = "2.4.0-rc01"
 
@@ -55,7 +73,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -92,7 +109,4 @@ dependencies {
 
     // Material
     implementation("com.google.android.material:material:1.3.0")
-
-
-
 }
