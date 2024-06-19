@@ -2,6 +2,6 @@ package com.example.foodfinder11.dto
 
 data class SaveRestaurantLocationRequestDto(
 
-    var restaurantId: Long,
-    var address: String
+    var restaurantId: Long = 0,
+    var address: String = ""
 )
