@@ -39,7 +39,7 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
         holder.binding.name.text = user.name
         holder.binding.email.text = user.email
 
-        holder.binding.removeButton.setOnClickListener {
+        holder.binding.cardView.setOnClickListener {
             onItemClick.onClickListener(user, position)
         }
     }

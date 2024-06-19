@@ -23,7 +23,6 @@ import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.RestaurantDetailsResponseDto
 import com.example.foodfinder11.model.Meal
-import com.example.foodfinder11.model.Restaurant
 import com.example.foodfinder11.model.RestaurantStatuses
 import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.utils.SessionManager
@@ -212,7 +211,7 @@ class BusinessProfileFragment : Fragment() {
             .load(restaurant.imageUrl)
             .into(binding.coverPhoto)
 
-        binding.chipCategory.text = restaurant.foodType.name
+        binding.chipCategory.text = restaurant.foodType.getLocalName()
         binding.chipPrice.text = restaurant.priceRange.getName(binding.chipPrice.context)
 
         if (restaurantDetails.averageRating > 0.0)

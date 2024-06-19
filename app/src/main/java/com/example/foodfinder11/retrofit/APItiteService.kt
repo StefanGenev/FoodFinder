@@ -17,6 +17,8 @@ import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
 import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.RestaurantDetailsResponseDto
+import com.example.foodfinder11.dto.SaveFoodTypeRequestDto
+import com.example.foodfinder11.dto.SaveFoodTypeResponseDto
 import com.example.foodfinder11.dto.SaveMealRequestDto
 import com.example.foodfinder11.dto.SaveMealResponseDto
 import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
@@ -87,6 +89,12 @@ interface APItiteService {
     @GET("/api/food_types/get-all")
     fun getAllFoodTypes() : Call<ResponseWrapper<List<FoodType>>>
 
+    @POST("/api/food_types/save")
+    fun saveFoodType( @Body requestData: SaveFoodTypeRequestDto): Call<ResponseWrapper<SaveFoodTypeResponseDto>>
+
+    @HTTP(method = "DELETE", path = "/api/food_types/delete", hasBody = true)
+    fun deleteFoodType( @Body dto: IdentifierDto): Call<ResponseWrapper<NoData>>
+
     // MEALS
     // -------------------------------
 
@@ -125,6 +133,7 @@ interface APItiteService {
 
     // REVIEWS
     // -------------------------------
+
     @POST("/api/reviews/get_by_restaurant")
     fun getReviewsByRestaurantId(@Body dto: IdentifierDto) : Call<ResponseWrapper<List<Review>>>
 

@@ -46,7 +46,8 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/custom_edittext"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -63,20 +64,6 @@
             app:icon="@drawable/email"
             app:iconSize="@dimen/_20sdp"
             app:iconTint="@color/white"
-            android:fontFamily="@font/bentonsansmedium"/>
-
-        <Button
-            android:id="@+id/facebookButton"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:text="@string/facebook_button"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:backgroundTint="@color/facebook_blue"
-            app:icon="@drawable/fcbk"
-            app:iconSize="@dimen/_20sdp"
-            app:iconTint="@null"
             android:fontFamily="@font/bentonsansmedium"/>
 
     </LinearLayout>

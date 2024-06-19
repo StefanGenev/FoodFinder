@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.AboutUsActivity
 import com.example.foodfinder11.activities.ChangeLanguageActivity
+import com.example.foodfinder11.activities.FoodTypesActivity
 import com.example.foodfinder11.activities.WelcomeActivity
 import com.example.foodfinder11.databinding.FragmentAdminSettingsBinding
 import com.example.foodfinder11.utils.SessionManager
@@ -42,6 +43,10 @@ class AdminSettingsFragment : Fragment() {
 
         binding.tvProfileName.text = "admin"
 
+        binding.foodTypesButton.setOnClickListener {
+            onFoodTypes()
+        }
+
         binding.languageButton.setOnClickListener {
             onChangeLanguage()
         }
@@ -53,6 +58,11 @@ class AdminSettingsFragment : Fragment() {
         binding.signOutButton.setOnClickListener {
             onSignOut()
         }
+    }
+
+    private fun onFoodTypes() {
+        val intent = Intent(activity, FoodTypesActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onChangeLanguage() {

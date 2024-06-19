@@ -33,7 +33,7 @@ class FoodTypesAdapter : RecyclerView.Adapter<FoodTypesAdapter.FoodTypesViewHold
     override fun onBindViewHolder(holder: FoodTypesAdapter.FoodTypesViewHolder, position: Int) {
 
         val foodType = differ.currentList[position]
-        holder.binding.tvName.text = foodType.name
+        holder.binding.tvName.text = foodType.getLocalName()
 
        holder.binding.container.setOnClickListener {
            if (onClickListener != null) {

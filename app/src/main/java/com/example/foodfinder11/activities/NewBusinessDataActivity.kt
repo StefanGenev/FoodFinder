@@ -12,7 +12,6 @@ import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.PriceRanges
 import com.example.foodfinder11.retrofit.RetrofitInstance
-import com.example.foodfinder11.utils.Constants
 import com.example.foodfinder11.utils.getParcelableExtraProvider
 import com.example.foodfinder11.utils.toInt
 import com.google.android.material.textfield.TextInputLayout
@@ -43,7 +42,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
             selectedFoodType = intent?.getParcelableExtraProvider<FoodType>(FoodTypesActivity.FOOD_TYPE)
                 ?: FoodType()
 
-            binding.foodTypeTextEdit.setText(selectedFoodType.name)
+            binding.foodTypeTextEdit.setText(selectedFoodType.getLocalName())
             binding.foodTypeTextField.error = ""
         }
     }
@@ -84,7 +83,7 @@ class NewBusinessDataActivity : BaseNavigatableActivity() {
 
         binding.foodTypeTextField.error = ""
 
-        if (selectedFoodType.name.isEmpty()) {
+        if (selectedFoodType.getLocalName().isEmpty()) {
 
             binding.foodTypeTextField.error =
                 getString(R.string.you_must_choose_food_type_before_continuing)

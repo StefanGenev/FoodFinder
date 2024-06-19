@@ -17,6 +17,8 @@ import com.example.foodfinder11.dto.RegisterRestaurantRequestDto
 import com.example.foodfinder11.dto.RegisterRestaurantResponseDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.dto.RestaurantDetailsResponseDto
+import com.example.foodfinder11.dto.SaveFoodTypeRequestDto
+import com.example.foodfinder11.dto.SaveFoodTypeResponseDto
 import com.example.foodfinder11.dto.SaveMealRequestDto
 import com.example.foodfinder11.dto.SaveMealResponseDto
 import com.example.foodfinder11.dto.SaveRestaurantLocationRequestDto
@@ -60,6 +62,9 @@ class APItiteServiceTest {
     fun afterEach() {
         server.shutdown()
     }
+
+    // AUTHENTICATION
+    // -------------------------------
 
     @Test
     fun `login, returns Success`() = run {
@@ -111,6 +116,9 @@ class APItiteServiceTest {
 
         assertEquals(data.body()!!, dto)
     }
+
+    // RESTAURANTS
+    // -------------------------------
 
     @Test
     fun `getAllRestaurants, returns Success`() = run {
@@ -282,6 +290,9 @@ class APItiteServiceTest {
         assertEquals(data.body()!!, dto)
     }
 
+    // FOOD TYPES
+    // -------------------------------
+
     @Test
     fun `getAllFoodTypes, returns Success`() = run {
 
@@ -298,6 +309,43 @@ class APItiteServiceTest {
 
         assertEquals(data.body()!!, dto)
     }
+
+    @Test
+    fun `saveFoodType, returns Success`() = run {
+
+        val dto = ResponseWrapper<SaveFoodTypeResponseDto>()
+        val gson: Gson = GsonBuilder().create()
+        val json = gson.toJson(dto)!!
+
+        val res = MockResponse()
+        res.setBody(json)
+        server.enqueue(res)
+
+        val data = api.saveFoodType(SaveFoodTypeRequestDto()).execute()
+        server.takeRequest()
+
+        assertEquals(data.body()!!, dto)
+    }
+
+    @Test
+    fun `deleteFoodType, returns Success`() = run {
+
+        val dto = ResponseWrapper<NoData>()
+        val gson: Gson = GsonBuilder().create()
+        val json = gson.toJson(dto)!!
+
+        val res = MockResponse()
+        res.setBody(json)
+        server.enqueue(res)
+
+        val data = api.deleteFoodType(IdentifierDto()).execute()
+        server.takeRequest()
+
+        assertEquals(data.body()!!, dto)
+    }
+
+    // MEALS
+    // -------------------------------
 
     @Test
     fun `getMeals, returns Success`() = run {
@@ -367,6 +415,9 @@ class APItiteServiceTest {
         assertEquals(data.body()!!, dto)
     }
 
+    // ORDERS
+    // -------------------------------
+
     @Test
     fun `confirmOrder, returns Success`() = run {
 
@@ -418,6 +469,9 @@ class APItiteServiceTest {
         assertEquals(data.body()!!, dto)
     }
 
+    // USERS
+    // -------------------------------
+
     @Test
     fun `getCustomers, returns Success`() = run {
 
@@ -451,6 +505,9 @@ class APItiteServiceTest {
 
         assertEquals(data.body()!!, dto)
     }
+
+    // REVIEWS
+    // -------------------------------
 
     @Test
     fun `getReviewsByRestaurantId, returns Success`() = run {

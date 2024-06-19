@@ -6,25 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.Glide
-import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.RestaurantActivity
 import com.example.foodfinder11.adapters.RestaurantsAdapter
 import com.example.foodfinder11.dataObjects.RestaurantsFilter
 import com.example.foodfinder11.databinding.FragmentSearchBinding
-import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.FoodType
-import com.example.foodfinder11.model.PriceRanges
 import com.example.foodfinder11.model.Restaurant
-import com.example.foodfinder11.retrofit.RetrofitInstance
 import com.example.foodfinder11.viewModel.MainViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.Locale
 
 interface SearchRestaurantsFilterContract {
@@ -157,8 +148,13 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
             )
         ) || textFilter.isEmpty()
 
+        val foodTypeEnglishMatches = restaurant.foodType.nameEnglish.lowercase(Locale.getDefault()).contains(
+            textFilter.lowercase(
+                Locale.getDefault()
+            )
+        ) || textFilter.isEmpty()
 
-        return nameMatches || foodTypeMatches
+        return nameMatches || foodTypeMatches || foodTypeEnglishMatches
     }
 
     private fun checkIfFilterMatches(restaurant: Restaurant): Boolean {
@@ -172,7 +168,7 @@ class SearchRestaurantsFragment : Fragment(), SearchRestaurantsFilterContract {
             val priceRangeMatches =
                 if (filter.hasSelectedPriceRange) restaurant.priceRange == filter.priceRange else true
             val foodTypeMatches =
-                if (filter.foodType.isNotEmpty()) restaurant.foodType.name == filter.foodType else true
+                if (filter.foodType.isNotEmpty()) restaurant.foodType.getLocalName() == filter.foodType else true
 
             filterMatches = priceRangeMatches && foodTypeMatches
         }

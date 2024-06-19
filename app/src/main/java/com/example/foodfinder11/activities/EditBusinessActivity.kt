@@ -24,7 +24,6 @@ import com.example.foodfinder11.utils.AddressUtils
 import com.example.foodfinder11.utils.CloudinaryManager
 import com.example.foodfinder11.utils.Constants
 import com.example.foodfinder11.utils.getParcelableExtraProvider
-import com.example.foodfinder11.utils.toInt
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
@@ -61,7 +60,7 @@ class EditBusinessActivity : BaseNavigatableActivity() {
             selectedFoodType = intent?.getParcelableExtraProvider<FoodType>(FoodTypesActivity.FOOD_TYPE)
                 ?: FoodType()
 
-            binding.foodTypeTextEdit.setText(selectedFoodType.name)
+            binding.foodTypeTextEdit.setText(selectedFoodType.getLocalName())
         }
     }
 
@@ -114,7 +113,7 @@ class EditBusinessActivity : BaseNavigatableActivity() {
     override fun initializeViews() {
 
         binding.nameTextEdit.setText(restaurant.name)
-        binding.foodTypeTextEdit.setText(restaurant.foodType.name)
+        binding.foodTypeTextEdit.setText(restaurant.foodType.getLocalName())
 
         checkSelectedPriceChip()
 
@@ -174,7 +173,7 @@ class EditBusinessActivity : BaseNavigatableActivity() {
 
         binding.foodTypeTextField.error = ""
 
-        if (selectedFoodType.name.isEmpty()) {
+        if (selectedFoodType.getLocalName().isEmpty()) {
 
             binding.foodTypeTextField.error =
                 getString(R.string.you_must_choose_food_type_before_continuing)

@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.foodfinder11.R
 import com.example.foodfinder11.dataObjects.RestaurantsFilter
-import com.example.foodfinder11.model.FoodType
 import com.example.foodfinder11.model.PriceRanges
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
@@ -99,7 +97,7 @@ class SearchRestaurantsFilterBottomSheet: BottomSheetDialogFragment() {
 
     private fun initFoodTypesMenu() {
 
-        var items = searchRestaurantsFilterContract.getFoodTypes().map { it -> it.name }.toMutableList()
+        var items = searchRestaurantsFilterContract.getFoodTypes().map { it -> it.getLocalName() }.toMutableList()
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
 
         val foodTypesEditText = getView()?.findViewById<AutoCompleteTextView>(R.id.foodTypeTextEdit)

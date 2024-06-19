@@ -325,8 +325,8 @@ class MealInfoActivity : BaseNavigatableActivity(), PromotionDialogActivityContr
 
     private fun saveMealRequest() {
 
-        meal.name = binding.nameTextEdit.text.toString()
-        meal.description = binding.descriptionTextEdit.text.toString()
+        meal.name = binding.nameTextEdit.text.toString().trim()
+        meal.description = binding.descriptionTextEdit.text.toString().trim()
         meal.price = binding.priceEditText.text.toString().toDouble()
 
         val dto = SaveMealRequestDto(meal)

@@ -284,7 +284,7 @@ class RestaurantActivity : BaseNavigatableActivity() {
             .load(restaurant.imageUrl)
             .into(binding.coverPhoto)
 
-        binding.chipCategory.text = restaurant.foodType.name
+        binding.chipCategory.text = restaurant.foodType.getLocalName()
         binding.chipPrice.text = restaurant.priceRange.getName(binding.chipPrice.context)
 
         if (restaurantDetails.averageRating > 0.0)

@@ -171,4 +171,11 @@
     <string name="contacts_double">Contacts:</string>
     <string name="developed_by_stefan_genev">Developed by Stefan Genev</string>
     <string name="choose_a_location_where_the_food_will_be_delivered">Choose a location from the map \n</string>
+    <string name="name_in_bulgarian">Bulgarian name</string>
+    <string name="name_in_english">English name</string>
+    <string name="food_type_data">Food type data</string>
+    <string name="food_type_deleted">Food type deleted</string>
+    <string name="food_type_name_must_be_at_least_symbols_long">Name must be at least %1$s symbols long</string>
+    <string name="delete_error">Error with delete operation. Make sure the record is not used.</string>
+
 </resources>

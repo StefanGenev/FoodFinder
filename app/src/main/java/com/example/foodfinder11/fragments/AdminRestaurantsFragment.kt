@@ -162,8 +162,14 @@ class AdminRestaurantsFragment : Fragment(), AdminRestaurantsFilterContract {
             )
         ) || textFilter.isEmpty()
 
+        val foodTypeEnglishMatches = restaurant.foodType.nameEnglish.lowercase(Locale.getDefault()).contains(
+            textFilter.lowercase(
+                Locale.getDefault()
+            )
+        ) || textFilter.isEmpty()
 
-        return nameMatches || foodTypeMatches
+
+        return nameMatches || foodTypeMatches || foodTypeEnglishMatches
     }
 
     private fun checkIfFilterMatches(restaurant: Restaurant): Boolean {

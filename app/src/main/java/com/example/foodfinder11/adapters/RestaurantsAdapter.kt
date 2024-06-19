@@ -38,7 +38,7 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
         val restaurant = differ.currentList[position]
 
         holder.binding.name.text = restaurant.name
-        holder.binding.description.text = restaurant.foodType.name
+        holder.binding.description.text = restaurant.foodType.getLocalName()
         holder.binding.priceRange.text = restaurant.priceRange.getName(holder.binding.priceRange.context)
         Glide.with(holder.itemView).load(restaurant.imageUrl).into(holder.binding.image)
 
