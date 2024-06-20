@@ -22,6 +22,10 @@ object AppPreferences {
         get() = Key.REFRESHTOKEN.getString()
         set(value) = Key.REFRESHTOKEN.setString(value)
 
+    var apititeUrl: String?
+        get() = Key.APPITITE_URL.getString()
+        set(value) = Key.APPITITE_URL.setString(value)
+
     var user: String?
         get() = Key.USERNAME.getString()
         set(value) = Key.USERNAME.setString(value)
@@ -41,6 +45,7 @@ object AppPreferences {
     private enum class Key {
         TOKEN,
         REFRESHTOKEN,
+        APPITITE_URL,
         USERNAME,
         RESTAURANT,
         ORDER,
