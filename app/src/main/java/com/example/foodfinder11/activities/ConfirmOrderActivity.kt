@@ -106,7 +106,7 @@ class ConfirmOrderActivity : BaseNavigatableActivity() {
             userId = order.user.id,
             paymentMethod = order.paymentMethod,
             address = AddressUtils.getStringFromLatLng(latLng),
-            cardNumber = order.cardNumber,
+            cardNumber = "" , //TODO: order.cardNumber
             orderItems = order.orderItems,
             deliveryPrice = Constants.DEFAULT_DELIVERY_PRICE
             )

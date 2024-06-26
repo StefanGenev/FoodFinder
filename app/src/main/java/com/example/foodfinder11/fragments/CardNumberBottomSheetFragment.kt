@@ -36,7 +36,7 @@ class CardNumberBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         val textField: TextInputEditText? = getView()?.findViewById<TextInputEditText>(R.id.textFieldTextEdit)
-        textField?.setText(SessionManager.fetchOrder().cardNumber)
+        //TODO: textField?.setText(SessionManager.fetchOrder().cardNumber)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +61,7 @@ class CardNumberBottomSheetFragment : BottomSheetDialogFragment() {
 
         var order = SessionManager.fetchOrder()
         order.paymentMethod = PaymentMethods.CARD
-        order.cardNumber = value
+        //TODO: order.cardNumber = value
         SessionManager.saveOrder(order)
 
         dismiss()

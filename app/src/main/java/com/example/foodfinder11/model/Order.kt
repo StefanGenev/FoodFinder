@@ -26,7 +26,6 @@ data class Order(
     var user: User = User(),
     var status: OrderStatuses = OrderStatuses.INITIALISED,
     var paymentMethod: PaymentMethods = PaymentMethods.CASH,
-    var cardNumber: String = "",
     var address: String = "",
     var deliveryPrice: Double = 0.0,
     var orderItems: MutableList<OrderItem> = mutableListOf(),
@@ -63,7 +62,7 @@ data class Order(
 
         } else if (paymentMethod == PaymentMethods.CARD) {
 
-            name = context.getString(R.string.card, cardNumber.substring(0, 3))
+            //TODO: name = context.getString(R.string.card, cardNumber.substring(0, 3))
         }
 
         return name
