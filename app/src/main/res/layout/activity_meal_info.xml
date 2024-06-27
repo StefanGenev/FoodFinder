@@ -162,7 +162,7 @@
                     android:id="@+id/descriptionInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/price"
+                    android:hint="@string/description"
                     app:counterMaxLength="255"
                     app:counterEnabled="true"
                     app:boxStrokeColor="@color/forest"

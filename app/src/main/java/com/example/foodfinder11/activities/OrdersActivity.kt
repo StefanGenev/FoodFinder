@@ -10,6 +10,7 @@ import com.example.foodfinder11.dto.IdentifierDto
 import com.example.foodfinder11.dto.ResponseWrapper
 import com.example.foodfinder11.model.Order
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.Constants
 import com.example.foodfinder11.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -80,8 +81,10 @@ class OrdersActivity : BaseNavigatableActivity() {
         binding.emptyStateLayout.visibility = if (orders.isEmpty()) View.VISIBLE else View.GONE
         binding.tvTotal.visibility = if (orders.isNotEmpty()) View.VISIBLE else View.GONE
 
-        val totalOrdersSum = orders.sumOf { it.getOrderPrice() }.toDouble()
+        var totalOrdersSum = orders.sumOf { it.getOrderPrice() }.toDouble()
         if (totalOrdersSum > 0) {
+
+            totalOrdersSum += Constants.DEFAULT_DELIVERY_PRICE
 
             binding.tvTotal.text =
                 getString(R.string.total_spent_lv, String.format("%.2f", totalOrdersSum))

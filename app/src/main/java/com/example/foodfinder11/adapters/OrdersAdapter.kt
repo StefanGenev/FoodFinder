@@ -2,6 +2,7 @@ package com.example.foodfinder11.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,8 @@ import com.example.foodfinder11.R
 import com.example.foodfinder11.databinding.HistoryItemCardBinding
 import com.example.foodfinder11.model.Meal
 import com.example.foodfinder11.model.Order
+import com.example.foodfinder11.model.Roles
+import com.example.foodfinder11.utils.SessionManager
 
 class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.HistoryItemsViewHolder>() {
 
@@ -38,8 +41,25 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.HistoryItemsViewHolder>
 
         val order = differ.currentList[position]
 
-        holder.binding.name.text = order.restaurant.name
-        Glide.with(holder.itemView).load(order.restaurant.imageUrl).into(holder.binding.image)
+        if(SessionManager.fetchUserData().role == Roles.CUSTOMER) {
+
+            holder.binding.name.text = order.restaurant.name
+            Glide.with(holder.itemView).load(order.restaurant.imageUrl).into(holder.binding.image)
+
+        } else {
+
+            holder.binding.name.text = order.user.name
+
+            val drawable = R.drawable.user
+
+            holder.binding.image.setImageDrawable(
+                ContextCompat.getDrawable(
+                    holder.binding.image.context,
+                    drawable
+                )
+            )
+        }
+
 
         var description = ""
         for (orderItem in order.orderItems) {

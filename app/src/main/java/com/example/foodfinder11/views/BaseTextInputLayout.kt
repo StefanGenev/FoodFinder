@@ -12,7 +12,6 @@ import com.google.android.material.textfield.TextInputLayout
 open class BaseInputLayout(context: Context, attrs: AttributeSet?) : TextInputLayout(context, attrs) {
 
     init {
-        // Set common attributes here
         hintTextColor = ColorStateList.valueOf(context.getColor(R.color.forest))
         boxStrokeColor = context.getColor(R.color.forest)
         cursorColor = ColorStateList.valueOf(context.getColor(R.color.light_forest))
@@ -22,5 +21,4 @@ open class BaseInputLayout(context: Context, attrs: AttributeSet?) : TextInputLa
         counterTextColor = ColorStateList.valueOf(context.getColor(R.color.black))
     }
 
-    // You can add additional methods or properties specific to your TextInputLayout usage
 }

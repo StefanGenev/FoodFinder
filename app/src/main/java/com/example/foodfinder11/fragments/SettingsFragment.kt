@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.foodfinder11.R
 import com.example.foodfinder11.activities.AboutUsActivity
 import com.example.foodfinder11.activities.ChangeLanguageActivity
@@ -43,6 +44,11 @@ class SettingsFragment : Fragment() {
 
         val restaurantDetails = SessionManager.fetchRestaurantDetails()
         val restaurant = restaurantDetails.restaurant
+
+        Glide.with(this@SettingsFragment)
+            .load(restaurant.imageUrl)
+            .into(binding.menuImage)
+
 
         binding.tvProfileName.text = restaurant.name
 
