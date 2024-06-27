@@ -10,11 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RetrofitInstance {
+    const val API_BASE_URL = "http://192.168.0.103:8080/"
 
     private lateinit var apiService: APItiteService
 
     fun getApiService(): APItiteService {
 
+        // Initialize ApiService if not initialized yet
         if (!::apiService.isInitialized) {
 
             val gson = GsonBuilder()

@@ -31,6 +31,7 @@ import com.example.foodfinder11.model.Review
 import com.example.foodfinder11.model.User
 import com.example.foodfinder11.retrofit.APItiteService
 import com.example.foodfinder11.retrofit.RetrofitInstance
+import com.example.foodfinder11.utils.AppPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.mockwebserver.MockResponse
